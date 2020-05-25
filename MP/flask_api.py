@@ -115,7 +115,7 @@ class CarSchema(ma.Schema):
     """
     class Meta:
         # Fields to expose
-        fields = ('id', 'make', 'body_type', 'colour', 'seats', 'location', 'cost_per_hour', 'booked')
+        fields = ('id', 'make', 'body_type', 'colour', 'seats', 'location', 'cost_per_hour', 'booked', 'have_issue')
 
 car_schema = CarSchema()            # an instance of CarSchema
 cars_schema = CarSchema(many=True)  # instances of list of CarSchema
@@ -377,14 +377,17 @@ def carSearch():
         seats           = request.form.get("seats")
         location        = request.form.get("location")
         cost_per_hour   = request.form.get("cost_per_hour")
-        booked          = request.form.get("booked") # if this field is null, it's equivalent to 0, which booked = False 
+        booked          = request.form.get("booked")
+        have_issue      = request.form.get("have_issue")    # if this field is null, it's equivalent to 0, which booked = False 
 
         cars = db.session.query(Car).filter(or_(Car.make            == make, 
                                                 Car.body_type       == body_type,
                                                 Car.colour          == colour,
                                                 Car.seats           == seats,
                                                 Car.location        == location,
-                                                Car.cost_per_hour   == cost_per_hour)).all()
+                                                Car.cost_per_hour   == cost_per_hour,
+                                                Car.booked          == booked,
+                                                Car.have_issue      == have_issue)).all()
         
         result = cars_schema.dump(cars)
 
@@ -642,3 +645,8 @@ def apLogin():
             return str(user_id)
         else: # Invalidated
             return None
+
+# ===================================================================================
+
+# Endpoints for A3 go below
+
