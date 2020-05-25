@@ -1,0 +1,18 @@
+
+td, th {
+    vertical-align: middle;
+}
+.navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+#mymap {
+    height: 800px; /* The height is 400 pixels */
+    width: 100%; /* The width is the width of the web page */
+    background-color: grey;
+    align-self: center;
+}
+footer {
+      background-color: grey;
+      padding: 25px;
+    }

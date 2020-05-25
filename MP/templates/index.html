@@ -1,0 +1,66 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}
+    IoT - CarShare Application
+{% endblock %}
+
+{% block content %}
+    <!--
+    <div id="demo" class="carousel slide" data-ride="carousel">
+
+
+            <ol class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+                <li data-target="#demo" data-slide-to="2"></li>
+            </ol>
+
+
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="static/images/Corolla.png" alt="Corolla">
+                </div>
+                <div class="carousel-item">
+                    <img src="static/images/HondaCivic.png" alt="HondaCivic">
+                </div>
+                <div class="carousel-item">
+                    <img src="static/images/HondaSedan.png" alt="HondaSedan">
+                </div>
+            </div>
+
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+
+    </div> -->
+
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1>Car Share.co</h1>
+            <h2>Skip the rental counter and discover the world’s largest car sharing marketplace</h2>
+            <p class="lead">Car Share app was made possible by the work of Thach Nguyen, Vinh Ngo, Fahim Tahmeed and YiNong Xu</p>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-5"></div>
+        <div class="col-sm-2 text-center">
+            <h2 class="h3 mb-3 font-weight-normal">Sign up now!</h2>
+            <button class="btn btn-lg btn-danger btn-block" type="submit" onclick="window.location='/register'">Sign Up
+            </button>
+
+            <h2 class="h3 mb-3 font-weight-normal">Already got an account?</h2>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="window.location='/login'">Login
+            </button>
+        </div>
+    </div><br>
+
+    <footer class="container-fluid text-center">
+        <p class="mt-5 mb-3 text-muted">© 2017-2020</p>
+      </footer>
+
+{% endblock %}

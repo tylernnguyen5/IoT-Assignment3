@@ -1,0 +1,11 @@
+.vscode
+__pycache__
+AP/__pycache__
+MP/__pycache__
+MP/examples
+MP/users_seeder.py
+MP/credentials.json
+MP/token.json
+MP/flask_session
+MP/database_utils.py
+MP/example
