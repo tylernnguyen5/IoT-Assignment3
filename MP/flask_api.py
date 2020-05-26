@@ -650,3 +650,15 @@ def apLogin():
 
 # Endpoints for A3 go below
 
+# Endpoint to view all histories
+@api.route("/history", methods = ["GET"])
+def getUserHistories():
+    """
+    This will be used to display all rental history on Admin's Home page
+    """
+
+    histories = History.query.all()
+
+    result = histories_schema.dump(histories)
+
+    return jsonify(result)
