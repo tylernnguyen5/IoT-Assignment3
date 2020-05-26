@@ -19,6 +19,7 @@
 </head>
 <body>
     <div class="container">
+        <h1>Car Search Result</h1>
         <table>
             <tr>
                 <th>&emsp;&emsp;ID&emsp;</th>
@@ -28,7 +29,8 @@
                 <th>Seats&emsp;&emsp;</th>
                 <th>Location&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
                 <th>Cost Per Hour (AUD)&emsp;&emsp;</th>
-                <th>Booked</th>
+                <th>Booked&emsp;&emsp;</th>
+                <th>Having Issue</th>
             </tr>
             {% for car in cars %}
                 <tr>
@@ -44,6 +46,7 @@
                     </td>
                     <td>{{ car.cost_per_hour }}</td>
                     <td>{{ car.booked }}</td>
+                    <td>{{ car.have_issue }}</td>
                 </tr>
             {% endfor %}
         </table>

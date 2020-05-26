@@ -86,8 +86,9 @@ class Car(db.Model):
     location        = db.Column(db.String(),        nullable = False)
     cost_per_hour   = db.Column(db.Float(4, 2),     nullable = False)
     booked          = db.Column(db.Boolean(),       nullable = False)
+    have_issue      = db.Column(db.Boolean(),       nullable = False)
 
-    def __init__(self, make, body_type, colour, seats, location, cost_per_hour, booked):
+    def __init__(self, make, body_type, colour, seats, location, cost_per_hour, booked, have_issue):
         """inits Car with data
 
         Arguments:
@@ -98,6 +99,7 @@ class Car(db.Model):
             location {str} -- The current location of the car, presented in latitude and longitude
             cost_per_hour {float(4, 2)} -- The cost per hour of the car in AUD
             booked {boolean} -- The car's availability, whether the car is booked or not
+            have_issue {boolean} -- The car's issue status, whether the car needs to be repaired or not
         """
         self.make           = make
         self.body_type      = body_type
@@ -106,6 +108,7 @@ class Car(db.Model):
         self.location       = location
         self.cost_per_hour  = cost_per_hour
         self.booked         = booked
+        self.have_issue     = have_issue
 
 class CarSchema(ma.Schema):
     """This part defined structure of JSON response of our endpoint for Car model. Here we define the keys in our JSON response. The fields that will be exposed.
@@ -372,16 +375,18 @@ def carSearch():
     """
 
     if request.method=="POST":
+        _id             = request.form.get("id")
         make            = request.form.get("make")
         body_type       = request.form.get("body_type")
         colour          = request.form.get("colour")
         seats           = request.form.get("seats")
         location        = request.form.get("location")
         cost_per_hour   = request.form.get("cost_per_hour")
-        booked          = request.form.get("booked")
-        have_issue      = request.form.get("have_issue")    # if this field is null, it's equivalent to 0, which booked = False 
+        booked          = request.form.get("booked")        # if this field is null, it's equivalent to 0 (False)
+        have_issue      = request.form.get("have_issue")    # if this field is null, it's equivalent to 0 (False) 
 
-        cars = db.session.query(Car).filter(or_(Car.make            == make, 
+        cars = db.session.query(Car).filter(or_(Car.id              == _id, 
+                                                Car.make            == make,
                                                 Car.body_type       == body_type,
                                                 Car.colour          == colour,
                                                 Car.seats           == seats,
@@ -651,6 +656,7 @@ def apLogin():
 
 # Endpoints for A3 go below
 
+# NOT TESTED (waiting on templates/other implementation)
 # Endpoint to view all histories
 @api.route("/history", methods = ["GET"])
 def getAllHistories():
@@ -668,6 +674,7 @@ def getAllHistories():
     return jsonify(result)
 
 
+# NOT TESTED (waiting on templates/other implementation)
 # Endpoint to search for users
 @api.route("/user/search", methods = ["GET", "POST"])
 def userSearch():
@@ -705,6 +712,7 @@ def userSearch():
     return render_template('user_search.html')
 
 
+# NOT TESTED (waiting on templates/other implementation)
 # Endpoint to update car info
 @api.route("/car/update/<car_id>", methods = ["GET","PUT"])
 def updateCarInfo(car_id):
@@ -762,6 +770,7 @@ def updateCarInfo(car_id):
     return render_template('car_update.html', car = result)
 
 
+# NOT TESTED (waiting on templates/other implementation)
 # Endpoint to update user info
 @api.route("/user/update/<user_id>", methods = ["GET","PUT"])
 def updateUserInfo(user_id):
@@ -811,3 +820,104 @@ def updateUserInfo(user_id):
     result = user_schema.jsonify(user)
 
     return render_template('user_update.html', user = result)
+
+
+# NOT TESTED (waiting on templates/other implementation)
+# Endpoint to search for cars using VOICE RECOGNITION
+@api.route("/car/search/voice", methods = ["GET", "POST"])
+def carVoiceSearch():
+    """
+    To search for cars with voice recognition:
+        - The Admin will be asked to say some keywords
+        - The keywords will be added to the input field after recorded
+        - The keywords field with be submitted using a POST method
+        - The string of keywords will then be splited and each keyword will be searched in the database 
+        - For each row found with the keyword, it will be added to a list called 'found'
+        - After searching for all the keywords, the 'found' list will be filtered to remove duplicating rows
+        - After filtered, the result will be shown in Car Search Result page
+    """
+    # POST method
+    if request.method=="POST":
+        # Retrieve string of keywords
+        keywords = request.form.get("keywords")
+
+        # Split the string into a [list] of keywords
+        _list = keywords.split()
+
+        # For each keyword, search in every column in the Car table
+        for keyword in _list:
+            cars = db.session.query(Car).filter(or_(Car.make            == keyword, 
+                                                    Car.body_type       == keyword,
+                                                    Car.colour          == keyword,
+                                                    Car.seats           == keyword,
+                                                    Car.location        == keyword,
+                                                    Car.cost_per_hour   == keyword,
+                                                    Car.booked          == keyword,
+                                                    Car.have_issue      == keyword)).all()
+
+            for car in cars: # For each row found
+                found = [] # Empty list
+
+                # Add found rows into the list
+                found.append(car)
+
+        # After searching for all the keywords, remove duplication from the list
+        filtered = list(set(found))
+        
+        result = cars_schema.dump(filtered)
+
+        return render_template('car_search_result.html', cars = result)
+
+    # GET method
+    return render_template('car_search_voice.html')
+
+
+# NOT TESTED (waiting on templates/other implementation)
+# Endpoint to find the users with the most booking in Histories table
+@api.route("/history/graph/users", methods = ["GET"])
+def usersGraph():
+    """
+    This endpoint will execute an query in the Histories table to retrieve rows which are sorted by users with the most booking / rental histories in descending order
+    """
+
+    # SELECT user_id, COUNT(user_id) FROM Histories GROUP BY user_id ORDER BY COUNT(user_id) DESC;
+
+    histories = History.query(user_id, COUNT(user_id))
+                        .group_by(user_id)
+                        .order_by(COUNT(user_id).desc())
+                        .all()    
+
+    result = None
+
+    return jsonify(result)
+
+
+# NOT TESTED (waiting on templates/other implementation)
+# Endpoint to find the cars with the most booking in Histories table
+@api.route("/history/graph/cars", methods = ["GET"])
+def carsGraph():
+    """
+    This endpoint will execute an query in the Histories table to retrieve rows which are sorted by cars with the most booking / rental histories in descending order
+    """
+
+    # SELECT car_id, COUNT(car_id) FROM Histories GROUP BY car_id ORDER BY COUNT(car_id) DESC;
+
+    result = None
+
+    return jsonify(result)
+
+
+# NOT TESTED (waiting on templates/other implementation)
+# Endpoint to find the months with the most booking in Histories table
+@api.route("/history/graph/months", methods = ["GET"])
+def monthsGraph():
+    """
+    This endpoint will execute an query in the Histories table to retrieve rows which are sorted by months of year 2020 with the most booking / rental histories in descending order
+    """
+
+    # SELECT MONTH(begin_time), COUNT(MONTH(begin_time)) FROM Histories WHERE YEAR(begin_time) = 2020 GROUP BY MONTH(begin_time) ORDER BY COUNT(MONTH(begin_time)) DESC;
+
+    result = None
+
+    return jsonify(result)
+
