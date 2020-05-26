@@ -869,3 +869,54 @@ def carVoiceSearch():
 
     # GET method
     return render_template('car_search_voice.html')
+
+
+# NOT TESTED (waiting on templates/other implementation)
+# Endpoint to find the users with the most booking in Histories table
+@api.route("/history/graph/users", methods = ["GET"])
+def usersGraph():
+    """
+    This endpoint will execute an query in the Histories table to retrieve rows which are sorted by users with the most booking / rental histories in descending order
+    """
+
+    # SELECT user_id, COUNT(user_id) FROM Histories GROUP BY user_id ORDER BY COUNT(user_id) DESC;
+
+    histories = History.query(user_id, COUNT(user_id))
+                        .group_by(user_id)
+                        .order_by(COUNT(user_id).desc())
+                        .all()    
+
+    result = None
+
+    return jsonify(result)
+
+
+# NOT TESTED (waiting on templates/other implementation)
+# Endpoint to find the cars with the most booking in Histories table
+@api.route("/history/graph/cars", methods = ["GET"])
+def carsGraph():
+    """
+    This endpoint will execute an query in the Histories table to retrieve rows which are sorted by cars with the most booking / rental histories in descending order
+    """
+
+    # SELECT car_id, COUNT(car_id) FROM Histories GROUP BY car_id ORDER BY COUNT(car_id) DESC;
+
+    result = None
+
+    return jsonify(result)
+
+
+# NOT TESTED (waiting on templates/other implementation)
+# Endpoint to find the months with the most booking in Histories table
+@api.route("/history/graph/months", methods = ["GET"])
+def monthsGraph():
+    """
+    This endpoint will execute an query in the Histories table to retrieve rows which are sorted by months of year 2020 with the most booking / rental histories in descending order
+    """
+
+    # SELECT MONTH(begin_time), COUNT(MONTH(begin_time)) FROM Histories WHERE YEAR(begin_time) = 2020 GROUP BY MONTH(begin_time) ORDER BY COUNT(MONTH(begin_time)) DESC;
+
+    result = None
+
+    return jsonify(result)
+
