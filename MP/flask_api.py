@@ -652,9 +652,12 @@ def apLogin():
 
 # Endpoint to view all histories
 @api.route("/history", methods = ["GET"])
-def getUserHistories():
+def getAllHistories():
     """
     This will be used to display all rental history on Admin's Home page
+
+    NOTES:  update the home_admin.html with a list of all rental histories 
+        OR  create all_histories.html for the admin to view all rental histories
     """
 
     histories = History.query.all()
@@ -669,11 +672,14 @@ def getUserHistories():
 def userSearch():
     """
     To search for users:
-        - Filters will be declared from form data
+        - Filters will be declared from the form data
         - A query with OR conditions will be executed to find the filtered users
         - The result will be displayed in User Search Result page
-    """
 
+
+    NOTES: user_search.html is similar to car_search.html
+    """
+    # POST method
     if request.method=="POST":
         userID      = request.form.get("userID")
         username    = request.form.get("username")
@@ -683,7 +689,7 @@ def userSearch():
         role        = request.form.get("role")
 
 
-        users = db.session.query(User).filter(or_(User.userID    == userID, 
+        users = db.session.query(User).filter(or_(User.userID   == userID, 
                                                 User.username   == username,
                                                 User.email      == email,
                                                 User.fname      == fname,
@@ -694,4 +700,62 @@ def userSearch():
 
         return render_template('user_search_result.html', users = result)
 
+    # GET method
     return render_template('user_search.html')
+
+
+# Endpoint to update car info
+@api.route("/car/update/<car_id>", methods = ["GET","PUT"])
+def updateCarInfo(car_id):
+    """
+    - When the Admin have searched and selected the right car that he wants to edit the info (from the Car Search Result page), he will be redirect to this endpoint.
+
+    - This endpoint will display a form with the data of the car selected from the previous page fetched in.
+
+    - The admin will edit the fields and submit the form to finalize the car info.
+
+
+    NOTES: update the car_search_result.html to have a EDIT button for each shown car. That button will redirect the Admin to this endpoint 
+    """
+    # PUT method
+    if request.method == "PUT":
+        make            = request.form.get("make")
+        body_type       = request.form.get("body_type")
+        colour          = request.form.get("colour")
+        seats           = request.form.get("seats")
+        location        = request.form.get("location")
+        cost_per_hour   = request.form.get("cost_per_hour")
+        booked          = request.form.get("booked")
+        have_issue      = request.form.get("have_issue")
+
+        # Query to find the car with the right car ID 
+        car = db.session.query(Car).filter_by(id = car_id).first()
+
+        # Update the fields
+        if car is not None:
+            car.make            = make
+            car.body_type       = body_type
+            car.colour          = colour
+            car.seats           = seats
+            car.location        = location
+            car.cost_per_hour   = cost_per_hour
+            car.booked          = booked
+            car.have_issue      = have_issue
+
+            # Commit changes
+            db.session.commit()
+
+            # Use get_flashed_message() to debug if the car info is updated
+            flash("Updated Car")
+
+            # After updating, the Admin will be redirect back to the Home page
+            return render_template('home_admin.html')
+
+    # GET method
+
+    # Search for the car to fetch the data in to the form for Admin
+    car = Car.query.filter_by(id = car_id).first()
+
+    result = car_schema.jsonify(car)
+
+    return render_template('car_update.html', car = result)
