@@ -289,7 +289,7 @@ def login():
         password    = request.form.get("password")
 
         # Query 
-        data = db.session.query(User.id, User.password).filter_by(username = username).first()
+        data = db.session.query(User.id, User.password, User.role).filter_by(username = username).first()
 
         if data is None: # If username does not exist
             flash("Invalid Username!", "error")
@@ -297,7 +297,7 @@ def login():
         else: # If username exists
             user_id = data[0]
             stored_password = data[1] 
-
+            user_role = data[2]
             # Verify password
             if sha256_crypt.verify(password, stored_password):
                 # flash("You are now logged in!", "success")
@@ -305,6 +305,7 @@ def login():
                 # Set session data
                 session["user_id"] = user_id
                 session["username"] = username
+                session["role"] = user_role
                 return redirect(url_for('site.homePage'))
             else:
                 flash("Invalid Password!", "error")

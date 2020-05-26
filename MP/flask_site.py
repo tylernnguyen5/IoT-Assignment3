@@ -41,7 +41,7 @@ def loginPage():
     return render_template('login.html')
 
 
-# Home page
+# Home page for Customer
 @site.route('/home')
 def homePage():
     """Display Home page. This page is where the user has successfully logged in and grant access to the application
@@ -51,7 +51,16 @@ def homePage():
     """
     response = requests.get("http://127.0.0.1:5000/car/unbooked")
     data = json.loads(response.text)
-    return render_template('home.html', cars = data)
+    user_role = session["role"]
+    if (user_role == "Admin"):
+        return render_template('home_admin.html')
+    elif (user_role == "Customer"):
+        return render_template('home.html', cars = data)
+    elif (user_role == "Engineer"):
+        return render_template('home_engineer.html')
+    elif (user_role == "Manager"):
+        return render_template('home_manager.html')
+    
 
 
 # Car Search page
