@@ -86,8 +86,9 @@ class Car(db.Model):
     location        = db.Column(db.String(),        nullable = False)
     cost_per_hour   = db.Column(db.Float(4, 2),     nullable = False)
     booked          = db.Column(db.Boolean(),       nullable = False)
+    have_issue      = db.Column(db.Boolean(),       nullable = False)
 
-    def __init__(self, make, body_type, colour, seats, location, cost_per_hour, booked):
+    def __init__(self, make, body_type, colour, seats, location, cost_per_hour, booked, have_issue):
         """inits Car with data
 
         Arguments:
@@ -98,6 +99,7 @@ class Car(db.Model):
             location {str} -- The current location of the car, presented in latitude and longitude
             cost_per_hour {float(4, 2)} -- The cost per hour of the car in AUD
             booked {boolean} -- The car's availability, whether the car is booked or not
+            have_issue {boolean} -- The car's issue status, whether the car needs to be repaired or not
         """
         self.make           = make
         self.body_type      = body_type
@@ -106,6 +108,7 @@ class Car(db.Model):
         self.location       = location
         self.cost_per_hour  = cost_per_hour
         self.booked         = booked
+        self.have_issue     = have_issue
 
 class CarSchema(ma.Schema):
     """This part defined structure of JSON response of our endpoint for Car model. Here we define the keys in our JSON response. The fields that will be exposed.
@@ -371,6 +374,7 @@ def carSearch():
     """
 
     if request.method=="POST":
+        _id             = request.form.get("id")
         make            = request.form.get("make")
         body_type       = request.form.get("body_type")
         colour          = request.form.get("colour")
@@ -380,7 +384,8 @@ def carSearch():
         booked          = request.form.get("booked")        # if this field is null, it's equivalent to 0 (False)
         have_issue      = request.form.get("have_issue")    # if this field is null, it's equivalent to 0 (False) 
 
-        cars = db.session.query(Car).filter(or_(Car.make            == make, 
+        cars = db.session.query(Car).filter(or_(Car.id              == _id, 
+                                                Car.make            == make,
                                                 Car.body_type       == body_type,
                                                 Car.colour          == colour,
                                                 Car.seats           == seats,
