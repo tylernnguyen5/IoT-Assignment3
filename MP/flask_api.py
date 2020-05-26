@@ -377,8 +377,8 @@ def carSearch():
         seats           = request.form.get("seats")
         location        = request.form.get("location")
         cost_per_hour   = request.form.get("cost_per_hour")
-        booked          = request.form.get("booked")
-        have_issue      = request.form.get("have_issue")    # if this field is null, it's equivalent to 0, which booked = False 
+        booked          = request.form.get("booked")        # if this field is null, it's equivalent to 0 (False)
+        have_issue      = request.form.get("have_issue")    # if this field is null, it's equivalent to 0 (False) 
 
         cars = db.session.query(Car).filter(or_(Car.make            == make, 
                                                 Car.body_type       == body_type,
@@ -650,6 +650,7 @@ def apLogin():
 
 # Endpoints for A3 go below
 
+# NOT TESTED (waiting on templates/other implementation)
 # Endpoint to view all histories
 @api.route("/history", methods = ["GET"])
 def getAllHistories():
@@ -667,6 +668,7 @@ def getAllHistories():
     return jsonify(result)
 
 
+# NOT TESTED (waiting on templates/other implementation)
 # Endpoint to search for users
 @api.route("/user/search", methods = ["GET", "POST"])
 def userSearch():
@@ -704,6 +706,7 @@ def userSearch():
     return render_template('user_search.html')
 
 
+# NOT TESTED (waiting on templates/other implementation)
 # Endpoint to update car info
 @api.route("/car/update/<car_id>", methods = ["GET","PUT"])
 def updateCarInfo(car_id):
@@ -761,6 +764,7 @@ def updateCarInfo(car_id):
     return render_template('car_update.html', car = result)
 
 
+# NOT TESTED (waiting on templates/other implementation)
 # Endpoint to update user info
 @api.route("/user/update/<user_id>", methods = ["GET","PUT"])
 def updateUserInfo(user_id):
@@ -810,3 +814,53 @@ def updateUserInfo(user_id):
     result = user_schema.jsonify(user)
 
     return render_template('user_update.html', user = result)
+
+
+# NOT TESTED (waiting on templates/other implementation)
+# Endpoint to search for cars using VOICE RECOGNITION
+@api.route("/car/search/voice", methods = ["GET", "POST"])
+def carVoiceSearch():
+    """
+    To search for cars with voice recognition:
+        - The Admin will be asked to say some keywords
+        - The keywords will be added to the input field after recorded
+        - The keywords field with be submitted using a POST method
+        - The string of keywords will then be splited and each keyword will be searched in the database 
+        - For each row found with the keyword, it will be added to a list called 'found'
+        - After searching for all the keywords, the 'found' list will be filtered to remove duplicating rows
+        - After filtered, the result will be shown in Car Search Result page
+    """
+    # POST method
+    if request.method=="POST":
+        # Retrieve string of keywords
+        keywords = request.form.get("keywords")
+
+        # Split the string into a [list] of keywords
+        _list = keywords.split()
+
+        # For each keyword, search in every column in the Car table
+        for keyword in _list:
+            cars = db.session.query(Car).filter(or_(Car.make            == keyword, 
+                                                    Car.body_type       == keyword,
+                                                    Car.colour          == keyword,
+                                                    Car.seats           == keyword,
+                                                    Car.location        == keyword,
+                                                    Car.cost_per_hour   == keyword,
+                                                    Car.booked          == keyword,
+                                                    Car.have_issue      == keyword)).all()
+
+            for car in cars: # For each row found
+                found = [] # Empty list
+
+                # Add found rows into the list
+                found.append(car)
+
+        # After searching for all the keywords, remove duplication from the list
+        filtered = list(set(found))
+        
+        result = cars_schema.dump(filtered)
+
+        return render_template('car_search_result.html', cars = result)
+
+    # GET method
+    return render_template('car_search_voice.html')
