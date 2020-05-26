@@ -751,11 +751,62 @@ def updateCarInfo(car_id):
             # After updating, the Admin will be redirect back to the Home page
             return render_template('home_admin.html')
 
-    # GET method
 
+    # GET method
     # Search for the car to fetch the data in to the form for Admin
     car = Car.query.filter_by(id = car_id).first()
 
     result = car_schema.jsonify(car)
 
     return render_template('car_update.html', car = result)
+
+
+# Endpoint to update user info
+@api.route("/user/update/<user_id>", methods = ["GET","PUT"])
+def updateUserInfo(user_id):
+    """
+    - When the Admin have searched and selected the right user that he wants to edit the info (from the User Search Result page), he will be redirect to this endpoint.
+
+    - This endpoint will display a form with the data of the user selected from the previous page fetched in.
+
+    - The admin will edit the fields and submit the form to finalize the user info.
+
+
+    NOTES: update the user_search_result.html to have a EDIT button for each shown user. That button will redirect the Admin to this endpoint 
+    """
+    # PUT method
+    if request.method == "PUT":
+        username    = request.form.get("username")
+        email       = request.form.get("email")
+        fname       = request.form.get("fname")
+        lname       = request.form.get("lname")
+        role        = request.form.get("role")
+
+        # Query to find the user with the right user ID 
+        user = db.session.query(User).filter_by(id = user_id).first()
+
+        # Update the fields
+        if user is not None:
+            user.username    = username
+            user.email       = email
+            user.fname       = fname
+            user.lname       = lname
+            user.role        = role
+
+            # Commit changes
+            db.session.commit()
+
+            # Use get_flashed_message() to debug if the car info is updated
+            flash("Updated User")
+
+            # After updating, the Admin will be redirect back to the Home page
+            return render_template('home_admin.html')
+
+
+    # GET method
+    # Search for the car to fetch the data in to the form for Admin
+    user = User.query.filter_by(id = user_id).first()
+
+    result = user_schema.jsonify(user)
+
+    return render_template('user_update.html', user = result)
