@@ -662,3 +662,36 @@ def getUserHistories():
     result = histories_schema.dump(histories)
 
     return jsonify(result)
+
+
+# Endpoint to search for users
+@api.route("/user/search", methods = ["GET", "POST"])
+def userSearch():
+    """
+    To search for users:
+        - Filters will be declared from form data
+        - A query with OR conditions will be executed to find the filtered users
+        - The result will be displayed in User Search Result page
+    """
+
+    if request.method=="POST":
+        userID      = request.form.get("userID")
+        username    = request.form.get("username")
+        email       = request.form.get("email")
+        fname       = request.form.get("fname")
+        lname       = request.form.get("lname")
+        role        = request.form.get("role")
+
+
+        users = db.session.query(User).filter(or_(User.userID    == userID, 
+                                                User.username   == username,
+                                                User.email      == email,
+                                                User.fname      == fname,
+                                                User.lname      == lname,
+                                                User.role       == role)).all()
+        
+        result = users_schema.dump(users)
+
+        return render_template('user_search_result.html', users = result)
+
+    return render_template('user_search.html')
