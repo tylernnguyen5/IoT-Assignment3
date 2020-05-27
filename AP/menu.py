@@ -302,6 +302,7 @@ class Menu:
     def bluetoothScan(self):
         """
         This function will start scanning for nearby Bluetooth devices every 3 seconds.
+        
         A list of trusted devices' MAC addresses of the Carshare Engineers is configured on the Agent Pi so that when one Engineer comes near the car and choose Option 3 from Menu 1, it will unlock automatically.
         
         If a trusted device from the Engineer is discovered, a simulation of unlocking car will proceed.
