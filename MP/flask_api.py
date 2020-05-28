@@ -899,10 +899,7 @@ def usersGraph():
 
     # SELECT user_id, COUNT(user_id) FROM Histories GROUP BY user_id ORDER BY COUNT(user_id) DESC;
 
-    histories = History.query(user_id, COUNT(user_id))
-                        .group_by(user_id)
-                        .order_by(COUNT(user_id).desc())
-                        .all()    
+    histories = History.query(user_id, COUNT(user_id)).group_by(user_id).order_by(COUNT(user_id).desc()).all()    
 
     result = None
 
