@@ -823,6 +823,23 @@ def updateUserInfo(user_id):
 
 
 # NOT TESTED (waiting on templates/other implementation)
+# Endpoint to show cars that have issue
+@api.route("/car/issue", methods = ["GET"])
+def showIssueCars():
+    """
+    This function will access Cars table to retrieve rows with have_issue column set to True.
+
+    These rows will be showed on the Home page for Engineer.
+    """
+    cars = Car.query.filter_by(have_issue = True).all()
+
+    result = cars_schema.dump(cars)
+
+    return jsonify(result)
+
+
+
+# NOT TESTED (waiting on templates/other implementation)
 # Endpoint to search for cars using VOICE RECOGNITION
 @api.route("/car/search/voice", methods = ["GET", "POST"])
 def carVoiceSearch():
@@ -882,10 +899,7 @@ def usersGraph():
 
     # SELECT user_id, COUNT(user_id) FROM Histories GROUP BY user_id ORDER BY COUNT(user_id) DESC;
 
-    # histories = History.query(user_id, COUNT(user_id))
-    #                     .group_by(user_id)
-    #                     .order_by(COUNT(user_id).desc())
-    #                     .all()    
+    histories = History.query(user_id, COUNT(user_id)).group_by(user_id).order_by(COUNT(user_id).desc()).all()    
 
     result = None
 
