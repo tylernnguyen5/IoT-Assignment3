@@ -882,10 +882,10 @@ def usersGraph():
 
     # SELECT user_id, COUNT(user_id) FROM Histories GROUP BY user_id ORDER BY COUNT(user_id) DESC;
 
-    histories = History.query(user_id, COUNT(user_id))
-                        .group_by(user_id)
-                        .order_by(COUNT(user_id).desc())
-                        .all()    
+    # histories = History.query(user_id, COUNT(user_id))
+    #                     .group_by(user_id)
+    #                     .order_by(COUNT(user_id).desc())
+    #                     .all()    
 
     result = None
 
@@ -918,6 +918,19 @@ def monthsGraph():
     # SELECT MONTH(begin_time), COUNT(MONTH(begin_time)) FROM Histories WHERE YEAR(begin_time) = 2020 GROUP BY MONTH(begin_time) ORDER BY COUNT(MONTH(begin_time)) DESC;
 
     result = None
+
+    return jsonify(result)
+
+# Endpoint to show all REPORTED cars
+@api.route("/car/reported", methods = ["GET"])
+def getReportedCars():
+    """
+    All cars whose unbooked column set to False will be returned from the Cars table
+    """
+
+    cars = Car.query.filter_by(have_issue = True).all()
+
+    result = cars_schema.dump(cars)
 
     return jsonify(result)
 

@@ -22,21 +22,27 @@
                 <form action="" method="POST">
                     <div class="form-group">
                         <input
+                                title="Username must contain between 8 to 15 characters, only UPPER/lowercase, number and hyphen allowed"
                                 type="text"
                                 name="username"
                                 class="form-control"
+                                pattern="^(?=.*[a-zA-Z0-9_]).{8,15}$"
                                 placeholder="Username"
                                 autofocus
                                 required
+                                onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');"
                         />
                     </div>
                     <div class="form-group">
                         <input
+                                title="Password must contain at least 8 characters, including UPPER/lowercase, numbers and special characters"
                                 type="password"
                                 name="password"
                                 class="form-control"
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$"
                                 placeholder="Password"
                                 required
+                                onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');"
                         />
                     </div>
                     <div class="form-group">
