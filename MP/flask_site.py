@@ -58,7 +58,7 @@ def homePage():
     elif (user_role == "Customer"):
         return render_template('home.html', cars = data)
     elif (user_role == "Engineer"):
-        response = requests.get("http://127.0.0.1:5000/car/reported")
+        response = requests.get("http://127.0.0.1:5000/car/issue")
         data = json.loads(response.text)
         return render_template('home_engineer.html', cars = data)
     elif (user_role == "Manager"):

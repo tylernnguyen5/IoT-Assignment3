@@ -689,7 +689,7 @@ def userSearch():
     """
     # POST method
     if request.method=="POST":
-        userID      = request.form.get("userID")
+        userID      = request.form.get("user_id")
         username    = request.form.get("username")
         email       = request.form.get("email")
         fname       = request.form.get("fname")
@@ -697,7 +697,7 @@ def userSearch():
         role        = request.form.get("role")
 
 
-        users = db.session.query(User).filter(or_(User.userID   == userID, 
+        users = db.session.query(User).filter(or_(User.id   == userID, 
                                                 User.username   == username,
                                                 User.email      == email,
                                                 User.fname      == fname,
@@ -819,7 +819,7 @@ def updateUserInfo(user_id):
 
     result = user_schema.jsonify(user)
 
-    return render_template('user_update.html', user = result)
+    return render_template('update_user_info.html', user = result)
 
 
 # NOT TESTED (waiting on templates/other implementation)
@@ -932,19 +932,6 @@ def monthsGraph():
     # SELECT MONTH(begin_time), COUNT(MONTH(begin_time)) FROM Histories WHERE YEAR(begin_time) = 2020 GROUP BY MONTH(begin_time) ORDER BY COUNT(MONTH(begin_time)) DESC;
 
     result = None
-
-    return jsonify(result)
-
-# Endpoint to show all REPORTED cars
-@api.route("/car/reported", methods = ["GET"])
-def getReportedCars():
-    """
-    All cars whose unbooked column set to False will be returned from the Cars table
-    """
-
-    cars = Car.query.filter_by(have_issue = True).all()
-
-    result = cars_schema.dump(cars)
 
     return jsonify(result)
 
