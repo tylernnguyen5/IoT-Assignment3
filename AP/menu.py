@@ -303,7 +303,9 @@ class Menu:
         """
         This function will start scanning for nearby Bluetooth devices every 3 seconds.
         
-        A list of trusted devices' MAC addresses of the Carshare Engineers is configured on the Agent Pi so that when one Engineer comes near the car and choose Option 3 from Menu 1, it will unlock automatically.
+        A list of trusted devices' MAC addresses of the Carshare Engineers is requested from the TCP server when this function is triggered.
+        
+        Therefore, when one Engineer comes near the car and choose Option 3 from Menu 1, it will unlock automatically.
         
         If a trusted device from the Engineer is discovered, a simulation of unlocking car will proceed.
         
@@ -317,9 +319,14 @@ class Menu:
         # List of  devices' MAC addresses
         trustedDevices = ["94:53:30:92:B9:90"]
 
-        # Wed, 27 May 20 17:24:07
-        # Found: 98:3B:8F:32:E7:BC
-        # Name: LAPTOP-SRGQB6HN
+        # TODO: need a 2nd Pi to test
+        # trustedDevices = ClientTCP.getTrustedDeviceAddresses().split()
+
+        # Demo TV - KD-55X8500D
+        # 94:53:30:92:B9:90
+
+        # Demo Android phone
+        # F4:7D:EF:10:68:6B
 
 
         # Create a loop to scan for devices for every 3 seconds

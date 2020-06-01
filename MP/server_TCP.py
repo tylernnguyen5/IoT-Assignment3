@@ -88,6 +88,23 @@ def lockCar(user_id, car_id):
         return None # No string is returned
 
 
+def getMACs():
+    """This function will make a request to get a list of the Engineers' Bluetooth MAC addresses so that it can be sent to the Agent Pi for scanning and automatically unlocking the car.
+    This function will trigger flask_api.getMACs().
+    This function is called from a TCP client from the Agent Pi.
+
+    Returns:
+        list of str -- A list of Engineers' trusted Bluetooth MAC addresses
+    """
+    repsonse = requests.get("http://127.0.0.1:5000/user/engineer/device")
+
+
+    # Examine the response from the API
+    if response.status_code == 200:
+        return response.text # Return list of MAC addresses
+    elif response.status_code == 404:
+        return None # Nothing is returned
+
 # ----------------------------------------------------------------------------------------
 """The code below is for launching the TCP server and listen for connection.
 Once there is a connection and a message, the message will be examine with the leading tag to indicate which request to send to the Flask API.
@@ -149,6 +166,14 @@ if __name__ == '__main__':
                         
                         # Trigger the right function to send request
                         reply = lockCar(user_id, car_id)
+
+                    # For message with bluetooth tag
+                    elif (tag == "bluetooth"):                     
+                        # Trigger the right function to send request
+                        reply = getMACs() # list of MAC addresses
+
+                        # Convert list to str
+                        reply = " ".join(reply)
 
                     if reply is not None:
                         print("Sending reply.")

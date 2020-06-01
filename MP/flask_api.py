@@ -935,15 +935,16 @@ def monthsGraph():
 
     return jsonify(result)
 
+
 # NOT TESTED!
 # Report issue function
 # Endpoint for the admin to report cars in the admin home page
 @api.route("/car/report", methods = ["PUT"])
 def reportCar(car_id):
-    '''
+    """
     This endpoints will execute when the 'report' button in the admin home page is clicked and will use the car id got from that row of data to retrieve the car and set the 
     have_issue argument from 0 to 1
-    '''
+    """
     
     car = db.session.query(Car).filter_by(id = car_id).first()
     if (car.have_issue == 1):
@@ -951,12 +952,26 @@ def reportCar(car_id):
     else:
         car.have_issue = 1
 
-            # Commit changes
+        # Commit changes
         db.session.commit()
 
         flash("Reported issue")
 
     
+# NOT TESTED (waiting on templates/other implementation)
+# Endpoint to get trusted Bluetooth MAC addresses of the Engineers from Users table
+@api.route("/user/engineer/device", methods = ["GET"])
+def getMACs():
+    """
+    This function will access Users table to retrieve the trusted Bluetooth MAC addresses of the Engineers (from the 'device' column).
 
-            
-   
+     Returns:
+        list of str -- A list of Engineers' trusted Bluetooth MAC addresses
+    """
+    users = User.query.filter_by(role = "Engineer").all()
+
+    if users is not None:
+        addresses = [usr.device for usr in users]   # Get the device addresses and put them in a list
+
+        return addresses
+    else: return None

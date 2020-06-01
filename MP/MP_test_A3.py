@@ -74,7 +74,6 @@ class MasterPiTest(unittest.TestCase):
         self.assertEqual(count, 2)  # Only car 10 has issue
 
 
-
     def test_search_car_with_voice(self):
         pass
 

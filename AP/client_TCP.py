@@ -122,4 +122,31 @@ class ClientTCP:
             print("Disconnecting from server.")
         print("Done.")
         print()
+    
+    
+    def getTrustedDeviceAddresses(self):
+        """This function is triggered when the Engineer chooses to unlock the car with Bluetooth via menu.py.
+        This will send a request to the TCP server get a list of trusted Bluetooth MAC addresses for Engineers' devices.
 
+        Returns:
+            str -- Message reply from the TCP server. "unlocked" if successful
+        """
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            print("Connecting to {}...".format(self.ADDRESS))
+            s.connect(self.ADDRESS)
+            print("Connected.")
+
+            while True:              
+                # Send lock details 
+                tag = "bluetooth"
+                s.sendall(tag.encode())
+
+                # Receive data, which is a user ID if validated
+                data = s.recv(4096) # 4096 is the buffersize
+                print("Received {} bytes of data decoded to: '{}'".format(  len(data), 
+                                                                            data.decode()))
+                return data.decode()
+            
+            print("Disconnecting from server.")
+        print("Done.")
+        print()
