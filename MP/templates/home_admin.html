@@ -1,43 +1,100 @@
 {% extends "bootstrap/base.html" %}
 {% block title %}Home{% endblock %}
 {% block navbar %}
-    <head>
-        <link rel="stylesheet" href="/static/style.css">
-    </head>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">CarShare.co</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="/home">Home</a></li>
-                <li><a href="/logout">Log out</a></li>
-            </ul>
+
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">CarShare.co</a>
         </div>
-    </nav>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/home">Home</a></li>
+            <li><a href="/logout">Log out</a></li>
+        </ul>
+    </div>
+</nav>
 
 {% endblock %}
 
 {% block content %}
+
+<body class="text-centered">
     <div class="container">
         <br>
         <h1>Admin Home Page</h1>
         {% with username = session['username'] %}
-                <h2>Welcome, {{ username }}</h2>
+        <h2>Welcome, {{ username }}</h2>
         {% endwith %}
         <div class="container">
             <div class="row">
-                <div class="col-sm">
-                    <button class="btn btn-info btn-block" type="submit" onClick="window.location='/car/search'">Search For Car(s)
-                    </button>
-                </div>
-                <div class="col-sm">
-                    <button class="btn btn-primary btn-block" type="submit" onClick="window.location='/user/search'">Search for a User
-                    </button>
-                </div>
+                <h2>CLick the buttons to operate adminitration</h2>
+                <br>
+
             </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <p class="text-center">Search For Car(s)</p>
+                    <button class="btn btn-info btn-block" type="submit" onClick="window.location='/car/search'">Search
+                    </button>
+                </div>
+                <div class="col-sm-2">
+                    <p class="text-center">Search for a User</p>
+                    <button class="btn btn-primary btn-block" type="submit"
+                        onClick="window.location='/user/search'">Search
+                    </button>
+                </div>
+                <div class="col-sm-2">
+                    <p class="text-center">View car rental history</p>
+                    <button class="btn btn-primary btn-block" type="submit" onClick="window.location='/history'">View
+                    </button>
+                </div>
+                <div class="col-sm-2">
+                    <p class="text-center">Report cars with issues</p>
+
+
+                </div>
+
+            </div>
+            <br>
+        <div class="row">
+            <table>
+                <tr>
+                    <th>&emsp;&emsp;ID&emsp;</th>
+                    <th>Make&emsp;&emsp;&emsp;</th>
+                    <th>Body Type&emsp;&emsp;</th>
+                    <th>Colour&emsp;&emsp;</th>
+                    <th>Seats&emsp;&emsp;</th>
+                    <th>Location&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+                    <th>Cost Per Hour (AUD)</th>
+                </tr>
+                {% for car in cars %}
+                <tr>
+                    <td>&emsp;&emsp;{{ car.id }}</td>
+                    <td>{{ car.make }}</td>
+                    <td>{{ car.body_type }}</td>
+                    <td>{{ car.colour }}</td>
+                    <td>{{ car.seats }}</td>
+                    <td>
+                        <button type="submit" onClick="window.location='/car/location/{{ car.id }}'">Click for
+                            Location
+                        </button>
+                    </td>
+                    <td>{{ car.cost_per_hour }}</td>
+                    <td>
+                        <button class="btn btn-primary btn-block" type="submit"
+                            onClick="reportIssue"> Report </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
         </div>
 
 
     </div>
+</body>
 {% endblock %}

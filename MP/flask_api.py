@@ -935,3 +935,28 @@ def monthsGraph():
 
     return jsonify(result)
 
+# NOT TESTED!
+# Report issue function
+# Endpoint for the admin to report cars in the admin home page
+@api.route("/car/report", methods = ["PUT"])
+def reportCar(car_id):
+    '''
+    This endpoints will execute when the 'report' button in the admin home page is clicked and will use the car id got from that row of data to retrieve the car and set the 
+    have_issue argument from 0 to 1
+    '''
+    
+    car = db.session.query(Car).filter_by(id = car_id).first()
+    if (car.have_issue == 1):
+        print("Error! This car was already reported for having issue!")
+    else:
+        car.have_issue = 1
+
+            # Commit changes
+        db.session.commit()
+
+        flash("Reported issue")
+
+    
+
+            
+   
