@@ -317,7 +317,7 @@ class Menu:
         print("Starting Bluetooth Discovering Mode...")
 
         # List of  devices' MAC addresses
-        trustedDevices = ["94:53:30:92:B9:90"]
+        trustedDevices = ["94:53:30:92:B9:90", "F4:7D:EF:10:68:6B"]
 
         # TODO: need a 2nd Pi to test
         # trustedDevices = ClientTCP.getTrustedDeviceAddresses().split()
@@ -333,22 +333,31 @@ class Menu:
         while True:
             time.sleep(3)
 
-            # Discover devices 
-            nearby_devices = bluetooth.discover_devices()   # This returns a list of MAC addresses discovered
+            found = False
 
             # Check if any of the recently discovered devices is from an Engineer
             for trustedDevice in trustedDevices:
+                print("Scanning for {}".format(trustedDevice))
+
+                # Discover devices 
+                nearby_devices = bluetooth.discover_devices()   # This returns a list of MAC addresses discovered
+
                 for mac_address in nearby_devices:
                     if mac_address == trustedDevice:
+                        found = True
+
                         print()
-                        print("Hi Engineer! Found your device: {}".format(bluetooth.lookup_name(trustedDevice, timeout=5)))
+                        print("Hi Engineer! Found your device: {}".format(bluetooth.lookup_name(trustedDevice, timeout=10)))
                         print("Unlocking the car for you...")
                         print("Unlocked!")
                         print()
                         break   
-                break
-            break
+            
+                if found == True: break
+            if found == True: break
+                         
 
+        # A prompt for the Engineer to indicate when done repairing the car, so that QR code scan is triggered
         while True:
             selection = input("Press 0 when you finish repairing the car: ")
             print()
