@@ -127,7 +127,6 @@ class MasterPiTest(unittest.TestCase):
         self.assertTrue((updated is not None))        
 
 
-
     def test_view_issue_cars(self):
         """
         This test will check if the test database finds right number of cars with issue and that the query used get the right of records in Histories table in the test database.
@@ -149,6 +148,7 @@ class MasterPiTest(unittest.TestCase):
     """Vinh's task"""
     def test_report_car(self):
         pass
+
 
     def test_get_MACs(self):
         """

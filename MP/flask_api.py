@@ -37,8 +37,9 @@ class User(db.Model):
     fname           = db.Column(db.String(),    nullable = False)
     lname           = db.Column(db.String(),    nullable = False)
     role            = db.Column(db.String(),    nullable = False)
+    device          = db.Column(db.String(),    nullable = True)
     
-    def __init__(self, username, password, email, fname, lname, role):
+    def __init__(self, username, password, email, fname, lname, role, device):
         """inits User with data
 
         Arguments:
@@ -47,7 +48,8 @@ class User(db.Model):
             email {str} -- User's email
             fname {str} -- User's first name
             lname {str} -- User's last name
-            role {str} -- User's role (Customer/ Admin/ Manager/ Engineer)
+            role {str}  -- User's role (Customer/ Admin/ Manager/ Engineer)
+            device {str}-- User's Bluetoothe MAC Address
         """
         self.username   = username
         self.password   = password
@@ -55,6 +57,7 @@ class User(db.Model):
         self.fname      = fname
         self.lname      = lname
         self.role       = role
+        self.device     = device
 
 class UserSchema(ma.Schema):
     """This part defined structure of JSON response of our endpoint for User model. Here we define the keys in our JSON response. The fields that will be exposed.
@@ -64,7 +67,7 @@ class UserSchema(ma.Schema):
     """
     class Meta:
         # Fields to expose (not exposing password)
-        fields = ('id', 'username', 'email', 'fname', 'lname', 'role')
+        fields = ('id', 'username', 'email', 'fname', 'lname', 'role', 'device')
 
 user_schema = UserSchema()              # an instance of UserSchema
 users_schema = UserSchema(many=True)    # instances of list of UserSchema
@@ -791,10 +794,12 @@ def updateUserInfo(user_id):
         fname       = request.form.get("fname")
         lname       = request.form.get("lname")
         role        = request.form.get("role")
+        device      = request.form.get("device")
 
         # Query to find the user with the right user ID 
         user = db.session.query(User).filter_by(id = user_id).first()
 
+        # TODO: Added device column
         # Update the fields
         if user is not None:
             user.username    = username
@@ -802,6 +807,7 @@ def updateUserInfo(user_id):
             user.fname       = fname
             user.lname       = lname
             user.role        = role
+            user.device      = device
 
             # Commit changes
             db.session.commit()
@@ -814,12 +820,17 @@ def updateUserInfo(user_id):
 
 
     # GET method
-    # Search for the car to fetch the data in to the form for Admin
-    user = User.query.filter_by(id = user_id).first()
+    elif request.method == "GET":
+        # Search for the car to fetch the data in to the form for Admin
+        user = User.query.filter_by(id = user_id).first()
 
-    result = user_schema.jsonify(user)
+        # TODO: try the query below if not succeed with above
+        # user = db.session.query(User).filter_by(id = user_id).first()
+        # user = User.query.get(user_id)
 
-    return render_template('update_user_info.html', user = result)
+        result = user_schema.jsonify(user)
+
+        return render_template('update_user_info.html', user = result)
 
 
 # NOT TESTED (waiting on templates/other implementation)
