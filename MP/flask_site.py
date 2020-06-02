@@ -54,7 +54,7 @@ def homePage():
 
     user_role = session["role"]
     if (user_role == "Admin"):
-        return render_template('home_admin.html')
+        return render_template('home_admin.html', cars = data)
     elif (user_role == "Customer"):
         return render_template('home.html', cars = data)
     elif (user_role == "Engineer"):

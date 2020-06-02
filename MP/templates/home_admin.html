@@ -51,12 +51,6 @@
                     <button class="btn btn-primary btn-block" type="submit" onClick="window.location='/history'">View
                     </button>
                 </div>
-                <div class="col-sm-2">
-                    <p class="text-center">Report cars with issues</p>
-
-
-                </div>
-
             </div>
             <br>
         <div class="row">
@@ -85,7 +79,7 @@
                     <td>{{ car.cost_per_hour }}</td>
                     <td>
                         <button class="btn btn-primary btn-block" type="submit"
-                            onClick="reportIssue"> Report </button>
+                            onClick="window.location='/car/report_issue/{{ car.id }}'"> Report </button>
                     </td>
                 </tr>
                 {% endfor %}

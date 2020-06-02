@@ -848,8 +848,6 @@ def showIssueCars():
 
     return jsonify(result)
 
-
-
 # NOT TESTED (waiting on templates/other implementation)
 # Endpoint to search for cars using VOICE RECOGNITION
 @api.route("/car/search/voice", methods = ["GET", "POST"])
@@ -950,13 +948,13 @@ def monthsGraph():
 # NOT TESTED!
 # Report issue function
 # Endpoint for the admin to report cars in the admin home page
-@api.route("/car/report/<car_id>", methods = ["PUT"])
+@api.route("/car/report/<car_id>", methods = ["POST","PUT"])
 def reportCar(car_id):
     """
     This endpoints will execute when the 'report' button in the admin home page is clicked and will use the car id got from that row of data to retrieve the car and set the 
     have_issue argument from 0 to 1
     """
-    
+    return render_template('home_admin.html')
     car = db.session.query(Car).filter_by(id = car_id).first()
     if (car.have_issue == 1):
         print("Error! This car was already reported for having issue!")
@@ -968,7 +966,11 @@ def reportCar(car_id):
 
         flash("Reported issue")
 
+@api.route("/car/report_issue/<car_id>", methods = ["GET"])
+def openReportPage(car_id):
+    return render_template('car_report_issue.html', car_id = car_id)
     
+
 # NOT TESTED (waiting on templates/other implementation)
 # Endpoint to get trusted Bluetooth MAC addresses of the Engineers from Users table
 @api.route("/user/engineer/device", methods = ["GET"])
