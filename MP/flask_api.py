@@ -974,4 +974,4 @@ def getMACs():
         addresses = [usr.device for usr in users]   # Get the device addresses and put them in a list
 
         return addresses
-    else: return NoneD
+    else: return None
