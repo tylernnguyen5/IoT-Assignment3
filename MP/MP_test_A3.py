@@ -49,7 +49,16 @@ class MasterPiTest(unittest.TestCase):
 
 
     def test_search_user(self):
-        pass
+        # Search with 3 filters
+        username_filter = "user10"
+        lname_filter = "Hil"
+        role_filter = "Manager"
+
+        # Use the query from the endpoint to test
+        users = db.session.query(User).filter(or_(  User.username   == username_filter, 
+                                                    User.lname      == lname_filter,
+                                                    User.role       == role_filter)).all()
+        self.assertTrue((users is not None))
 
 
     def test_update_car(self):
@@ -57,7 +66,33 @@ class MasterPiTest(unittest.TestCase):
 
 
     def test_update_user(self):
-        pass
+        # Values for update (no update for password)
+        _id = 1
+        username = "user_num1"
+        email = ""
+        fname = "Thach"
+        lname = "Nguyen" 
+        role = "Customer"
+        # device = 
+
+        user = db.session.query(User).filter_by(id = _id).first()
+
+        if user is not None:
+            user.username    = username
+            user.email       = email
+            user.fname       = fname
+            user.lname       = lname
+            user.role        = role
+
+            # Commit changes
+            db.session.commit()
+
+        # Search for the updated user and assert
+        updated = db.session.query(User).filter_by(id = _id).first()
+
+
+        
+
 
 
     def test_view_issue_cars(self):
@@ -71,12 +106,19 @@ class MasterPiTest(unittest.TestCase):
 
         count = Car.query.filter_by(have_issue = True).count()
 
-        self.assertEqual(count, 2)  # Only car 10 has issue
+        self.assertEqual(count, 2)  # Only car 9 and 10 have issue
 
 
     def test_search_car_with_voice(self):
         pass
 
+
+    """Vinh's task"""
+    def test_report_car(self):
+        pass
+
+    def test_get_MACs(self):
+        pass
 
 if __name__ == "__main__":
     unittest.main()

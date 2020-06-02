@@ -654,7 +654,7 @@ def apLogin():
 
 # ===================================================================================
 
-# Endpoints for A3 go below
+# Most of new changes for A3 go below
 
 # NOT TESTED (waiting on templates/other implementation)
 # Endpoint to view all histories
@@ -939,7 +939,7 @@ def monthsGraph():
 # NOT TESTED!
 # Report issue function
 # Endpoint for the admin to report cars in the admin home page
-@api.route("/car/report", methods = ["PUT"])
+@api.route("/car/report/<car_id>", methods = ["PUT"])
 def reportCar(car_id):
     """
     This endpoints will execute when the 'report' button in the admin home page is clicked and will use the car id got from that row of data to retrieve the car and set the 
@@ -974,4 +974,4 @@ def getMACs():
         addresses = [usr.device for usr in users]   # Get the device addresses and put them in a list
 
         return addresses
-    else: return None
+    else: return NoneD
