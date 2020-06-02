@@ -298,6 +298,9 @@ class Menu:
 
         return detected_id
 
+# ===================================================================================
+
+# Most of new changes for A3 go below
 
     def bluetoothScan(self):
         """
@@ -347,7 +350,8 @@ class Menu:
                         found = True
 
                         print()
-                        print("Hi Engineer! Found your device: {}".format(bluetooth.lookup_name(trustedDevice, timeout=10)))
+                        print("Hi Engineer!") 
+                        print("Found your device: {}\nMAC Address: {}".format(bluetooth.lookup_name(trustedDevice, timeout=10), mac_address))
                         print("Unlocking the car for you...")
                         print("Unlocked!")
                         print()

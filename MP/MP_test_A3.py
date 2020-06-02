@@ -49,7 +49,31 @@ class MasterPiTest(unittest.TestCase):
 
 
     def test_search_user(self):
-        pass
+        """
+        This test will apply 3 filters to search for users, which are the username, lastname and role.
+
+        There are:
+
+        - 1 user with the username of 'user10'
+
+        - 1 user with the last name of 'Hil'
+
+        - 2 users with the 'Manager' role
+
+        This query used for this test has the same logic with the query used for flask_api.userSearch() endpoint.
+
+        Assertion: the number of users found is 4
+        """
+        # Search with 3 filters
+        username_filter = "user10"
+        lname_filter = "Hil"
+        role_filter = "Manager"
+
+        # Use the query from the endpoint to test
+        users = db.session.query(User).filter(or_(  User.username   == username_filter, 
+                                                    User.lname      == lname_filter,
+                                                    User.role       == role_filter)).count()
+        self.assertEqual(users, 4)
 
 
     def test_update_car(self):
@@ -57,7 +81,51 @@ class MasterPiTest(unittest.TestCase):
 
 
     def test_update_user(self):
-        pass
+        """
+        The test will try to update a row in the Users table. That row has the ID of '1' in the table on the cloud database.
+
+        The fields to be updated are:
+
+        - username  : "user_num1"
+
+        - email     : "user_num1@carshare.com"
+
+        - fname     : "Thach"
+
+        - lname     : "Nguyen" 
+
+        - role      : "Admin"
+
+        This query used for this test has the same logic with the query used for flask_api.udpateUserInfo() endpoint.
+
+        Assertion: after updated, a query to search for the new username will return  value
+        """
+        # Values for update (no update for password)
+        _id = 1
+        username = "user_num1"
+        email = "user_num1@carshare.com"
+        fname = "Thach"
+        lname = "Nguyen" 
+        role = "Admin"
+        # device = 
+
+        user = db.session.query(User).filter_by(id = _id).first()
+
+        if user is not None:
+            user.username    = username
+            user.email       = email
+            user.fname       = fname
+            user.lname       = lname
+            user.role        = role
+
+            # Commit changes
+            db.session.commit()
+
+        # Search for the updated user and assert
+        updated = db.session.query(User).filter_by(username = username).first()
+
+        self.assertTrue((updated is not None))        
+
 
 
     def test_view_issue_cars(self):
@@ -71,11 +139,31 @@ class MasterPiTest(unittest.TestCase):
 
         count = Car.query.filter_by(have_issue = True).count()
 
-        self.assertEqual(count, 2)  # Only car 10 has issue
+        self.assertEqual(count, 2)  # Only car 9 and 10 have issue
 
 
     def test_search_car_with_voice(self):
         pass
+
+
+    """Vinh's task"""
+    def test_report_car(self):
+        pass
+
+    def test_get_MACs(self):
+        """
+        This test will retrieve the Bluetooth MAC's adresses of all the Engineers in the cloud database in Users table and put them in a list.
+
+        In the Users test table, there are 2 Engineers with one MAC's address for each in the 'device' column.
+
+        Assertion: the number of MAC's addresses retrieved is 2
+        """
+        users = User.query.filter_by(role = "Engineer").all()
+
+        addresses = [usr.device for usr in users]   # Get the device addresses and put them in a list
+
+        self.assertEqual(len(addressses), 2)
+
 
 
 if __name__ == "__main__":
