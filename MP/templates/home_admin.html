@@ -30,7 +30,7 @@
         {% endwith %}
         <div class="container">
             <div class="row">
-                <h2>CLick the buttons to operate adminitration</h2>
+                <h2>Click the buttons to operate adminitration</h2>
                 <br>
 
             </div>
@@ -54,6 +54,9 @@
             </div>
             <br>
         <div class="row">
+            <h2>
+                All cars: <br>
+            </h2>
             <table>
                 <tr>
                     <th>&emsp;&emsp;ID&emsp;</th>
@@ -79,7 +82,7 @@
                     <td>{{ car.cost_per_hour }}</td>
                     <td>
                         <button class="btn btn-primary btn-block" type="submit"
-                            onClick="window.location='/car/report_issue/{{ car.id }}'"> Report </button>
+                            onClick="window.location='/car/report/{{ car.id }}'"> Report </button>
                     </td>
                 </tr>
                 {% endfor %}

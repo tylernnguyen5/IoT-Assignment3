@@ -49,18 +49,25 @@ def homePage():
     Returns:
         .html -- The Home page of the web application
     """
-    response = requests.get("http://127.0.0.1:5000/car/unbooked")
-    data = json.loads(response.text)
+    
 
     user_role = session["role"]
+    
     if (user_role == "Admin"):
+        response = requests.get("http://127.0.0.1:5000/car/all")
+        data = json.loads(response.text)
         return render_template('home_admin.html', cars = data)
+    
     elif (user_role == "Customer"):
+        response = requests.get("http://127.0.0.1:5000/car/unbooked")
+        data = json.loads(response.text)
         return render_template('home.html', cars = data)
+    
     elif (user_role == "Engineer"):
         response = requests.get("http://127.0.0.1:5000/car/issue")
         data = json.loads(response.text)
         return render_template('home_engineer.html', cars = data)
+    
     elif (user_role == "Manager"):
         return render_template('home_manager.html')
     

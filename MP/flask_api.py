@@ -259,7 +259,8 @@ def register():
                             email = email, 
                             fname = fname, 
                             lname = lname, 
-                            role = role)
+                            role = role,
+                            device = null)
             db.session.add(newUser)
 
             # Commit changes
@@ -332,6 +333,7 @@ def logout():
    # Remove the user ID from the session if it is there
     session.pop('user_id', None)
     session.pop('username', None)
+    session.pop('role', None)
     flash("You are now logged out!", "danger")
     return redirect(url_for('site.index'))
 
@@ -820,17 +822,20 @@ def updateUserInfo(user_id):
 
 
     # GET method
-    elif request.method == "GET":
-        # Search for the car to fetch the data in to the form for Admin
-        user = User.query.filter_by(id = user_id).first()
+    # Search for the car to fetch the data in to the form for Admin
+    user = User.query.filter_by(id = user_id).first()
+    
 
-        # TODO: try the query below if not succeed with above
-        # user = db.session.query(User).filter_by(id = user_id).first()
-        # user = User.query.get(user_id)
+    # TODO: try the query below if not succeed with above
+    # user = db.session.query(User).filter_by(id = user_id).first()
+    # user = User.query.get(user_id)
 
-        result = user_schema.jsonify(user)
+    result = user_schema.jsonify(user)
+    print(user.email)
+    
 
-        return render_template('update_user_info.html', user = result)
+    return render_template('update_user_info.html', data = result)
+    print(user.email)
 
 
 # NOT TESTED (waiting on templates/other implementation)
@@ -898,76 +903,33 @@ def carVoiceSearch():
     return render_template('car_search_voice.html')
 
 
-# NOT TESTED (waiting on templates/other implementation)
-# Endpoint to find the users with the most booking in Histories table
-@api.route("/history/graph/users", methods = ["GET"])
-def usersGraph():
-    """
-    This endpoint will execute an query in the Histories table to retrieve rows which are sorted by users with the most booking / rental histories in descending order
-    """
-
-    # SELECT user_id, COUNT(user_id) FROM Histories GROUP BY user_id ORDER BY COUNT(user_id) DESC;
-
-    histories = History.query(user_id, COUNT(user_id)).group_by(user_id).order_by(COUNT(user_id).desc()).all()    
-
-    result = None
-
-    return jsonify(result)
-
-
-# NOT TESTED (waiting on templates/other implementation)
-# Endpoint to find the cars with the most booking in Histories table
-@api.route("/history/graph/cars", methods = ["GET"])
-def carsGraph():
-    """
-    This endpoint will execute an query in the Histories table to retrieve rows which are sorted by cars with the most booking / rental histories in descending order
-    """
-
-    # SELECT car_id, COUNT(car_id) FROM Histories GROUP BY car_id ORDER BY COUNT(car_id) DESC;
-
-    result = None
-
-    return jsonify(result)
-
-
-# NOT TESTED (waiting on templates/other implementation)
-# Endpoint to find the months with the most booking in Histories table
-@api.route("/history/graph/months", methods = ["GET"])
-def monthsGraph():
-    """
-    This endpoint will execute an query in the Histories table to retrieve rows which are sorted by months of year 2020 with the most booking / rental histories in descending order
-    """
-
-    # SELECT MONTH(begin_time), COUNT(MONTH(begin_time)) FROM Histories WHERE YEAR(begin_time) = 2020 GROUP BY MONTH(begin_time) ORDER BY COUNT(MONTH(begin_time)) DESC;
-
-    result = None
-
-    return jsonify(result)
-
 
 # NOT TESTED!
 # Report issue function
 # Endpoint for the admin to report cars in the admin home page
-@api.route("/car/report/<car_id>", methods = ["POST","PUT"])
+@api.route("/car/report/<car_id>", methods = ["POST","GET"])
 def reportCar(car_id):
     """
     This endpoints will execute when the 'report' button in the admin home page is clicked and will use the car id got from that row of data to retrieve the car and set the 
     have_issue argument from 0 to 1
     """
-    return render_template('home_admin.html')
-    car = db.session.query(Car).filter_by(id = car_id).first()
-    if (car.have_issue == 1):
-        print("Error! This car was already reported for having issue!")
-    else:
-        car.have_issue = 1
+    # POST method
+    if request.method == 'POST':
+        car_id    = request.form.get("car_id")
+        car = db.session.query(Car).filter_by(id = car_id).first()
+        if (car.have_issue == 1):
+            print("Error! This car was already reported for having issue!")
+        else:
+            car.have_issue = 1
 
         # Commit changes
         db.session.commit()
 
         flash("Reported issue")
-
-@api.route("/car/report_issue/<car_id>", methods = ["GET"])
-def openReportPage(car_id):
+        return redirect(url_for('site.homePage'))
+        
+    # GET method
+    
     return render_template('car_report_issue.html', car_id = car_id)
     
 
@@ -988,3 +950,17 @@ def getMACs():
 
         return addresses
     else: return None
+
+
+# Endpoint to show all cars
+@api.route("/car/all", methods = ["GET"])
+def getAllCars():
+    """
+    All cars will be returned from the Cars table
+    """
+
+    cars = Car.query.all()
+
+    result = cars_schema.dump(cars)
+
+    return jsonify(result)

@@ -2,24 +2,31 @@
 {% block title %}Report Car Car{% endblock %}
 
 {% block navbar %}
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">CarShare.co</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="/home">Home</a></li>
-                <li><a href="/logout">Log out</a></li>
-            </ul>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">CarShare.co</a>
         </div>
-    </nav>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/home">Home</a></li>
+            <li><a href="/logout">Log out</a></li>
+        </ul>
+    </div>
+</nav>
 {% endblock %}
 {% block content %}
-    <div class="container">
-        <h1>Report Issue for Car number {{ car_id }}</h1>
+<div class="container">
+    <h1>Report Issue for Car number {{ car_id }}</h1>
+
+    <form action="" method="POST">
         <div class="form-group">
-            Issue Decription: <br><textarea name="issue_description" id="issue_description" cols="30" rows="4"></textarea>
+            Issue Decription: <br><textarea name="issue_description" id="issue_description" cols="30"
+                rows="4"></textarea>
         </div>
-        <button class="btn btn-primary" type="submit" onclick="window.location='/car/report/{{ car_id }}'">Submit</button>
-    </div>
+        <div class="form-group">
+            <input type="hidden" name="car_id" class="form-control" value={{car_id}}/>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>
 {% endblock %}

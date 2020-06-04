@@ -17,13 +17,15 @@
 {% block content %}
     <div class="container">
         <h1>Update User Info</h1>
+       
         <form action="" method="PUT">
             <div class="form-group">
                 <input
                         type="text"
                         name="username"
-                        class="form-control"
-                        value= "{{ user.username }}"
+                        class="form-control"                                               
+                        placeholder="{{ data.username }}"
+                        required
                 />
             </div>
             <div class="form-group">
@@ -31,31 +33,38 @@
                         type="text"
                         name="email"
                         class="form-control"
-                        value= "{{ user.email }}"
+                        value= "{{ data.email }}"
+                        placeholder= "{{ data.email }}"
+                        required
                 />
             </div>
             <div class="form-group">
                 <input
                         type="text"
-                        name="First Name"
+                        name="fname"
                         class="form-control"
-                        value= "{{ user.fname }}"
+                        value= "{{ data.fname }}"
+                        placeholder= "{{ data.fname }}"
+                        required
                 />
             </div>
             <div class="form-group">
                 <input
                         type="text"
-                        name="Last Name"
+                        name="lname"
                         class="form-control"
-                        value= "{{ user.lname }}"
+                        value= "{{ data.lname }}"
+                        placeholder= "{{ data.lname }}"
+                        required
                 />
             </div>
             <div class="form-group">
                 <select
                         id="user_role"
-                        name="user_role"
+                        name="role"
                         class="form-control"
-                        value = "{{ user.role }}"
+                        value = "{{ data.role }}"
+                        placeholder = "{{ data.role }}"
                         required
                 >
                     <optgroup>
@@ -68,5 +77,6 @@
             </div>
             <button class="btn btn-primary" type="submit">Submit</button>
         </form>
+      
     </div>
 {% endblock %}
