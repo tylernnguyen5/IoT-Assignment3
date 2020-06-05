@@ -824,11 +824,7 @@ def updateUserInfo(user_id):
     # GET method
     # Search for the car to fetch the data in to the form for Admin
     user = User.query.filter_by(id = user_id).first()
-    
 
-    # TODO: try the query below if not succeed with above
-    # user = db.session.query(User).filter_by(id = user_id).first()
-    # user = User.query.get(user_id)
 
     result = user_schema.jsonify(user)
     print(user.email)
@@ -916,7 +912,9 @@ def reportCar(car_id):
     # POST method
     if request.method == 'POST':
         car_id    = request.form.get("car_id")
+
         car = db.session.query(Car).filter_by(id = car_id).first()
+        
         if (car.have_issue == 1):
             print("Error! This car was already reported for having issue!")
         else:
@@ -929,9 +927,8 @@ def reportCar(car_id):
         return redirect(url_for('site.homePage'))
         
     # GET method
-    
     return render_template('car_report_issue.html', car_id = car_id)
-    
+  
 
 # NOT TESTED (waiting on templates/other implementation)
 # Endpoint to get trusted Bluetooth MAC addresses of the Engineers from Users table

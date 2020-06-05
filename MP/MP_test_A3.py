@@ -35,6 +35,7 @@ class MasterPiTest(unittest.TestCase):
         with app.app_context():
             db.create_all()
 
+
     def test_view_histories(self):
         """
         This test will check if the test database has the right number of records and that the query used get the right of records in Histories table in the test database.
@@ -77,7 +78,63 @@ class MasterPiTest(unittest.TestCase):
 
 
     def test_update_car(self):
-        pass
+        """
+        The test will try to update a row in the Car table. That row has the ID of '1' in the table on the cloud database.
+
+        The fields to be updated are:
+
+        - make            : "Lambo"
+
+        - body_type       : "Sport"
+
+        - colour          : "Red"
+
+        - seats           : "2"
+
+        - location        : "-37.814, 144.96332"
+
+        - cost_per_hour   : "50.00"
+
+        - booked          : "0"
+
+        - have_issue      : "0"
+
+
+        This query used for this test has the same logic with the query used for flask_api.udpateCarInfo() endpoint.
+
+        Assertion: after updated, a query to search for the new unique make will be executed
+        """
+        # Values for update
+        _id = 1
+        make            = "Lambo"
+        body_type       = "Sport"
+        colour          = "Red"
+        seats           = "2"
+        location        = "-37.814, 144.96332"
+        cost_per_hour   = "50.00"
+        booked          = "0"
+        have_issue      = "0"
+         
+
+        car = db.session.query(Car).filter_by(id = _id).first()
+
+        if car is not None:
+            car.make            = make
+            car.body_type       = body_type
+            car.colour          = colour
+            car.seats           = seats
+            car.location        = location
+            car.cost_per_hour   = cost_per_hour
+            car.booked          = booked
+            car.have_issue      = have_issue
+
+            # Commit changes
+            db.session.commit()
+
+        # Search for the updated car and assert
+        updated = db.session.query(Car).filter_by(make = make).first()
+
+        self.assertTrue((updated is not None)) 
 
 
     def test_update_user(self):
@@ -98,7 +155,7 @@ class MasterPiTest(unittest.TestCase):
 
         This query used for this test has the same logic with the query used for flask_api.udpateUserInfo() endpoint.
 
-        Assertion: after updated, a query to search for the new username will return  value
+        Assertion: after updated, a query to search for the new username will be executed
         """
         # Values for update (no update for password)
         _id = 1
@@ -140,14 +197,35 @@ class MasterPiTest(unittest.TestCase):
 
         self.assertEqual(count, 2)  # Only car 9 and 10 have issue
 
-
+    # TODO: Fahim's
     def test_search_car_with_voice(self):
         pass
 
 
-    """Vinh's task"""
     def test_report_car(self):
-        pass
+        """
+        This test will search for a car in the Cars table and change its issue status. Then do an assertion.
+
+        This query used for this test has the same logic with the query used for flask_api.reportCar() endpoint.
+
+        Assertion: the number of cars that have issue is 1
+        """
+        car_id = 5
+
+        car = db.session.query(Car).filter_by(id = car_id).first()
+        
+        if car is not None:
+            car.have_issue = 1
+            
+            # Commit changes
+            db.session.commit()
+        else:
+            print("[ERROR] No car was found")
+
+        # Search for the updated car and assert
+        updated = db.session.query(Car).filter_by(have_issue = username).count()
+
+        self.assertEqual(updated, 1)
 
 
     def test_get_MACs(self):
