@@ -16,7 +16,7 @@
 {% endblock %}
 {% block content %}
     <div class="container">
-        <h1>Update User Info</h1>
+        <h1>Update Car Info</h1>
        
         <form action="" method="PUT">
             <div class="form-group">
@@ -24,65 +24,69 @@
                         type="hidden"
                         name="id"
                         class="form-control"
-                        placeholder="User ID"
-                        placeholder="{{ data.id }}"
-                        required
+                        placeholder="Car ID"
+                />
+            </div>
+            <div class="form-group">
+                Make: <input
+                        type="text"
+                        name="make"
+                        class="form-control"
+                        placeholder="Make"
+                />
+            </div>
+            <div class="form-group">
+                Body Type: <input
+                        type="text"
+                        name="body_type"
+                        class="form-control"
+                        placeholder="Body Type"
+                />
+            </div>
+            <div class="form-group">
+                Colour: <input
+                        type="text"
+                        name="colour"
+                        class="form-control"
+                        placeholder="Colour"
+                />
+            </div>
+            <div class="form-group">
+                Seats No.: <input
+                        type="number"
+                        name="seats"
+                        class="form-control"
+                        placeholder="Seats"
                 />
             </div>
             <div class="form-group">
                 <input
-                        type="text"
-                        name="username"
-                        class="form-control"                                               
-                        placeholder="{{ data.username }}"
-                        required
+                        type="hidden"
+                        name="location"
+                        class="form-control"
+                        placeholder="Location Latitude & Longitude"
                 />
             </div>
             <div class="form-group">
-                <input
+                Cost per Hour: <input
                         type="text"
-                        name="email"
+                        name="cost_per_hour"
                         class="form-control"
-                        value= "{{ data.email }}"
-                        placeholder= "{{ data.email }}"
-                        required
+                        placeholder="Cost per hour"
                 />
             </div>
             <div class="form-group">
-                <input
-                        type="text"
-                        name="fname"
-                        class="form-control"
-                        value= "{{ data.fname }}"
-                        placeholder= "{{ data.fname }}"
-                        required
-                />
+                <label for="booked">Is the car booked?  </label>
+                <select id="booked">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
             </div>
             <div class="form-group">
-                <input
-                        type="text"
-                        name="lname"
-                        class="form-control"
-                        value= "{{ data.lname }}"
-                        placeholder= "{{ data.lname }}"
-                        required
-                />
-            </div>
-            <div class="form-group">
-                <select
-                        id="user_role"
-                        name="role"
-                        class="form-control"
-                        value = "{{ data.role }}"
-                        placeholder = "{{ data.role }}"
-                        required
-                >
-                    <optgroup>
-                        <option value="Admin">Admin</option>
-                        <option value="Customer">Customer</option>
-                        <option value="Engineer">Engineer</option>
-                        <option value="Manager">Manager</option>
-                    </optgroup>
+                <label for="have_issue">Does the car have issue?  </label>
+                <select id="have_issue">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
                 </select>
             </div>
             <button class="btn btn-primary" type="submit">Submit</button>

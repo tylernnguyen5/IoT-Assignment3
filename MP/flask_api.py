@@ -11,7 +11,7 @@ from flask_googlemaps import Map, icons
 from dynaconf import FlaskDynaconf
 
 api = Blueprint("api", __name__)
-
+ACCESS_TOKEN="o.vMLEwFOCGBzUDzOCxqQ4Mdsda7m6KNHL"
 db = SQLAlchemy() # for accessing database
 ma = Marshmallow() # for serializing objects
 
@@ -772,7 +772,7 @@ def updateCarInfo(car_id):
 
     result = car_schema.jsonify(car)
 
-    return render_template('car_update.html', car = result)
+    return render_template('update_car_info.html', car = result)
 
 
 # NOT TESTED (waiting on templates/other implementation)
@@ -922,8 +922,26 @@ def reportCar(car_id):
 
         # Commit changes
         db.session.commit()
-
         flash("Reported issue")
+        #Send notification to Engineer Phone
+        """ Sending notification via pushbullet.
+        Args:
+            title (str) : title of text.
+            body (str) : Body of text.
+        """
+        message1 = "Issue with car number {}: ".format(car_id)
+        message2 = request.form.get("issue_description")
+        message = message1 + message2
+        ip_address = os.popen('hostname -I').read()
+        data_send = {"type": "note", "title": ip_address, "body": message}
+ 
+        resp = requests.post('https://api.pushbullet.com/v2/pushes', data=json.dumps(data_send),
+                         headers={'Authorization': 'Bearer ' + ACCESS_TOKEN, 
+                         'Content-Type': 'application/json'})
+        if resp.status_code != 200:
+            raise Exception('Something wrong')
+        else:
+            print('complete sending')
         return redirect(url_for('site.homePage'))
         
     # GET method
@@ -961,3 +979,40 @@ def getAllCars():
     result = cars_schema.dump(cars)
 
     return jsonify(result)
+
+# Endpoint to search for cars of Admin
+@api.route("/car/search_admin", methods = ["GET", "POST"])
+def carSearchAdmin():
+    """
+    To search for cars:
+        - Filters will be declared from form data
+        - A query with OR conditions will be executed to find the filtered cars
+        - The result will be displayed in Car Search Result page
+    """
+
+    if request.method=="POST":
+        _id             = request.form.get("id")
+        make            = request.form.get("make")
+        body_type       = request.form.get("body_type")
+        colour          = request.form.get("colour")
+        seats           = request.form.get("seats")
+        location        = request.form.get("location")
+        cost_per_hour   = request.form.get("cost_per_hour")
+        booked          = request.form.get("booked")        # if this field is null, it's equivalent to 0 (False)
+        have_issue      = request.form.get("have_issue")    # if this field is null, it's equivalent to 0 (False) 
+
+        cars = db.session.query(Car).filter(or_(Car.id              == _id, 
+                                                Car.make            == make,
+                                                Car.body_type       == body_type,
+                                                Car.colour          == colour,
+                                                Car.seats           == seats,
+                                                Car.location        == location,
+                                                Car.cost_per_hour   == cost_per_hour,
+                                                Car.booked          == booked,
+                                                Car.have_issue      == have_issue)).all()
+        
+        result = cars_schema.dump(cars)
+
+        return render_template('car_search_result_update.html', cars = result)
+
+    return render_template('car_search.html')
