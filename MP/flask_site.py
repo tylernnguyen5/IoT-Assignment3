@@ -82,3 +82,9 @@ def carSearchPage():
         .html -- The Car Search page of the web application
     """
     return render_template('car_search.html')
+
+@site.route('/showHistories')
+def showHistoriesPayge():
+    response = requests.get("http://127.0.0.1:5000/history")
+    data = json.loads(response.text)
+    return render_template('show_histories.html', histories = data)

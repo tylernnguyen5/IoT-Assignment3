@@ -678,7 +678,6 @@ def getAllHistories():
 
     return jsonify(result)
 
-
 # NOT TESTED (waiting on templates/other implementation)
 # Endpoint to search for users
 @api.route("/user/search", methods = ["GET", "POST"])
@@ -924,11 +923,6 @@ def reportCar(car_id):
         db.session.commit()
         flash("Reported issue")
         #Send notification to Engineer Phone
-        """ Sending notification via pushbullet.
-        Args:
-            title (str) : title of text.
-            body (str) : Body of text.
-        """
         message1 = "Issue with car number {}: ".format(car_id)
         message2 = request.form.get("issue_description")
         message = message1 + message2
