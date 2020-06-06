@@ -1,5 +1,5 @@
 {% extends "bootstrap/base.html" %}
-{% block title %}Search Car{% endblock %}
+{% block title %}Update User Information{% endblock %}
 
 {% block navbar %}
     <nav class="navbar navbar-default">
@@ -24,21 +24,23 @@
                         type="hidden"
                         name="id"
                         class="form-control"
-                        placeholder="User ID"
-                        placeholder="{{ data.id }}"
+                        value= "{{ data.id }}"
                         required
                 />
             </div>
             <div class="form-group">
+                Username:
                 <input
                         type="text"
                         name="username"
                         class="form-control"                                               
+                        value= "{{ data.username }}"
                         placeholder="{{ data.username }}"
                         required
                 />
             </div>
             <div class="form-group">
+                Email: 
                 <input
                         type="text"
                         name="email"
@@ -49,6 +51,7 @@
                 />
             </div>
             <div class="form-group">
+                Full Name:
                 <input
                         type="text"
                         name="fname"
@@ -59,6 +62,7 @@
                 />
             </div>
             <div class="form-group">
+                Last name:
                 <input
                         type="text"
                         name="lname"
@@ -69,24 +73,42 @@
                 />
             </div>
             <div class="form-group">
+                Role: 
                 <select
-                        id="user_role"
+                        id="role"
                         name="role"
                         class="form-control"
-                        value = "{{ data.role }}"
-                        placeholder = "{{ data.role }}"
                         required
                 >
                     <optgroup>
-                        <option value="Admin">Admin</option>
-                        <option value="Customer">Customer</option>
-                        <option value="Engineer">Engineer</option>
-                        <option value="Manager">Manager</option>
+                        <option id="admin" value="Admin">Admin</option>
+                        <option id="customer" value="Customer">Customer</option>
+                        <option id="engineer" value="Engineer">Engineer</option>
+                        <option id="manager" value="Manager">Manager</option>
                     </optgroup>
                 </select>
             </div>
-            <button class="btn btn-primary" type="submit">Submit</button>
+            <!-- <button class="btn btn-primary" type="submit">Submit</button> -->
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
         </form>
       
     </div>
+    
+    <script>
+        var user_role = '{{ data.role }}';
+        switch(user_role){
+            case "Admin":
+                document.getElementById("admin").setAttribute("selected", "selected");
+                break;
+            case "Customer":
+                document.getElementById("customer").setAttribute("selected", "selected");
+                break;
+            case "Engineer":
+                document.getElementById("engineer").setAttribute("selected", "selected");
+                break;
+            case "Manager":
+                document.getElementById("manager").setAttribute("selected", "selected");
+                break;
+        }
+    </script>
 {% endblock %}
