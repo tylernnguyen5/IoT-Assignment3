@@ -718,7 +718,7 @@ def userSearch():
 
 # NOT TESTED (waiting on templates/other implementation)
 # Endpoint to update car info
-@api.route("/car/update/<car_id>", methods = ["GET","PUT"])
+@api.route("/car/update/<car_id>", methods = ["GET","POST"])
 def updateCarInfo(car_id):
     """
     - When the Admin have searched and selected the right car that he wants to edit the info (from the Car Search Result page), he will be redirect to this endpoint.
@@ -731,7 +731,7 @@ def updateCarInfo(car_id):
     NOTES: update the car_search_result.html to have a EDIT button for each shown car. That button will redirect the Admin to this endpoint 
     """
     # PUT method
-    if request.method == "PUT":
+    if request.method == "POST":
         make            = request.form.get("make")
         body_type       = request.form.get("body_type")
         colour          = request.form.get("colour")
@@ -752,8 +752,8 @@ def updateCarInfo(car_id):
             car.seats           = seats
             car.location        = location
             car.cost_per_hour   = cost_per_hour
-            car.booked          = booked
-            car.have_issue      = have_issue
+            car.booked          = bool(booked)
+            car.have_issue      = bool(have_issue)
 
             # Commit changes
             db.session.commit()
@@ -776,7 +776,7 @@ def updateCarInfo(car_id):
 
 # NOT TESTED (waiting on templates/other implementation)
 # Endpoint to update user info
-@api.route("/user/update/<user_id>", methods = ["GET","PUT"])
+@api.route("/user/update/<user_id>", methods = ["GET","POST"])
 def updateUserInfo(user_id):
     """
     - When the Admin have searched and selected the right user that he wants to edit the info (from the User Search Result page), he will be redirect to this endpoint.
@@ -789,7 +789,7 @@ def updateUserInfo(user_id):
     NOTES: update the user_search_result.html to have a EDIT button for each shown user. That button will redirect the Admin to this endpoint 
     """
     # PUT method
-    if request.method=="PUT":
+    if request.method=="POST":
         username    = request.form.get("username")
         email       = request.form.get("email")
         fname       = request.form.get("fname")
@@ -887,7 +887,7 @@ def carVoiceSearch():
         
         result = cars_schema.dump(filtered)
 
-        return render_template('car_search_result.html', cars = result)
+        return render_template('car_search_result.html', data = result)
 
     # GET method
     return render_template('car_search_voice.html')
