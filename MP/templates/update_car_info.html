@@ -16,7 +16,7 @@
 {% endblock %}
 {% block content %}
     <div class="container">
-        <h1>Update Car Info</h1>
+        <h1>Update Car {{ data.id }} Info</h1>
        
         <form action="" method="PUT">
             <div class="form-group">
@@ -24,7 +24,8 @@
                         type="hidden"
                         name="id"
                         class="form-control"
-                        placeholder="Car ID"
+                        value= "{{ data.id }}"
+                        required
                 />
             </div>
             <div class="form-group">
@@ -32,7 +33,8 @@
                         type="text"
                         name="make"
                         class="form-control"
-                        placeholder="Make"
+                        placeholder= "{{ data.make }}"
+                        value= "{{ data.make }}"
                         required
                 />
             </div>
@@ -41,7 +43,8 @@
                         type="text"
                         name="body_type"
                         class="form-control"
-                        placeholder="Body Type"
+                        value= "{{ data.body_type }}"
+                        placeholder= "{{ data.body_type }}"
                         required
                 />
             </div>
@@ -50,25 +53,27 @@
                         type="text"
                         name="colour"
                         class="form-control"
-                        placeholder="Colour"
+                        value= "{{ data.colour }}"
+                        placeholder= "{{ data.colour }}"
                         required
                 />
             </div>
             <div class="form-group">
-                Seats No.: <input
+                Number of Seats: <input
                         type="number"
                         name="seats"
                         class="form-control"
-                        placeholder="Seats"
+                        value= "{{ data.seats }}"
+                        placeholder= "{{ data.seats }}"
                         required
                 />
             </div>
             <div class="form-group">
-                <input
-                        type="hidden"
+                Location: <input
                         name="location"
                         class="form-control"
-                        placeholder="Location Latitude & Longitude"
+                        value= "{{ data.location }}"
+                        placeholder= "{{ data.location }}"
                         required
                 />
             </div>
@@ -77,22 +82,23 @@
                         type="text"
                         name="cost_per_hour"
                         class="form-control"
-                        placeholder="Cost per hour"
+                        value= "{{ data.cost_per_hour}}"
+                        placeholder= "{{ data.cost_per_hour}}"
                         required
                 />
             </div>
             <div class="form-group">
                 <label for="booked">Is the car booked?  </label>
-                <select id="booked">
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
+                <select id="booked" name="booked">
+                    <option value=1>Yes</option>
+                    <option value=0>No</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="have_issue">Does the car have issue?  </label>
-                <select id="have_issue">
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
+                <select id="have_issue" name="have_issue">
+                    <option value=1>Yes</option>
+                    <option value=0>No</option>
                 </select>
             </div>
             <button class="btn btn-primary" type="submit">Submit</button>

@@ -762,7 +762,7 @@ def updateCarInfo(car_id):
             flash("Updated Car")
 
             # After updating, the Admin will be redirect back to the Home page
-            return render_template('home_admin.html')
+            return redirect(url_for('site.homePage'))
 
 
     # GET method
@@ -771,7 +771,7 @@ def updateCarInfo(car_id):
 
     result = car_schema.dump(car)
 
-    return render_template('update_car_info.html', car = result)
+    return render_template('update_car_info.html', data = result)
 
 
 # NOT TESTED (waiting on templates/other implementation)
@@ -789,13 +789,13 @@ def updateUserInfo(user_id):
     NOTES: update the user_search_result.html to have a EDIT button for each shown user. That button will redirect the Admin to this endpoint 
     """
     # PUT method
-    if request.method == "PUT":
+    if request.method=="PUT":
         username    = request.form.get("username")
         email       = request.form.get("email")
         fname       = request.form.get("fname")
         lname       = request.form.get("lname")
         role        = request.form.get("role")
-        device      = request.form.get("device")
+        # device      = request.form.get("device")
 
         # Query to find the user with the right user ID 
         user = db.session.query(User).filter_by(id = user_id).first()
@@ -808,22 +808,20 @@ def updateUserInfo(user_id):
             user.fname       = fname
             user.lname       = lname
             user.role        = role
-            user.device      = device
+            # user.device      = device
 
             # Commit changes
             db.session.commit()
 
             # Use get_flashed_message() to debug if the car info is updated
-            flash("Updated User")
+            print("Updated User")
 
             # After updating, the Admin will be redirect back to the Home page
-            return render_template('home_admin.html')
-
+            return redirect(url_for('site.homePage'))
 
     # GET method
     # Search for the car to fetch the data in to the form for Admin
     user = User.query.filter_by(id = user_id).first()
-
 
     result = user_schema.dump(user)
 
