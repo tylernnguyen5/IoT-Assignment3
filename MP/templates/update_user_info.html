@@ -77,11 +77,30 @@
                         placeholder = "{{ data.role }}"
                         required
                 >
+                <script>
+                    var user_role = '{{ data.role }}';
+                    switch(user_role){
+                        case "Admin":
+                            document.getElementById("admin").setAttribute("selected", True);
+                            break;
+                        case "Customer":
+                            document.getElementById("customer").setAttribute("selected", True);
+                            break;
+                        case "Engineer":
+                            document.getElementById("engineer").setAttribute("selected", True);
+                            break;
+                        case "Manager":
+                            document.getElementById("manager").setAttribute("selected", True);
+                            break;
+                    }
+
+
+                </script>
                     <optgroup>
-                        <option value="Admin">Admin</option>
-                        <option value="Customer">Customer</option>
-                        <option value="Engineer">Engineer</option>
-                        <option value="Manager">Manager</option>
+                        <option value="Admin" id = "admin">Admin</option>
+                        <option value="Customer" id = "customer">Customer</option>
+                        <option value="Engineer" id = "engineer">Engineer</option>
+                        <option value="Manager" id = "manager">Manager</option>
                     </optgroup>
                 </select>
             </div>

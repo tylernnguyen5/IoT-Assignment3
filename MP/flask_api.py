@@ -769,7 +769,7 @@ def updateCarInfo(car_id):
     # Search for the car to fetch the data in to the form for Admin
     car = Car.query.filter_by(id = car_id).first()
 
-    result = car_schema.jsonify(car)
+    result = car_schema.dump(car)
 
     return render_template('update_car_info.html', car = result)
 
@@ -825,12 +825,9 @@ def updateUserInfo(user_id):
     user = User.query.filter_by(id = user_id).first()
 
 
-    result = user_schema.jsonify(user)
-    print(user.email)
-    
+    result = user_schema.dump(user)
 
     return render_template('update_user_info.html', data = result)
-    print(user.email)
 
 
 # NOT TESTED (waiting on templates/other implementation)
@@ -939,6 +936,7 @@ def reportCar(car_id):
         return redirect(url_for('site.homePage'))
         
     # GET method
+
     return render_template('car_report_issue.html', car_id = car_id)
   
 
