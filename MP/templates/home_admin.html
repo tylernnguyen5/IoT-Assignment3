@@ -1,5 +1,5 @@
 {% extends "bootstrap/base.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Home Page for Admin{% endblock %}
 {% block navbar %}
 
 <head>
@@ -38,6 +38,11 @@
                 <div class="col-sm-2">
                     <p class="text-center">Search For Car(s)</p>
                     <button class="btn btn-info btn-block" type="submit" onClick="window.location='/car/search_admin'">Search
+                    </button>
+                </div>
+                <div class="col-sm-2">
+                    <p class="text-center">Search For Car(s) By Voice</p>
+                    <button class="btn btn-info btn-block" type="submit" onClick="window.location='/car/search/voice'">Search
                     </button>
                 </div>
                 <div class="col-sm-2">

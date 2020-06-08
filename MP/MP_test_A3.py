@@ -67,7 +67,7 @@ class MasterPiTest(unittest.TestCase):
         """
         # Search with 3 filters
         username_filter = "user10"
-        lname_filter = "Hil"
+        lname_filter = "Fra"
         role_filter = "Manager"
 
         # Use the query from the endpoint to test
@@ -125,8 +125,8 @@ class MasterPiTest(unittest.TestCase):
             car.seats           = seats
             car.location        = location
             car.cost_per_hour   = cost_per_hour
-            car.booked          = booked
-            car.have_issue      = have_issue
+            car.booked          = bool(booked)
+            car.have_issue      = bool(have_issue)
 
             # Commit changes
             db.session.commit()
@@ -193,7 +193,7 @@ class MasterPiTest(unittest.TestCase):
         Assertion: the number of cars with issue in Cars table from the query used flask_api.showIssueCars()
         """
 
-        count = Car.query.filter_by(have_issue = True).count()
+        count = Car.query.filter_by(have_issue = 1).count()
 
         self.assertEqual(count, 2)  # Only car 9 and 10 have issue
 
@@ -210,6 +210,13 @@ class MasterPiTest(unittest.TestCase):
 
         Assertion: the number of cars that have issue is 1
         """
+        # Update all rows with no issue
+        cars = db.session.query(Car).filter_by(have_issue = 1).all()
+
+        for car in cars:
+            car.have_issue = 0
+
+        # Change 1 row and test
         car_id = 5
 
         car = db.session.query(Car).filter_by(id = car_id).first()
@@ -223,7 +230,7 @@ class MasterPiTest(unittest.TestCase):
             print("[ERROR] No car was found")
 
         # Search for the updated car and assert
-        updated = db.session.query(Car).filter_by(have_issue = username).count()
+        updated = db.session.query(Car).filter_by(have_issue = 1).count()
 
         self.assertEqual(updated, 1)
 
@@ -240,7 +247,7 @@ class MasterPiTest(unittest.TestCase):
 
         addresses = [usr.device for usr in users]   # Get the device addresses and put them in a list
 
-        self.assertEqual(len(addressses), 2)
+        self.assertEqual(len(addresses), 2)
 
 
 

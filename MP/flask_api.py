@@ -260,7 +260,7 @@ def register():
                             fname = fname, 
                             lname = lname, 
                             role = role,
-                            device = null)
+                            device = None)
             db.session.add(newUser)
 
             # Commit changes
@@ -752,8 +752,8 @@ def updateCarInfo(car_id):
             car.seats           = seats
             car.location        = location
             car.cost_per_hour   = cost_per_hour
-            car.booked          = booked
-            car.have_issue      = have_issue
+            car.booked          = bool(booked)
+            car.have_issue      = bool(have_issue)
 
             # Commit changes
             db.session.commit()
@@ -887,7 +887,7 @@ def carVoiceSearch():
         
         result = cars_schema.dump(filtered)
 
-        return render_template('car_search_result.html', cars = result)
+        return render_template('car_search_result.html', data = result)
 
     # GET method
     return render_template('car_search_voice.html')
