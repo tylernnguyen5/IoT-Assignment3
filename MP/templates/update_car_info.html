@@ -18,7 +18,7 @@
     <div class="container">
         <h1>Update Car {{ data.id }} Info</h1>
        
-        <form action="" method="PUT">
+        <form action="" method="POST">
             <div class="form-group">
                 <input
                         type="hidden"
@@ -90,19 +90,35 @@
             <div class="form-group">
                 <label for="booked">Is the car booked?  </label>
                 <select id="booked" name="booked">
-                    <option value=1>Yes</option>
-                    <option value=0>No</option>
+                    <option value=1 id = "havebooking">Yes</option>
+                    <option value=0 id = "nobooking">No</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="have_issue">Does the car have issue?  </label>
                 <select id="have_issue" name="have_issue">
-                    <option value=1>Yes</option>
-                    <option value=0>No</option>
+                    <option value=1 id = "issue">Yes</option>
+                    <option value=0 id = "noissue">No</option>
                 </select>
             </div>
             <button class="btn btn-primary" type="submit">Submit</button>
         </form>
       
     </div>
+    <script>
+        var booked = '{{ data.booked }}';
+        var have_issue = '{{ data.have_issue }}';
+        if (booked == False){
+            document.getElementById("nobooking").setAttribute("selected","selected");
+        }
+        else {
+            document.getElementById("havebooking").setAttribute("selected", "selected");
+        }
+        if (have_issue == False){
+            document.getElementById("noissue").setAttribute("selected", "selected");
+        }
+        else{
+            document.getElementById("issue").setAttribute("selected", "selected");
+        }
+    </script>
 {% endblock %}
