@@ -376,36 +376,45 @@ class Menu:
 
 
     def QRScan(self):
-
         """
-        This function will be developed by Fahim for scanning QR code
+        This function will be for recording the Engineer's info by scanning his QR code
+
+        This function is triggered from Menu.bluetoothScan() when the Engineer indicate that he has finished repairing the car (by pressing 0 on the AP)
+
+        The general steps are:
+        - Initializing the CSV file to store the Engineer's info (barcodes.csv)
+        - Loop over frames from the video file stream, detect QR code and decode the strings in the code
+        - Selecting the QR code type (text)
+        - Display the text around the scanned QR code in the frame
+        - Write the timestamp and barcode to to our CSV file
+        - Press 's'
         """
         print("To Engineer, please present your QR code to record your visit")
-        #vs = VideoStream(src=0).start()  #Uncomment this if testing with laptop Webcam
+        #vs = VideoStream(src=0).start()  # Uncomment this if testing with laptop Webcam
         vs = VideoStream(usePiCamera=True).start()  # For Starting stream of Pi Camera
         time.sleep(2.0)
-        csv = open("barcodes.csv", "w")         #initializing the csv file for storing QR codes
+        csv = open("barcodes.csv", "w")         # Initializing the csv file for storing QR codes
 
-        found = set()                   #Setting the found variable
+        found = set()                   # Setting the found variable
 
         while True:
             frame = vs.read()
 
 
-            frame = imutils.resize(frame, width=400)    #Reading a frame and resizing it
-            barcodes = pyzbar.decode(frame)             #Decoding the frame to extract QR Code
+            frame = imutils.resize(frame, width=400)    # Reading a frame and resizing it
+            barcodes = pyzbar.decode(frame)             # Decoding the frame to extract QR Code
 
             for barcode in barcodes:
-                (x, y, w, h) = barcode.rect             #Drawing rectangle around the QR Code
+                (x, y, w, h) = barcode.rect             # Drawing rectangle around the QR Code
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
-                barcodeData = barcode.data.decode("utf-8")          #Decoding the strings in QR code to UTF-8
+                barcodeData = barcode.data.decode("utf-8")          # Decoding the strings in QR code to UTF-8
                 barcodeType = barcode.type
 
                
-                text = "{} ({})".format(barcodeData, barcodeType)   #Selecting the QR Code type i.e text in our case
+                text = "{} ({})".format(barcodeData, barcodeType)   # Selecting the QR Code type i.e text in our case
                 print(text)
                 cv2.putText(frame, text, (x, y - 10),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)      #Displaying Text around the scanned QR Code in frame
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)      # Displaying Text around the scanned QR Code in frame
 
                 # if the barcode text is currently not in our CSV file, write
                 # the timestamp + barcode to disk and update the set
@@ -415,7 +424,7 @@ class Menu:
                     csv.flush()
                     found.add(barcodeData)
 
-            cv2.imshow("Barcode Reader", frame)             #Showing the frame in the seperate window
+            cv2.imshow("Barcode Reader", frame)             # Showing the frame in the seperate window
             key = cv2.waitKey(1) & 0xFF
 
             # if the `s` key is pressed, break from the loop
@@ -423,8 +432,8 @@ class Menu:
                 break
 
         print("[INFO] cleaning up...")
-        csv.close()                             #Closing the CSV file that we opened for editing
-        cv2.destroyAllWindows()                 #Destroying all windows
+        csv.close()                             # Closing the CSV file that we opened for editing
+        cv2.destroyAllWindows()                 # Destroying all windows
         vs.stop()
 
 
