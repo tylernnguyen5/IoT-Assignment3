@@ -123,7 +123,7 @@ class ClientTCP:
         print("Done.")
         print()
     
-    
+    # New function for A3
     def getTrustedDeviceAddresses(self):
         """This function is triggered when the Engineer chooses to unlock the car with Bluetooth via menu.py.
         This will send a request to the TCP server get a list of trusted Bluetooth MAC addresses for Engineers' devices.

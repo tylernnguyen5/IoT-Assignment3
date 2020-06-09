@@ -3,13 +3,6 @@ import bluetooth
 import os
 import time
 
-
-# user_name = input("Enter your name: ")
-# device_name = input("Enter the name of your phone: ")
-# user_name = "Tyler"
-# device_name = "KD-55X8500D"     # MAC Address
-
-
 # Discover devices via Bluetooth
 def main():
     """

@@ -666,10 +666,11 @@ def apLogin():
 @api.route("/history", methods = ["GET"])
 def getAllHistories():
     """
-    This will be used to display all rental history on Admin's Home page
+    This will be used to display all rental history on Admin's Home page.
+    This endpoint will return all data in the History table on the cloud database
 
-    NOTES:  update the home_admin.html with a list of all rental histories 
-        OR  create all_histories.html for the admin to view all rental histories
+    Returns:
+        JSON -- All histories in the History table
     """
 
     histories = History.query.all()
@@ -688,8 +689,12 @@ def userSearch():
         - A query with OR conditions will be executed to find the filtered users
         - The result will be displayed in User Search Result page
 
+    For GET request: this endpoint will render the User Search page.
 
-    NOTES: user_search.html is similar to car_search.html
+    For POST request: this endpoint will render the User Search Result page after running the query with the data specified from the form.
+
+    Returns:
+        HTML -- The User Search page or the User Search Result page based on the request
     """
     # POST method
     if request.method=="POST":
@@ -721,16 +726,29 @@ def userSearch():
 @api.route("/car/update/<car_id>", methods = ["GET","POST"])
 def updateCarInfo(car_id):
     """
-    - When the Admin have searched and selected the right car that he wants to edit the info (from the Car Search Result page), he will be redirect to this endpoint.
+    For GET request: 
+    
+        - This endpoint will render the Update Car Info page
 
-    - This endpoint will display a form with the data of the car selected from the previous page fetched in.
+        - When the Admin have searched and selected the right car that he wants to edit the info (from the Car Search Result page), he will be redirect to this endpoint.
 
-    - The admin will edit the fields and submit the form to finalize the car info.
+        - This endpoint will display a form with the data of the car selected from the previous page fetched in.
+
+        - The admin will edit the fields and submit the form to finalize the car info.
 
 
-    NOTES: update the car_search_result.html to have a EDIT button for each shown car. That button will redirect the Admin to this endpoint 
+    For POST request: 
+
+        - This endpoint will get the update data from the form
+
+        - A query to find the car with the right Car ID will be exceuted
+
+        - If the car with the right ID is found, update will be applied and redirect the user to the Home page
+
+    Returns:
+        HTML -- The Update Car Info page
     """
-    # PUT method
+    # POST method
     if request.method == "POST":
         make            = request.form.get("make")
         body_type       = request.form.get("body_type")
@@ -779,14 +797,27 @@ def updateCarInfo(car_id):
 @api.route("/user/update/<user_id>", methods = ["GET","POST"])
 def updateUserInfo(user_id):
     """
-    - When the Admin have searched and selected the right user that he wants to edit the info (from the User Search Result page), he will be redirect to this endpoint.
+    For GET request: 
+    
+        - This endpoint will render the Update User Info page
 
-    - This endpoint will display a form with the data of the user selected from the previous page fetched in.
+        - When the Admin have searched and selected the right user that he wants to edit the info (from the User Search Result page), he will be redirect to this endpoint.
 
-    - The admin will edit the fields and submit the form to finalize the user info.
+        - This endpoint will display a form with the data of the user selected from the previous page fetched in.
+
+        - The admin will edit the fields and submit the form to finalize the user info.
 
 
-    NOTES: update the user_search_result.html to have a EDIT button for each shown user. That button will redirect the Admin to this endpoint 
+    For POST request: 
+
+        - This endpoint will get the update data from the form
+
+        - A query to find the user with the right User ID will be exceuted
+
+        - If the user with the right ID is found, update will be applied and redirect the user to the Home page
+
+    Returns:
+        HTML -- The Update User Info page
     """
     # PUT method
     if request.method=="POST":
@@ -795,7 +826,7 @@ def updateUserInfo(user_id):
         fname       = request.form.get("fname")
         lname       = request.form.get("lname")
         role        = request.form.get("role")
-        # device      = request.form.get("device")
+        device      = request.form.get("device")
 
         # Query to find the user with the right user ID 
         user = db.session.query(User).filter_by(id = user_id).first()
@@ -808,7 +839,7 @@ def updateUserInfo(user_id):
             user.fname       = fname
             user.lname       = lname
             user.role        = role
-            # user.device      = device
+            user.device      = device
 
             # Commit changes
             db.session.commit()
@@ -833,9 +864,12 @@ def updateUserInfo(user_id):
 @api.route("/car/issue", methods = ["GET"])
 def showIssueCars():
     """
-    This function will access Cars table to retrieve rows with have_issue column set to True.
+    This endpoint will access Cars table to retrieve rows with have_issue column that are set to True.
 
     These rows will be showed on the Home page for Engineer.
+
+    Returns:
+        JSON -- All cars in the Cars table with issue
     """
     cars = Car.query.filter_by(have_issue = True).all()
 
@@ -895,13 +929,16 @@ def carVoiceSearch():
 
 
 # NOT TESTED!
-# Report issue function
-# Endpoint for the admin to report cars in the admin home page
+# Endpoint for the admin to report cars
 @api.route("/car/report/<car_id>", methods = ["POST","GET"])
 def reportCar(car_id):
     """
-    This endpoints will execute when the 'report' button in the admin home page is clicked and will use the car id got from that row of data to retrieve the car and set the 
-    have_issue argument from 0 to 1
+    VINH'S TODO: update your docs
+
+    This endpoints will execute when the 'Report' button in the Report Issue Car page is clicked.
+
+    It will use the Car ID got from that row of data to retrieve the car and set the 
+    have_issue argument from 0 to 1 (False to True).
     """
     # POST method
     if request.method == 'POST':
@@ -917,6 +954,7 @@ def reportCar(car_id):
         # Commit changes
         db.session.commit()
         flash("Reported issue")
+
         #Send notification to Engineer Phone
         message1 = "Issue with car number {}: ".format(car_id)
         message2 = request.form.get("issue_description")
@@ -934,7 +972,6 @@ def reportCar(car_id):
         return redirect(url_for('site.homePage'))
         
     # GET method
-
     return render_template('car_report_issue.html', car_id = car_id)
   
 
@@ -943,7 +980,7 @@ def reportCar(car_id):
 @api.route("/user/engineer/device", methods = ["GET"])
 def getMACs():
     """
-    This function will access Users table to retrieve the trusted Bluetooth MAC addresses of the Engineers (from the 'device' column).
+    This endpoint will access Users table to retrieve the trusted Bluetooth MAC addresses of the Engineers (from the 'device' column).
 
      Returns:
         list of str -- A list of Engineers' trusted Bluetooth MAC addresses
@@ -961,7 +998,10 @@ def getMACs():
 @api.route("/car/all", methods = ["GET"])
 def getAllCars():
     """
-    All cars will be returned from the Cars table
+    This endpoint will access Cars table to retrieve all rows.
+
+     Returns:
+        JSON -- All cars in the Cars table   
     """
 
     cars = Car.query.all()
@@ -970,14 +1010,24 @@ def getAllCars():
 
     return jsonify(result)
 
+
 # Endpoint to search for cars of Admin
 @api.route("/car/search_admin", methods = ["GET", "POST"])
 def carSearchAdmin():
     """
+
+    For GET request: this endpoint will render the Car Search page.
+
+    For POST request: this endpoint will render the Car Search Result page after running the query with the data specified from the form.
+    
     To search for cars:
         - Filters will be declared from form data
         - A query with OR conditions will be executed to find the filtered cars
-        - The result will be displayed in Car Search Result page
+        - The result will be displayed on the page
+
+    Returns:
+        HTML -- The Update Car Info page
+
     """
 
     if request.method=="POST":

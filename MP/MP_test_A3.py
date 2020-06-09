@@ -164,7 +164,6 @@ class MasterPiTest(unittest.TestCase):
         fname = "Thach"
         lname = "Nguyen" 
         role = "Admin"
-        # device = 
 
         user = db.session.query(User).filter_by(id = _id).first()
 

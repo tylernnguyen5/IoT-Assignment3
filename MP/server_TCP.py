@@ -87,7 +87,7 @@ def lockCar(user_id, car_id):
     elif response.status_code == 404:
         return None # No string is returned
 
-
+# New function for A3
 def getMACs():
     """This function will make a request to get a list of the Engineers' Bluetooth MAC addresses so that it can be sent to the Agent Pi for scanning and automatically unlocking the car.
     This function will trigger flask_api.getMACs().

@@ -306,7 +306,7 @@ class Menu:
         """
         This function will start scanning for nearby Bluetooth devices every 3 seconds.
         
-        A list of trusted devices' MAC addresses of the Carshare Engineers is requested from the TCP server when this function is triggered.
+        A list of trusted devices' MAC addresses of the Carshare Engineers is requested from the TCP server when this function is triggered (ClientTCP.getTrustedDeviceAddresses()).
         
         Therefore, when one Engineer comes near the car and choose Option 3 from Menu 1, it will unlock automatically.
         
@@ -346,7 +346,7 @@ class Menu:
                 nearby_devices = bluetooth.discover_devices()   # This returns a list of MAC addresses discovered
 
                 for mac_address in nearby_devices:
-                    if mac_address == trustedDevice:
+                    if mac_address == trustedDevice: # If the Engineer's device is found, connect and get the device name for prompting
                         found = True
 
                         print()
