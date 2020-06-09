@@ -12,6 +12,8 @@ import time
 import cv2
 import os
 import bluetooth
+import datetime
+import pyzbar
 
 class Menu:
     """This class consists of 2 menus. One for logging in and the other one is for unlock/lock the car.
@@ -374,12 +376,56 @@ class Menu:
 
 
     def QRScan(self):
+
         """
         This function will be developed by Fahim for scanning QR code
         """
         print("To Engineer, please present your QR code to record your visit")
+        #vs = VideoStream(src=0).start()  #Uncomment this if testing with laptop Webcam
+        vs = VideoStream(usePiCamera=True).start()  # For Starting stream of Pi Camera
+        time.sleep(2.0)
+        csv = open("barcodes.csv", "w")         #initializing the csv file for storing QR codes
 
-        print("TODO: Obtaining info from QR code goes here")
+        found = set()                   #Setting the found variable
+
+        while True:
+            frame = vs.read()
+
+
+            frame = imutils.resize(frame, width=400)    #Reading a frame and resizing it
+            barcodes = pyzbar.decode(frame)             #Decoding the frame to extract QR Code
+
+            for barcode in barcodes:
+                (x, y, w, h) = barcode.rect             #Drawing rectangle around the QR Code
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+                barcodeData = barcode.data.decode("utf-8")          #Decoding the strings in QR code to UTF-8
+                barcodeType = barcode.type
+
+               
+                text = "{} ({})".format(barcodeData, barcodeType)   #Selecting the QR Code type i.e text in our case
+                print(text)
+                cv2.putText(frame, text, (x, y - 10),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)      #Displaying Text around the scanned QR Code in frame
+
+                # if the barcode text is currently not in our CSV file, write
+                # the timestamp + barcode to disk and update the set
+                if barcodeData not in found:
+                    csv.write("{},{}\n".format(datetime.datetime.now(),
+                                               barcodeData))
+                    csv.flush()
+                    found.add(barcodeData)
+
+            cv2.imshow("Barcode Reader", frame)             #Showing the frame in the seperate window
+            key = cv2.waitKey(1) & 0xFF
+
+            # if the `s` key is pressed, break from the loop
+            if key == ord("s"):
+                break
+
+        print("[INFO] cleaning up...")
+        csv.close()                             #Closing the CSV file that we opened for editing
+        cv2.destroyAllWindows()                 #Destroying all windows
+        vs.stop()
 
 
 
