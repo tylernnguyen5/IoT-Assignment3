@@ -878,11 +878,10 @@ def showIssueCars():
 
 # NOT TESTED (waiting on templates/other implementation)
 # Endpoint to search for cars using VOICE RECOGNITION
-@api.route("/car/search/voice", methods = ["GET", "POST"])
+@api.route("/car/search/voice", methods = ["POST"])
 def carVoiceSearch():
     """
     To search for cars with voice recognition:
-        - The Admin will be asked to say some keywords
         - The keywords will be added to the input field after recorded
         - The keywords field with be submitted using a POST method
         - The string of keywords will then be splited and each keyword will be searched in the database 
@@ -920,11 +919,7 @@ def carVoiceSearch():
         
         result = cars_schema.dump(filtered)
 
-        #TODO: change to jsonify
-        return render_template('car_search_result.html', data = result)
-
-    # GET method
-    return render_template('car_search_voice.html')
+        return jsonify(result)
 
 
 
