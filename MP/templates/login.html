@@ -28,6 +28,7 @@
                     <input
                             type="text"
                             name="username"
+                            title="Username must contain between 8 to 15 characters, only UPPER/lowercase, number and hyphen allowed"
                             class="form-control"
                             pattern="^(?=.*[a-zA-Z0-9_]).{8,15}$"
                             onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');"
@@ -40,6 +41,7 @@
                     <input
                             type="password"
                             name="password"
+                            title="Password must contain at least 8 characters, including UPPER/lowercase, numbers and special characters"
                             pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$"
                             onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');"
                             class="form-control"

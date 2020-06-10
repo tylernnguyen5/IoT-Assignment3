@@ -401,7 +401,6 @@ def carSearch():
                                                 Car.have_issue      == have_issue)).all()
         
         result = cars_schema.dump(cars)
-
         return render_template('car_search_result.html', cars = result)
 
     return render_template('car_search.html')
@@ -933,12 +932,19 @@ def carVoiceSearch():
 @api.route("/car/report/<car_id>", methods = ["POST","GET"])
 def reportCar(car_id):
     """
-    VINH'S TODO: update your docs
-
     This endpoints will execute when the 'Report' button in the Report Issue Car page is clicked.
-
     It will use the Car ID got from that row of data to retrieve the car and set the 
-    have_issue argument from 0 to 1 (False to True).
+    have_issue argument from 0 to 1 (False to True) and doesn't change anything when the have_issue argument is already True.
+
+    - Argument: int - car_id
+
+    For GET request: This endpoint will render the page Car Report Issue.
+
+    For POST request: This endpoint update the have_issue attribute for the car that as car_id matching the argument, then it will send push notification to Engineer phone via Push buttlet with defined ACCESS TOKEN then return to Admin Home Page.
+
+     Returns:
+        HTML -- Report Car Page or Admin Home Page
+
     """
     # POST method
     if request.method == 'POST':
@@ -1016,7 +1022,7 @@ def getAllCars():
 def carSearchAdmin():
     """
 
-    For GET request: this endpoint will render the Car Search page.
+    For GET request: this endpoint will render the Car Search page for Admin.
 
     For POST request: this endpoint will render the Car Search Result page after running the query with the data specified from the form.
     

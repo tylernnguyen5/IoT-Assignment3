@@ -21,14 +21,14 @@
 {% block content %}
     <div class="container">
         <br>
-        <h1>Engineer Home Page</h1>
+        <h1 class="text-center mb-4 text-info">Engineer Home Page</h1>
         {% with username = session['username'] %}
-                <h2>Welcome, {{ username }}</h2>
+                <h2 class="text-secondary">Welcome, {{ username }}</h2>
         {% endwith %}
 
-        <h2>Reported Cars:</h2>
+        <h2 class="text-center">Reported Cars:</h2>
 
-        <table>
+        <table class="table table-responsive">
             <tr>
                 <th>&emsp;&emsp;ID&emsp;</th>
                 <th>Make&emsp;&emsp;&emsp;</th>

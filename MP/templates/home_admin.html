@@ -1,5 +1,6 @@
 {% extends "bootstrap/base.html" %}
 {% block title %}Home Page for Admin{% endblock %}
+<link rel="stylesheet" href="/static/style.css">
 {% block navbar %}
 
 <head>
@@ -24,25 +25,25 @@
 <body class="text-centered">
     <div class="container">
         <br>
-        <h1>Admin Home Page</h1>
+        <h1 class="text-center mb-4 text-info">Admin Home Page</h1>
         {% with username = session['username'] %}
-        <h2>Welcome, {{ username }}</h2>
+        <h3 class="text-secondary">Welcome, {{ username }}</h3>
         {% endwith %}
         <div class="container">
             <div class="row">
-                <h2>Click the buttons to operate adminitration</h2>
+                <h3 class="text-success">Click the buttons to operate adminitration</h3>
                 <br>
 
             </div>
             <div class="row">
                 <div class="col-sm-2">
-                    <p class="text-center">Search For Car(s)</p>
-                    <button class="btn btn-info btn-block" type="submit" onClick="window.location='/car/search_admin'">Search
+                    <p class="text-center">Search For Car</p>
+                    <button class="btn btn-primary btn-block" type="submit" onClick="window.location='/car/search_admin'">Search
                     </button>
                 </div>
                 <div class="col-sm-2">
-                    <p class="text-center">Search For Car(s) By Voice</p>
-                    <button class="btn btn-info btn-block" type="submit" onClick="window.location='/car/search/voice'">Search
+                    <p class="text-center">Search For Car By Voice</p>
+                    <button class="btn btn-primary btn-block" type="submit" onClick="window.location='/car/search/voice'">Search
                     </button>
                 </div>
                 <div class="col-sm-2">
@@ -58,11 +59,11 @@
                 </div>
             </div>
             <br>
-        <div class="row">
-            <h2>
+        <div class="row justify-content-center col-auto">
+            <h2 class="text-center">
                 All cars: <br>
             </h2>
-            <table>
+            <table class="table table-responsive">
                 <tr>
                     <th>&emsp;&emsp;ID&emsp;</th>
                     <th>Make&emsp;&emsp;&emsp;</th>
@@ -92,11 +93,8 @@
                 </tr>
                 {% endfor %}
             </table>
-
         </div>
         </div>
-
-
     </div>
 </body>
 {% endblock %}
