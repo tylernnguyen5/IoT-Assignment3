@@ -882,12 +882,11 @@ def showIssueCars():
 def carVoiceSearch():
     """
     To search for cars with voice recognition:
-        - The keywords will be added to the input field after recorded
-        - The keywords field with be submitted using a POST method
+        - The keywords will be submitted using a POST method
         - The string of keywords will then be splited and each keyword will be searched in the database 
         - For each row found with the keyword, it will be added to a list called 'found'
         - After searching for all the keywords, the 'found' list will be filtered to remove duplicating rows
-        - After filtered, the result will be shown in Car Search Result page
+        - After filtered, the result will be returned in a jsonified object
     """
     # POST method
     if request.method=="POST":
