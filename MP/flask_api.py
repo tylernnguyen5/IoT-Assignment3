@@ -921,7 +921,6 @@ def carVoiceSearch():
         return jsonify(result)
 
 
-
 # NOT TESTED!
 # Endpoint for the admin to report cars
 @api.route("/car/report/<car_id>", methods = ["POST","GET"])

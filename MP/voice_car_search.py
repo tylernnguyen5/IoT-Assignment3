@@ -1,5 +1,6 @@
 # Requires PyAudio and PySpeech.
 import speech_recognition as sr
+import json, requests
 
 class Speech_Recognition:
     def main(self):
@@ -20,8 +21,21 @@ class Speech_Recognition:
                 except sr.RequestError as e:    #If there was a connectivity issue in sending request to Google Speech Recognition Service
                     print("Could not request results from Google Speech Recognition service; {0}".format(e))
 
-            post_request = r.recognize_google(audio)       #Printing the conveted Text
-            print(post_request)
+            keywords = r.recognize_google(audio)       #Printing the conveted Text
+            print(keywords)
+
+            # # Make a search request with the recorded keywords to the API
+            # data = {
+            #     "keywords" : keywords
+            # }
+
+            # response = requests.post("http://127.0.0.1:5000/car/search/voice", data)
+
+            # # Examine the response from the API
+            # if response.status_code == 200:
+            #     print(response.text) # Return a jsonified objects of cars
+            # elif response.status_code == 404:
+            #     print("[ERROR] Nothing was returened")
 
         #REMOVE WHILE LOOP FOR DOING SPEECH RECOGNITION ONCE
 
