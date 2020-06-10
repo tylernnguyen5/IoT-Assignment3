@@ -96,7 +96,7 @@ def getMACs():
     Returns:
         list of str -- A list of Engineers' trusted Bluetooth MAC addresses
     """
-    repsonse = requests.get("http://127.0.0.1:5000/user/engineer/device")
+    response = requests.get("http://127.0.0.1:5000/user/engineer/device")
 
 
     # Examine the response from the API

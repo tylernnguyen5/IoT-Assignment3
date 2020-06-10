@@ -920,6 +920,7 @@ def carVoiceSearch():
         
         result = cars_schema.dump(filtered)
 
+        #TODO: change to jsonify
         return render_template('car_search_result.html', data = result)
 
     # GET method

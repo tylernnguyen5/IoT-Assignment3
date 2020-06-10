@@ -300,9 +300,9 @@ class Menu:
 
         return detected_id
 
-# ===================================================================================
+    # ===================================================================================
 
-# Most of new changes for A3 go below
+    # Most of new changes for A3 go below
 
     def bluetoothScan(self):
         """
@@ -322,16 +322,13 @@ class Menu:
         print("Starting Bluetooth Discovering Mode...")
 
         # List of  devices' MAC addresses
-        trustedDevices = ["94:53:30:92:B9:90", "F4:7D:EF:10:68:6B"]
+        # trustedDevices = ["F4:7D:EF:10:68:6B", "24:5A:B5:8A:89:67"]
 
         # TODO: need a 2nd Pi to test
-        # trustedDevices = ClientTCP.getTrustedDeviceAddresses().split()
+        trustedDevices = self.clientTCP.getTrustedDeviceAddresses().split()
 
         # Demo TV - KD-55X8500D
         # 94:53:30:92:B9:90
-
-        # Demo Android phone
-        # F4:7D:EF:10:68:6B
 
         # Vinh's phone
         # 24:5A:B5:8A:89:67
