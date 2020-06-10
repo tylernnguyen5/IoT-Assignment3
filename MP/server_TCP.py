@@ -170,10 +170,18 @@ if __name__ == '__main__':
                     # For message with bluetooth tag
                     elif (tag == "bluetooth"):                     
                         # Trigger the right function to send request
-                        reply = getMACs() # list of MAC addresses
+                        addresses = getMACs() # list of MAC addresses
 
-                        # Convert list to str
-                        reply = " ".join(reply)
+                        if addresses is not None:
+                            # Convert list to str
+                            reply = " " 
+
+                            reply = reply.join(addresses)
+
+                        # if addresses is not None:
+                        #     # Convert list to str
+                        #     for addr in addresses:
+                        #         reply += addr + " "
 
                     if reply is not None:
                         print("Sending reply.")
