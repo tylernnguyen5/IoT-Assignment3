@@ -12,10 +12,10 @@ from flask_api import api, db, User, Booking, Car, History
 # The set up vairables for the test cases app and Google SQL access
 app = Flask(__name__)
 
-HOST="35.201.22.170"
-USER="root"
-PASSWORD="password"
-DATABASE="CarshareTest"
+HOST= "35.201.22.170"
+USER= "root"
+PASSWORD= "password"
+DATABASE= "Carshare2"
 
 class MasterPiTest(unittest.TestCase):
     """
@@ -185,21 +185,68 @@ class MasterPiTest(unittest.TestCase):
 
     def test_view_issue_cars(self):
         """
-        This test will check if the test database finds right number of cars with issue and that the query used get the right of records in Histories table in the test database.
+        This will test the query used in flask_api.showIssueCars() to see whether the query return the right number of cars with issue in the Cars table.
 
         There are 2 cars with issue in Cars table in the test database.
 
-        Assertion: the number of cars with issue in Cars table from the query used flask_api.showIssueCars()
+        Assertion: the number of cars with issue in Cars table 
         """
 
         count = Car.query.filter_by(have_issue = 1).count()
 
         self.assertEqual(count, 2)  # Only car 9 and 10 have issue
 
-    # TODO: Fahim's
-    def test_search_car_with_voice(self):
-        pass
+    
+    def test_car_voice_search(self):
+        """
+        This will test the logic that we use for flask_api.carVoiceSearch()
 
+        It will split a string into a list of keywords then run a query to find any cars with those keywords in every column in the Cars table.
+
+        The search string: "Blue SUV Honda"
+
+        There are: 
+
+        - 2 blue cars
+
+        - 4 SUV cars
+
+        - 4 Honda cars
+
+        After removing duplication, the result should return 6 cars.
+
+        Assertion: the number of cars with issue in Cars table
+        """
+        # Retrieve string of keywords
+        keywords = "Blue SUV Honda"
+
+        # Split the string into a [list] of keywords
+        _list = keywords.split()
+
+         # For each keyword, search in every column in the Car table
+        for keyword in _list:
+            cars = db.session.query(Car).filter(or_(Car.make            == keyword, 
+                                                    Car.body_type       == keyword,
+                                                    Car.colour          == keyword,
+                                                    Car.seats           == keyword,
+                                                    Car.location        == keyword,
+                                                    Car.cost_per_hour   == keyword,
+                                                    Car.booked          == keyword,
+                                                    Car.have_issue      == keyword)).all()
+            
+            for car in cars: # For each row found
+                found = [] # Empty list
+
+                # Add found rows into the list
+                found.append(car)
+
+             # After searching for all the keywords, remove duplication from the list
+            filtered = list(set(found))
+
+            # Assertion
+            self.assertEqual(filtered.len, 6)
+
+        
 
     def test_report_car(self):
         """

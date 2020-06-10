@@ -43,33 +43,33 @@
                 Email: 
                 <input
                         type="text"
+                        id="email"
                         name="email"
                         class="form-control"
                         value= "{{ data.email }}"
                         placeholder= "{{ data.email }}"
-                        required
                 />
             </div>
             <div class="form-group">
                 Full Name:
                 <input
                         type="text"
+                        id="fname"
                         name="fname"
                         class="form-control"
                         value= "{{ data.fname }}"
                         placeholder= "{{ data.fname }}"
-                        required
                 />
             </div>
             <div class="form-group">
                 Last name:
                 <input
                         type="text"
+                        id="lname"
                         name="lname"
                         class="form-control"
                         value= "{{ data.lname }}"
                         placeholder= "{{ data.lname }}"
-                        required
                 />
             </div>
             <div class="form-group">
@@ -80,25 +80,6 @@
                         class="form-control"
                         required
                 >
-                <script>
-                    var user_role = '{{ data.role }}';
-                    switch(user_role){
-                        case "Admin":
-                            document.getElementById("admin").setAttribute("selected", True);
-                            break;
-                        case "Customer":
-                            document.getElementById("customer").setAttribute("selected", True);
-                            break;
-                        case "Engineer":
-                            document.getElementById("engineer").setAttribute("selected", True);
-                            break;
-                        case "Manager":
-                            document.getElementById("manager").setAttribute("selected", True);
-                            break;
-                    }
-
-
-                </script>
                     <optgroup>
                         <option id="admin" value="Admin">Admin</option>
                         <option id="customer" value="Customer">Customer</option>
@@ -107,7 +88,18 @@
                     </optgroup>
                 </select>
             </div>
-            <button class="btn btn-primary" type="submit">Submit</button>
+            <div class="form-group">
+                Bluetooth Device:
+                <input
+                        type="text"
+                        id="device"
+                        name="device"
+                        class="form-control"
+                        value= "{{ data.device }}"
+                        placeholder= "{{ data.device }}"
+                />
+            </div>
+            <button class="btn btn-primary" type="submit" onclick=validateForm()>Submit</button>
         </form>
       
     </div>
@@ -127,6 +119,21 @@
             case "Manager":
                 document.getElementById("manager").setAttribute("selected", "selected");
                 break;
+        }
+    </script>
+    <script>
+        function validateForm() {
+            if (document.getElementById("email").value == "") {
+                document.getElementById("email").value = "UNSPECIFIED";
+            };
+
+            if (document.getElementById("fname").value == "") {
+                document.getElementById("fname").value = "UNSPECIFIED";
+            };
+
+            if (document.getElementById("lname").value == "") {
+                document.getElementById("lname").value = "UNSPECIFIED";
+            };
         }
     </script>
 {% endblock %}

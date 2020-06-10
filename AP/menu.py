@@ -333,6 +333,9 @@ class Menu:
         # Demo Android phone
         # F4:7D:EF:10:68:6B
 
+        # Vinh's phone
+        # 24:5A:B5:8A:89:67
+
 
         # Create a loop to scan for devices for every 3 seconds
         while True:

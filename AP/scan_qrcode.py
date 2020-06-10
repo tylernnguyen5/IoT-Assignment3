@@ -20,7 +20,6 @@ class Test(unittest.TestCase):
                 print("Invalid input - please try again.")
                 self.assertTrue(selection == '0')             #Assertion Error for invalid input
     def QRScan(self):
-
         """
         This function will be developed by Fahim for scanning QR code
         """
