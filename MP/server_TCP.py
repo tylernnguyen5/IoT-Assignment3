@@ -2,6 +2,7 @@
 
 import socket
 import requests
+import json
 
 def loginWithCredentials(username, password):
     """After the credentials are sent from the Agent Pi via TCP socket. The TCP server will trigger this function to log the user in via Flask API.
@@ -170,18 +171,18 @@ if __name__ == '__main__':
                     # For message with bluetooth tag
                     elif (tag == "bluetooth"):                     
                         # Trigger the right function to send request
-                        addresses = getMACs() # list of MAC addresses
-
-                        if addresses is not None:
-                            # Convert list to str
-                            reply = " " 
-
-                            reply = reply.join(addresses)
+                        addresses = json.loads(getMACs()) # list of MAC addresses
 
                         # if addresses is not None:
                         #     # Convert list to str
-                        #     for addr in addresses:
-                        #         reply += addr + " "
+                        #     reply = " " 
+
+                        #     reply = reply.join(addresses)
+
+                        if addresses is not None:
+                            # Convert list to str
+                            for addr in addresses:
+                                reply += addr + " "
 
                     if reply is not None:
                         print("Sending reply.")

@@ -997,7 +997,7 @@ def getMACs():
     if users is not None:
         addresses = [usr.device for usr in users]   # Get the device addresses and put them in a list
 
-        return addresses
+        return json.dumps(addresses)
     else: return None
 
 
