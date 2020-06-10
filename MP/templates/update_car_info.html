@@ -1,5 +1,5 @@
 {% extends "bootstrap/base.html" %}
-{% block title %}Update Car Infor{% endblock %}
+{% block title %}Update Car Info{% endblock %}
 
 {% block navbar %}
     <nav class="navbar navbar-default">
@@ -28,65 +28,73 @@
                         required
                 />
             </div>
+
             <div class="form-group">
                 Make: <input
                         type="text"
+                        id="make"
                         name="make"
                         class="form-control"
-                        placeholder= "{{ data.make }}"
                         value= "{{ data.make }}"
-                        required
+                        placeholder= "{{ data.make }}"
                 />
             </div>
+
             <div class="form-group">
                 Body Type: <input
                         type="text"
+                        id="body_type"
                         name="body_type"
                         class="form-control"
                         value= "{{ data.body_type }}"
                         placeholder= "{{ data.body_type }}"
-                        required
                 />
             </div>
             <div class="form-group">
                 Colour: <input
                         type="text"
+                        id="colour"
                         name="colour"
                         class="form-control"
                         value= "{{ data.colour }}"
                         placeholder= "{{ data.colour }}"
-                        required
                 />
             </div>
+
             <div class="form-group">
                 Number of Seats: <input
                         type="number"
+                        id="seats"
                         name="seats"
                         class="form-control"
                         value= "{{ data.seats }}"
                         placeholder= "{{ data.seats }}"
-                        required
                 />
             </div>
+
             <div class="form-group">
                 Location: <input
+                        type="text"
+                        id="location"
                         name="location"
                         class="form-control"
                         value= "{{ data.location }}"
                         placeholder= "{{ data.location }}"
-                        required
                 />
             </div>
+
             <div class="form-group">
                 Cost per Hour: <input
-                        type="text"
+                        type="number"
+                        step="0.01"
+                        id="cost_per_hour"
                         name="cost_per_hour"
                         class="form-control"
                         value= "{{ data.cost_per_hour}}"
                         placeholder= "{{ data.cost_per_hour}}"
-                        required
                 />
             </div>
+
             <div class="form-group">
                 <label for="booked">Is the car booked?  </label>
                 <select id="booked" name="booked">
@@ -94,6 +102,7 @@
                     <option id="nobooking" value=0>No</option>
                 </select>
             </div>
+
             <div class="form-group">
                 <label for="have_issue">Does the car have issue?  </label>
                 <select id="have_issue" name="have_issue">
@@ -101,7 +110,7 @@
                     <option id="noissue" value=0>No</option>
                 </select>
             </div>
-            <button class="btn btn-primary" type="submit">Submit</button>
+            <button class="btn btn-primary" type="submit" onclick=validateForm() >Submit</button>
         </form>
       
     </div>
@@ -120,6 +129,33 @@
         }
         else{
             document.getElementById("issue").setAttribute("selected", "selected");
+        }
+    </script>
+    <script>
+        function validateForm() {
+            if (document.getElementById("make").value == "") {
+                document.getElementById("make").value = "UNSPECIFIED";
+            };
+
+            if (document.getElementById("body_type").value == "") {
+                document.getElementById("body_type").value = "UNSPECIFIED";
+            };
+
+            if (document.getElementById("colour").value == "") {
+                document.getElementById("colour").value = "UNSPECIFIED";
+            };
+
+            if (document.getElementById("seats").value == "") {
+                document.getElementById("seats").value = 0;
+            };
+
+            if (document.getElementById("location").value == "") {
+                document.getElementById("location").value = "UNSPECIFIED";
+            };
+
+            if (document.getElementById("cost_per_hour").value == "") {
+                document.getElementById("cost_per_hour").value = 0;
+            };
         }
     </script>
 {% endblock %}

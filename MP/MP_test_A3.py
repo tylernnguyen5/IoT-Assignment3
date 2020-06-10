@@ -12,10 +12,10 @@ from flask_api import api, db, User, Booking, Car, History
 # The set up vairables for the test cases app and Google SQL access
 app = Flask(__name__)
 
-HOST="35.201.22.170"
-USER="root"
-PASSWORD="password"
-DATABASE="CarshareTest"
+HOST= "35.201.22.170"
+USER= "root"
+PASSWORD= "password"
+DATABASE= "Carshare2"
 
 class MasterPiTest(unittest.TestCase):
     """
