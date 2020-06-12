@@ -29,6 +29,7 @@ HOST= "35.201.22.170"
 USER= "root"
 PASSWORD= "password"
 DATABASE= "Carshare2"
+# DATABASE= "CarshareTest"
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://{}:{}@{}/{}".format(USER, PASSWORD, HOST, DATABASE)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True

@@ -878,7 +878,7 @@ def showIssueCars():
 
 # NOT TESTED (waiting on templates/other implementation)
 # Endpoint to search for cars using VOICE RECOGNITION
-@api.route("/car/search/voice", methods = ["POST"])
+@api.route("/car/search/voice", methods = ["GET", "POST"])
 def carVoiceSearch():
     """
     To search for cars with voice recognition:
@@ -896,6 +896,8 @@ def carVoiceSearch():
         # Split the string into a [list] of keywords
         _list = keywords.split()
 
+        found = [] # Empty list
+
         # For each keyword, search in every column in the Car table
         for keyword in _list:
             cars = db.session.query(Car).filter(or_(Car.make            == keyword, 
@@ -903,13 +905,9 @@ def carVoiceSearch():
                                                     Car.colour          == keyword,
                                                     Car.seats           == keyword,
                                                     Car.location        == keyword,
-                                                    Car.cost_per_hour   == keyword,
-                                                    Car.booked          == keyword,
-                                                    Car.have_issue      == keyword)).all()
+                                                    Car.cost_per_hour   == keyword)).all()
 
             for car in cars: # For each row found
-                found = [] # Empty list
-
                 # Add found rows into the list
                 found.append(car)
 
@@ -918,13 +916,15 @@ def carVoiceSearch():
         
         result = cars_schema.dump(filtered)
 
-        cars = jsonify(result)
+        # cars = jsonify(result)
+
         
         print("| Car ID | Make | Body Type | Colour | Seats | Location | Cost Per Hour | Booked | Having Issue")
-        for car in cars:
+        for car in filtered:
             row = "| {} | {} | {} | {} | {} | {} | {} | {} | {} |\n".format(car.id, car.make, car.body_type, car.colour, car.seats, car.location, car.cost_per_hour, car.booked, car.have_issue)
             print(row)
-        return render_template('car_search_result.html', data = result)
+        
+        return jsonify(result)
 
 
 

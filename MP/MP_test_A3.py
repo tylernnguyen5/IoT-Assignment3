@@ -15,7 +15,7 @@ app = Flask(__name__)
 HOST= "35.201.22.170"
 USER= "root"
 PASSWORD= "password"
-DATABASE= "Carshare2"
+DATABASE= "CarshareTest"
 
 class MasterPiTest(unittest.TestCase):
     """
@@ -223,28 +223,26 @@ class MasterPiTest(unittest.TestCase):
         # Split the string into a [list] of keywords
         _list = keywords.split()
 
-         # For each keyword, search in every column in the Car table
+        found = [] # Empty list
+
+        # For each keyword, search in every column in the Car table
         for keyword in _list:
             cars = db.session.query(Car).filter(or_(Car.make            == keyword, 
                                                     Car.body_type       == keyword,
                                                     Car.colour          == keyword,
                                                     Car.seats           == keyword,
                                                     Car.location        == keyword,
-                                                    Car.cost_per_hour   == keyword,
-                                                    Car.booked          == keyword,
-                                                    Car.have_issue      == keyword)).all()
+                                                    Car.cost_per_hour   == keyword)).all()
             
             for car in cars: # For each row found
-                found = [] # Empty list
-
                 # Add found rows into the list
                 found.append(car)
 
-             # After searching for all the keywords, remove duplication from the list
-            filtered = list(set(found))
-
-            # Assertion
-            self.assertEqual(filtered.len, 6)
+        # After searching for all the keywords, remove duplication from the list
+        filtered = list(set(found))
+            
+        # Assertion
+        self.assertEqual(len(filtered), 6)
 
         
 
