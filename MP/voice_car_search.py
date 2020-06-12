@@ -1,3 +1,5 @@
+# LD_PRELOAD=/usr/lib/arm-linux-gnueabihf/libatomic.so.1 python3 vocie_car_search.py
+
 # Requires PyAudio and PySpeech.
 import speech_recognition as sr
 import json, requests
