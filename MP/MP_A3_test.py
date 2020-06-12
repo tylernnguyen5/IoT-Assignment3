@@ -19,6 +19,8 @@ DATABASE= "CarshareTest"
 
 class MasterPiTest(unittest.TestCase):
     """
+    This modules contains the unit tests for the features that were implemented in Assignment 3 for part A and B
+
     Notes: These defined test cases within this module are only the functions that were implemented for Assignment 3
     """
 

@@ -3,6 +3,9 @@ import speech_recognition as sr
 import unittest
 
 class Speech_Recognition(unittest.TestCase):
+    """
+    This module contains the code to test the voice recognition feature where the Admin speak a string of keywords to the mic and the string will be asserted.
+    """
     def test_func(self):
         while True:
             # Creating a Speech recognition object

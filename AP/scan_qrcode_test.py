@@ -8,6 +8,9 @@ import cv2
 import unittest
 
 class Test(unittest.TestCase):
+    """
+    This module contains the code to test the QR code scanning feature for the Engineer where the user will be asked to start the recording the barcode and the information will be stored in a CSV file.
+    """
     def call(self):
         while True:
             selection = input("Press 0 when you finish repairing the car: ")
@@ -21,9 +24,6 @@ class Test(unittest.TestCase):
                 self.assertTrue(selection == '0')             #Assertion Error for invalid input
     
     def QRScan(self):
-        """
-        This function will be developed by Fahim for scanning QR code
-        """
         print("To Engineer, please present your QR code to record your visit")
         #vs = VideoStream(src=0).start()  #Uncomment this if you are using Webcam
         vs = VideoStream(usePiCamera=True).start()  # For Starting stream of Pi Camera
