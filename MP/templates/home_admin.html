@@ -2,10 +2,6 @@
 {% block title %}Home Page for Admin{% endblock %}
 <link rel="stylesheet" href="/static/style.css">
 {% block navbar %}
-
-<head>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -36,19 +32,19 @@
 
             </div>
             <div class="row">
-                <div class="col-sm-2">
-                    <p class="text-center">Search For Car</p>
+                <div class="col-sm-4">
+                    <h4 class="text-center">Search For Car</h2>
                     <button class="btn btn-primary btn-block" type="submit" onClick="window.location='/car/search_admin'">Search
                     </button>
                 </div>
-                <div class="col-sm-2">
-                    <p class="text-center">Search for a User</p>
+                <div class="col-sm-4">
+                    <h4 class="text-center">Search for a User</h4>
                     <button class="btn btn-primary btn-block" type="submit"
                         onClick="window.location='/user/search'">Search
                     </button>
                 </div>
-                <div class="col-sm-2">
-                    <p class="text-center">View car rental history</p>
+                <div class="col-sm-4">
+                    <h4 class="text-center">View car rental history</h4>
                     <button class="btn btn-primary btn-block" type="submit" onClick="window.location='/showHistories'">View
                     </button>
                 </div>
@@ -82,7 +78,7 @@
                     </td>
                     <td>{{ car.cost_per_hour }}</td>
                     <td>
-                        <button class="btn btn-primary btn-block" type="submit"
+                        <button class="btn btn-danger btn-block" type="submit"
                             onClick="window.location='/car/report/{{ car.id }}'"> Report </button>
                     </td>
                 </tr>
