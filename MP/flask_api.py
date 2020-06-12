@@ -921,6 +921,11 @@ def carVoiceSearch():
         result = cars_schema.dump(filtered)
 
         #TODO: change to jsonify
+        #print the table to console
+        print("| Car ID | Make | Body Type | Colour | Seats | Location | Cost Per Hour | Booked | Having Issue")
+        for car in cars:
+            row = "| {} | {} | {} | {} | {} | {} | {} | {} | {} |\n".format(car.id, car.make, car.body_type, car.colour, car.seats, car.location, car.cost_per_hour, car.booked, car.have_issue)
+            print(row)
         return render_template('car_search_result.html', data = result)
 
     # GET method
@@ -1059,7 +1064,5 @@ def carSearchAdmin():
                                                 Car.have_issue      == have_issue)).all()
         
         result = cars_schema.dump(cars)
-
         return render_template('car_search_result_update.html', cars = result)
-
     return render_template('car_search.html')
