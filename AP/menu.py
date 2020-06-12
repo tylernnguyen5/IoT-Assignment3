@@ -13,7 +13,7 @@ import cv2
 import os
 import bluetooth
 import datetime
-import pyzbar
+from pyzbar import pyzbar
 
 class Menu:
     """This class consists of 2 menus. One for logging in and the other one is for unlock/lock the car.
@@ -335,32 +335,32 @@ class Menu:
 
 
         # Create a loop to scan for devices for every 3 seconds
-        while True:
-            time.sleep(3)
+        # while True:
+        #     time.sleep(3)
 
-            found = False
+        #     found = False
 
-            # Check if any of the recently discovered devices is from an Engineer
-            for trustedDevice in trustedDevices:
-                print("Scanning for {}".format(trustedDevice))
+        #     # Check if any of the recently discovered devices is from an Engineer
+        #     for trustedDevice in trustedDevices:
+        #         print("Scanning for {}".format(trustedDevice))
 
-                # Discover devices 
-                nearby_devices = bluetooth.discover_devices()   # This returns a list of MAC addresses discovered
+        #         # Discover devices 
+        #         nearby_devices = bluetooth.discover_devices()   # This returns a list of MAC addresses discovered
 
-                for mac_address in nearby_devices:
-                    if mac_address == trustedDevice: # If the Engineer's device is found, connect and get the device name for prompting
-                        found = True
+        #         for mac_address in nearby_devices:
+        #             if mac_address == trustedDevice: # If the Engineer's device is found, connect and get the device name for prompting
+        #                 found = True
 
-                        print()
-                        print("Hi Engineer!") 
-                        print("Found your device: {}\nMAC Address: {}".format(bluetooth.lookup_name(trustedDevice, timeout=10), mac_address))
-                        print("Unlocking the car for you...")
-                        print("Unlocked!")
-                        print()
-                        break   
+        #                 print()
+        #                 print("Hi Engineer!") 
+        #                 print("Found your device: {}\nMAC Address: {}".format(bluetooth.lookup_name(trustedDevice, timeout=10), mac_address))
+        #                 print("Unlocking the car for you...")
+        #                 print("Unlocked!")
+        #                 print()
+        #                 break   
             
-                if found == True: break
-            if found == True: break
+        #         if found == True: break
+        #     if found == True: break
                          
 
         # A prompt for the Engineer to indicate when done repairing the car, so that QR code scan is triggered
@@ -400,31 +400,29 @@ class Menu:
         while True:
             frame = vs.read()
 
-
-            frame = imutils.resize(frame, width=400)    # Reading a frame and resizing it
-            barcodes = pyzbar.decode(frame)             # Decoding the frame to extract QR Code
+            frame = imutils.resize(frame, width=400)    #Reading a frame and resizing it
+            barcodes = pyzbar.decode(frame)             #Decoding the frame to extract QR Code
 
             for barcode in barcodes:
-                (x, y, w, h) = barcode.rect             # Drawing rectangle around the QR Code
+                (x, y, w, h) = barcode.rect             #Drawing rectangle around the QR Code
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
-                barcodeData = barcode.data.decode("utf-8")          # Decoding the strings in QR code to UTF-8
+                barcodeData = barcode.data.decode("utf-8")          #Decoding the strings in QR code to UTF-8
                 barcodeType = barcode.type
 
-               
-                text = "{} ({})".format(barcodeData, barcodeType)   # Selecting the QR Code type i.e text in our case
+                text = "{} ({})".format(barcodeData, barcodeType)   #Selecting the QR Code type i.e text in our case
                 print(text)
                 cv2.putText(frame, text, (x, y - 10),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)      # Displaying Text around the scanned QR Code in frame
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)      #Displaying Text around the scanned QR Code in frame
 
                 # if the barcode text is currently not in our CSV file, write
                 # the timestamp + barcode to disk and update the set
                 if barcodeData not in found:
-                    csv.write("{},{}\n".format(datetime.datetime.now(),
+                    csv.write("{}\n{}\n".format(datetime.datetime.now(),
                                                barcodeData))
                     csv.flush()
                     found.add(barcodeData)
 
-            cv2.imshow("Barcode Reader", frame)             # Showing the frame in the seperate window
+            cv2.imshow("Barcode Reader", frame)             #Showing the frame in the seperate window
             key = cv2.waitKey(1) & 0xFF
 
             # if the `s` key is pressed, break from the loop
@@ -432,10 +430,9 @@ class Menu:
                 break
 
         print("[INFO] cleaning up...")
-        csv.close()                             # Closing the CSV file that we opened for editing
-        cv2.destroyAllWindows()                 # Destroying all windows
+        csv.close()                             #Closing the CSV file that we opened for editing
+        cv2.destroyAllWindows()                 #Destroying all windows
         vs.stop()
-
 
 
 if __name__ == "__main__":

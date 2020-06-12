@@ -19,6 +19,7 @@ class Test(unittest.TestCase):
             else:
                 print("Invalid input - please try again.")
                 self.assertTrue(selection == '0')             #Assertion Error for invalid input
+    
     def QRScan(self):
         """
         This function will be developed by Fahim for scanning QR code
@@ -57,7 +58,7 @@ class Test(unittest.TestCase):
                 # if the barcode text is currently not in our CSV file, write
                 # the timestamp + barcode to disk and update the set
                 if barcodeData not in found:
-                    csv.write("{},{}\n".format(datetime.datetime.now(),
+                    csv.write("{}\n{}\n".format(datetime.datetime.now(),
                                                barcodeData))
                     csv.flush()
                     found.add(barcodeData)
