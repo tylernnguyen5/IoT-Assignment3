@@ -6,6 +6,13 @@ import json, requests
 
 class Speech_Recognition:
     def main(self):
+        """
+        This module is for the Admin to use Voice Recognition to send a request to the Flask API for car search.
+
+        The user will speak into the mic a string of keywords. The string will be submitted via POST request to the "/car/search/voice" endpoint.
+
+        The result of cars found will be printed to the console.
+        """
         while True:
             # Creating a Speech recognition object
             r = sr.Recognizer()
