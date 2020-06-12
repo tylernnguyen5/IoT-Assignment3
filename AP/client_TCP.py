@@ -7,10 +7,10 @@ class ClientTCP:
     """This module will be imported to menu.py to the Agent Pi the ability to connect to the TCP Server and send messages
     """
 
-    HOST = input("Enter IP address of Carshare server: ")   # The server's hostname or IP address
+    # HOST = input("Enter IP address of Carshare server: ")   # The server's hostname or IP address
 
-    PORT = 65000       # The port used by the server
-    ADDRESS = (HOST, PORT)
+    # PORT = 65000       # The port used by the server
+    # ADDRESS = (HOST, PORT)
 
     def credentialsCheck(self):
         """This function will ask the user to enter their username and password.

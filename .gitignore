@@ -9,8 +9,6 @@ MP/token.json
 MP/flask_session
 MP/database_utils.py
 MP/example
-MP/docs
 MP/__init__.py
-AP/docs
 AP/__init__.py
 Bluetooth

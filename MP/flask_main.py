@@ -12,41 +12,42 @@ import socket, threading
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map, icons
 
+def main():
+    app = Flask(__name__)
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    Bootstrap(app)
 
-app = Flask(__name__)
-basedir = os.path.abspath(os.path.dirname(__file__))
-Bootstrap(app)
+    # Set up session for storing session data
+    sess = Session()
+    app.secret_key = 'super secret key'
+    app.config['SESSION_TYPE'] = 'filesystem'
+    sess.init_app(app)
 
-# Set up session for storing session data
-sess = Session()
-app.secret_key = 'super secret key'
-app.config['SESSION_TYPE'] = 'filesystem'
-sess.init_app(app)
+    # Variables for MySQL database connection on GCloud
+    # Update HOST and PASSWORD appropriately.
+    HOST= "35.201.22.170"
+    USER= "root"
+    PASSWORD= "password"
+    DATABASE= "Carshare2"
+    # DATABASE= "CarshareTest"
 
-# Variables for MySQL database connection on GCloud
-# Update HOST and PASSWORD appropriately.
-HOST= "35.201.22.170"
-USER= "root"
-PASSWORD= "password"
-DATABASE= "Carshare2"
-# DATABASE= "CarshareTest"
+    app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://{}:{}@{}/{}".format(USER, PASSWORD, HOST, DATABASE)
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://{}:{}@{}/{}".format(USER, PASSWORD, HOST, DATABASE)
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+    db.init_app(app)
+    """
+        This part declares GoogleMaps instance to use Map API,
+        to use this, you have to get your API key from Google Cloud Platform
+        and replace yours with the key below
+    """
+    GoogleMaps(
+        app,
+        key="AIzaSyCvPI5uYTmN5D_phy_drF_B1iCMbem0Uf0"
+    )
 
-db.init_app(app)
-"""
-    This part declares GoogleMaps instance to use Map API,
-    to use this, you have to get your API key from Google Cloud Platform
-    and replace yours with the key below
-"""
-GoogleMaps(
-    app,
-    key="AIzaSyCvPI5uYTmN5D_phy_drF_B1iCMbem0Uf0"
-)
-
-app.register_blueprint(api)
-app.register_blueprint(site)
+    app.register_blueprint(api)
+    app.register_blueprint(site)
 
 if __name__ == "__main__":
+    main()
     app.run()

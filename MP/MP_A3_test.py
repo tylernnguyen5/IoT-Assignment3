@@ -10,15 +10,14 @@ from sqlalchemy import or_, and_
 from flask_api import api, db, User, Booking, Car, History
 
 # The set up vairables for the test cases app and Google SQL access
-app = Flask(__name__)
+app = None
 
-HOST= "35.201.22.170"
-USER= "root"
-PASSWORD= "password"
-DATABASE= "CarshareTest"
+
 
 class MasterPiTest(unittest.TestCase):
     """
+    This modules contains the unit tests for the features that were implemented in Assignment 3 for part A and B
+
     Notes: These defined test cases within this module are only the functions that were implemented for Assignment 3
     """
 
@@ -26,6 +25,12 @@ class MasterPiTest(unittest.TestCase):
         """
         This is for setting up the test cases with Flask app configuration and cloud database access. This will also init the database from flask_api.py with the app context
         """
+        app = Flask(__name__)
+
+        HOST= "35.201.22.170"
+        USER= "root"
+        PASSWORD= "password"
+        DATABASE= "CarshareTest"
 
         db = SQLAlchemy()
         app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://{}:{}@{}/{}".format(USER, PASSWORD, HOST, DATABASE)

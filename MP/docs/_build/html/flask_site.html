@@ -1,0 +1,180 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>flask_site module &#8212; Master Pi Documentation - PIOT Assignment 3  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="server_TCP module" href="server_TCP.html" />
+    <link rel="prev" title="flask_main module" href="flask_main.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-flask_site">
+<span id="flask-site-module"></span><h1>flask_site module<a class="headerlink" href="#module-flask_site" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="flask_site.carSearchPage">
+<code class="descclassname">flask_site.</code><code class="descname">carSearchPage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_site.carSearchPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display Car Search page with fields of filters for the user to search with</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>.html – The Car Search page of the web application</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_site.homePage">
+<code class="descclassname">flask_site.</code><code class="descname">homePage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_site.homePage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display Home page based on the role of the user. This page is where the user has successfully logged in and grant access to the application.</p>
+<p>There are 4 roles of the user: Customer, Admin, Manager and Engineer</p>
+<p>There is a session variable which is set when the user logged in to identify the role of the user   -   session[‘role’]</p>
+<p>Based on the role, the Home page will differ. For example:</p>
+<ul class="simple">
+<li>The Admin will be able to see a list of all the cars so that s/he can report any issue</li>
+<li>The Manager will be able to see graphs based on the data from the cloud database to make better decision</li>
+<li>The Engineer will be able to see the issue cars that have been reported and see their location with a click</li>
+</ul>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>.html – The Home page of the web application based on the role of the user</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_site.index">
+<code class="descclassname">flask_site.</code><code class="descname">index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_site.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display Index page</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>.html – The Index page of the web application</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_site.loginPage">
+<code class="descclassname">flask_site.</code><code class="descname">loginPage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_site.loginPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display Login page</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>.html – The Login page of the web application</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_site.registerPage">
+<code class="descclassname">flask_site.</code><code class="descname">registerPage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_site.registerPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display Registration page</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>.html – The Registration page of the web application</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_site.showHistoriesPage">
+<code class="descclassname">flask_site.</code><code class="descname">showHistoriesPage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_site.showHistoriesPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>This endpoint is for display the page with all the rental histories for the Admin</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>.html – a page with all rental histories</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Master Pi Documentation - PIOT Assignment 3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">MP</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="MP_A3_test.html">MP_A3_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calendar_for_api.html">calendar_for_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flask_api.html">flask_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flask_main.html">flask_main module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">flask_site module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server_TCP.html">server_TCP module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="speech_recognition_test.html">speech_recognition_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="voice_car_search.html">voice_car_search module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">MP</a><ul>
+      <li>Previous: <a href="flask_main.html" title="previous chapter">flask_main module</a></li>
+      <li>Next: <a href="server_TCP.html" title="next chapter">server_TCP module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Thach, Vinh, Fahim, YiNong.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/flask_site.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -29,5 +29,6 @@ def main():
             print()
 
 
-#Execute program
-main()
+if __name__ == "__main__":
+    #Execute program
+    main()

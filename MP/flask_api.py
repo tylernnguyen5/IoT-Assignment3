@@ -17,7 +17,27 @@ ma = Marshmallow() # for serializing objects
 
 
 # Declare Calendar object
-calendar = Calendar()
+# calendar = Calendar()
+calendar = None
+
+# Just for create the Sphinx docs
+def main():
+    api = Blueprint("api", __name__)
+
+    # Declare Calendar object
+    calendar = Calendar()
+
+    user_schema = UserSchema()              # an instance of UserSchema
+    users_schema = UserSchema(many=True)    # instances of list of UserSchema
+
+    car_schema = CarSchema()                # an instance of CarSchema
+    cars_schema = CarSchema(many=True)      # instances of list of CarSchema
+
+    booking_schema = BookingSchema()            # an instance of BookingSchema
+    bookings_schema = BookingSchema(many=True)  # instances of list of BookingSchema
+
+    history_schema = HistorySchema()            # an instance of HistorySchema
+    histories_schema = HistorySchema(many=True) # instances of list of HistorySchema
 
 
 # DECLARING THE MODELS
@@ -69,8 +89,8 @@ class UserSchema(ma.Schema):
         # Fields to expose (not exposing password)
         fields = ('id', 'username', 'email', 'fname', 'lname', 'role', 'device')
 
-user_schema = UserSchema()              # an instance of UserSchema
-users_schema = UserSchema(many=True)    # instances of list of UserSchema
+# user_schema = UserSchema()              # an instance of UserSchema
+# users_schema = UserSchema(many=True)    # instances of list of UserSchema
 
 
 # CAR
@@ -123,8 +143,8 @@ class CarSchema(ma.Schema):
         # Fields to expose
         fields = ('id', 'make', 'body_type', 'colour', 'seats', 'location', 'cost_per_hour', 'booked', 'have_issue')
 
-car_schema = CarSchema()            # an instance of CarSchema
-cars_schema = CarSchema(many=True)  # instances of list of CarSchema
+# car_schema = CarSchema()            # an instance of CarSchema
+# cars_schema = CarSchema(many=True)  # instances of list of CarSchema
 
 
 # BOOKING
@@ -168,8 +188,8 @@ class BookingSchema(ma.Schema):
         # Fields to expose (not exposing id)
         fields = ('user_id', 'car_id', 'begin_time', 'return_time', 'ongoing')
 
-booking_schema = BookingSchema()            # an instance of BookingSchema
-bookings_schema = BookingSchema(many=True)  # instances of list of BookingSchema
+# booking_schema = BookingSchema()            # an instance of BookingSchema
+# bookings_schema = BookingSchema(many=True)  # instances of list of BookingSchema
 
 
 # HISTORY
@@ -210,8 +230,8 @@ class HistorySchema(ma.Schema):
         # Fields to expose (not exposing id)
         fields = ('user_id', 'car_id', 'begin_time', 'return_time')
 
-history_schema = HistorySchema()            # an instance of HistorySchema
-histories_schema = HistorySchema(many=True) # instances of list of HistorySchema
+# history_schema = HistorySchema()            # an instance of HistorySchema
+# histories_schema = HistorySchema(many=True) # instances of list of HistorySchema
 
 # ENDPOINTS
 
@@ -830,7 +850,6 @@ def updateUserInfo(user_id):
         # Query to find the user with the right user ID 
         user = db.session.query(User).filter_by(id = user_id).first()
 
-        # TODO: Added device column
         # Update the fields
         if user is not None:
             user.username    = username
@@ -1061,3 +1080,6 @@ def carSearchAdmin():
         result = cars_schema.dump(cars)
         return render_template('car_search_result_update.html', cars = result)
     return render_template('car_search.html')
+
+if __name__ == "__main__":
+    main()
