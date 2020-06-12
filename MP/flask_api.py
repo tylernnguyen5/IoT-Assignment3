@@ -878,17 +878,15 @@ def showIssueCars():
 
 # NOT TESTED (waiting on templates/other implementation)
 # Endpoint to search for cars using VOICE RECOGNITION
-@api.route("/car/search/voice", methods = ["GET", "POST"])
+@api.route("/car/search/voice", methods = ["POST"])
 def carVoiceSearch():
     """
     To search for cars with voice recognition:
-        - The Admin will be asked to say some keywords
-        - The keywords will be added to the input field after recorded
-        - The keywords field with be submitted using a POST method
+        - The keywords will be submitted using a POST method
         - The string of keywords will then be splited and each keyword will be searched in the database 
         - For each row found with the keyword, it will be added to a list called 'found'
         - After searching for all the keywords, the 'found' list will be filtered to remove duplicating rows
-        - After filtered, the result will be shown in Car Search Result page
+        - After filtered, the result will be returned in a jsonified object
     """
     # POST method
     if request.method=="POST":
@@ -920,16 +918,13 @@ def carVoiceSearch():
         
         result = cars_schema.dump(filtered)
 
-        #TODO: change to jsonify
-        #print the table to console
+        cars = jsonify(result)
+        
         print("| Car ID | Make | Body Type | Colour | Seats | Location | Cost Per Hour | Booked | Having Issue")
         for car in cars:
             row = "| {} | {} | {} | {} | {} | {} | {} | {} | {} |\n".format(car.id, car.make, car.body_type, car.colour, car.seats, car.location, car.cost_per_hour, car.booked, car.have_issue)
             print(row)
         return render_template('car_search_result.html', data = result)
-
-    # GET method
-    return render_template('car_search_voice.html')
 
 
 
