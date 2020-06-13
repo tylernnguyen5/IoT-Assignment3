@@ -830,7 +830,6 @@ def updateUserInfo(user_id):
         # Query to find the user with the right user ID 
         user = db.session.query(User).filter_by(id = user_id).first()
 
-        # TODO: Added device column
         # Update the fields
         if user is not None:
             user.username    = username

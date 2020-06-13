@@ -322,45 +322,42 @@ class Menu:
         print("Starting Bluetooth Discovering Mode...")
 
         # List of  devices' MAC addresses
-        # trustedDevices = ["F4:7D:EF:10:68:6B", "24:5A:B5:8A:89:67"]
-
-        # TODO: need a 2nd Pi to test
-        trustedDevices = self.clientTCP.getTrustedDeviceAddresses().split()
 
         # Demo TV - KD-55X8500D
         # 94:53:30:92:B9:90
 
         # Vinh's phone
         # 24:5A:B5:8A:89:67
-
+        
+        trustedDevices = self.clientTCP.getTrustedDeviceAddresses().split()
 
         # Create a loop to scan for devices for every 3 seconds
-        # while True:
-        #     time.sleep(3)
+        while True:
+            time.sleep(3)
 
-        #     found = False
+            found = False
 
-        #     # Check if any of the recently discovered devices is from an Engineer
-        #     for trustedDevice in trustedDevices:
-        #         print("Scanning for {}".format(trustedDevice))
+            # Check if any of the recently discovered devices is from an Engineer
+            for trustedDevice in trustedDevices:
+                print("Scanning for {}".format(trustedDevice))
 
-        #         # Discover devices 
-        #         nearby_devices = bluetooth.discover_devices()   # This returns a list of MAC addresses discovered
+                # Discover devices 
+                nearby_devices = bluetooth.discover_devices()   # This returns a list of MAC addresses discovered
 
-        #         for mac_address in nearby_devices:
-        #             if mac_address == trustedDevice: # If the Engineer's device is found, connect and get the device name for prompting
-        #                 found = True
+                for mac_address in nearby_devices:
+                    if mac_address == trustedDevice: # If the Engineer's device is found, connect and get the device name for prompting
+                        found = True
 
-        #                 print()
-        #                 print("Hi Engineer!") 
-        #                 print("Found your device: {}\nMAC Address: {}".format(bluetooth.lookup_name(trustedDevice, timeout=10), mac_address))
-        #                 print("Unlocking the car for you...")
-        #                 print("Unlocked!")
-        #                 print()
-        #                 break   
+                        print()
+                        print("Hi Engineer!") 
+                        print("Found your device: {}\nMAC Address: {}".format(bluetooth.lookup_name(trustedDevice, timeout=10), mac_address))
+                        print("Unlocking the car for you...")
+                        print("Unlocked!")
+                        print()
+                        break   
             
-        #         if found == True: break
-        #     if found == True: break
+                if found == True: break
+            if found == True: break
                          
 
         # A prompt for the Engineer to indicate when done repairing the car, so that QR code scan is triggered

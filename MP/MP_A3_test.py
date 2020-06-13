@@ -68,7 +68,7 @@ class MasterPiTest(unittest.TestCase):
         Assertion: the number of users found is 4
         """
         # Search with 3 filters
-        username_filter = "user10"
+        username_filter = "an_user10 "
         lname_filter = "Fra"
         role_filter = "Manager"
 
