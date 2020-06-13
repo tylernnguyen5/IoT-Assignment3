@@ -62,7 +62,7 @@ class Test(unittest.TestCase):
                                                barcodeData))
                     csv.flush()
                     found.add(barcodeData)
-
+                    break
             cv2.imshow("Barcode Reader", frame)             #Showing the frame in the seperate window
             key = cv2.waitKey(1) & 0xFF
 
