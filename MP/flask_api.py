@@ -915,14 +915,6 @@ def carVoiceSearch():
         filtered = list(set(found))
         
         result = cars_schema.dump(filtered)
-
-        # cars = jsonify(result)
-
-        
-        print("| Car ID | Make | Body Type | Colour | Seats | Location | Cost Per Hour | Booked | Having Issue")
-        for car in filtered:
-            row = "| {} | {} | {} | {} | {} | {} | {} | {} | {} |\n".format(car.id, car.make, car.body_type, car.colour, car.seats, car.location, car.cost_per_hour, car.booked, car.have_issue)
-            print(row)
         
         return jsonify(result)
 
