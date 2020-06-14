@@ -321,7 +321,7 @@ class Menu:
         print("--- Unlock car with Bluetooth ---")
         print("Starting Bluetooth Discovering Mode...")
 
-        # List of  devices' MAC addresses
+        # List of  devices' MAC addresses for demo
 
         # Demo TV - KD-55X8500D
         # 94:53:30:92:B9:90

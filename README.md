@@ -1,4 +1,4 @@
-# PIoT Assignment 2 - semester 1 2020 at RMIT
+# PIoT Assignment 3 - semester 1 2020 at RMIT
 
 ## Team members
 
@@ -9,7 +9,7 @@
 
 ## Contribution Report
 
-Can be found at `/root/PIOT A2 Contribution Report.pdf`
+Can be found at `/root/PIOT A3 Contribution Report.pdf`
 
 ## Slack
 
