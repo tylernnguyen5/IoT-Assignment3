@@ -1,0 +1,223 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>MP_A3_test module &#8212; Master Pi Documentation - PIOT Assignment 3  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="calendar_for_api module" href="calendar_for_api.html" />
+    <link rel="prev" title="MP" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-MP_A3_test">
+<span id="mp-a3-test-module"></span><h1>MP_A3_test module<a class="headerlink" href="#module-MP_A3_test" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="MP_A3_test.MasterPiTest">
+<em class="property">class </em><code class="descclassname">MP_A3_test.</code><code class="descname">MasterPiTest</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#MP_A3_test.MasterPiTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<p>This modules contains the unit tests for the features that were implemented in Assignment 3 for part A and B</p>
+<p>Notes: These defined test cases within this module are only the functions that were implemented for Assignment 3</p>
+<dl class="method">
+<dt id="MP_A3_test.MasterPiTest.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MP_A3_test.MasterPiTest.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is for setting up the test cases with Flask app configuration and cloud database access. This will also init the database from flask_api.py with the app context</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MP_A3_test.MasterPiTest.test_car_voice_search">
+<code class="descname">test_car_voice_search</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MP_A3_test.MasterPiTest.test_car_voice_search" title="Permalink to this definition">¶</a></dt>
+<dd><p>This will test the logic that we use for flask_api.carVoiceSearch()</p>
+<p>It will split a string into a list of keywords then run a query to find any cars with those keywords in every column in the Cars table.</p>
+<p>The search string: “Blue SUV Honda”</p>
+<p>There are:</p>
+<ul class="simple">
+<li>2 blue cars</li>
+<li>4 SUV cars</li>
+<li>4 Honda cars</li>
+</ul>
+<p>After removing duplication, the result should return 6 cars.</p>
+<p>Assertion: the number of cars with issue in Cars table</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MP_A3_test.MasterPiTest.test_get_MACs">
+<code class="descname">test_get_MACs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MP_A3_test.MasterPiTest.test_get_MACs" title="Permalink to this definition">¶</a></dt>
+<dd><p>This test will retrieve the Bluetooth MAC’s adresses of all the Engineers in the cloud database in Users table and put them in a list.</p>
+<p>In the Users test table, there are 2 Engineers with one MAC’s address for each in the ‘device’ column.</p>
+<p>Assertion: the number of MAC’s addresses retrieved is 2</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MP_A3_test.MasterPiTest.test_report_car">
+<code class="descname">test_report_car</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MP_A3_test.MasterPiTest.test_report_car" title="Permalink to this definition">¶</a></dt>
+<dd><p>This test will search for a car in the Cars table and change its issue status. Then do an assertion.</p>
+<p>This query used for this test has the same logic with the query used for flask_api.reportCar() endpoint.</p>
+<p>Assertion: the number of cars that have issue is 1</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MP_A3_test.MasterPiTest.test_search_user">
+<code class="descname">test_search_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MP_A3_test.MasterPiTest.test_search_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>This test will apply 3 filters to search for users, which are the username, lastname and role.</p>
+<p>There are:</p>
+<ul class="simple">
+<li>1 user with the username of ‘user10’</li>
+<li>1 user with the last name of ‘Hil’</li>
+<li>2 users with the ‘Manager’ role</li>
+</ul>
+<p>This query used for this test has the same logic with the query used for flask_api.userSearch() endpoint.</p>
+<p>Assertion: the number of users found is 4</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MP_A3_test.MasterPiTest.test_update_car">
+<code class="descname">test_update_car</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MP_A3_test.MasterPiTest.test_update_car" title="Permalink to this definition">¶</a></dt>
+<dd><p>The test will try to update a row in the Car table. That row has the ID of ‘1’ in the table on the cloud database.</p>
+<p>The fields to be updated are:</p>
+<ul class="simple">
+<li>make            : “Lambo”</li>
+<li>body_type       : “Sport”</li>
+<li>colour          : “Red”</li>
+<li>seats           : “2”</li>
+<li>location        : “-37.814, 144.96332”</li>
+<li>cost_per_hour   : “50.00”</li>
+<li>booked          : “0”</li>
+<li>have_issue      : “0”</li>
+</ul>
+<p>This query used for this test has the same logic with the query used for flask_api.udpateCarInfo() endpoint.</p>
+<p>Assertion: after updated, a query to search for the new unique make will be executed</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MP_A3_test.MasterPiTest.test_update_user">
+<code class="descname">test_update_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MP_A3_test.MasterPiTest.test_update_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The test will try to update a row in the Users table. That row has the ID of ‘1’ in the table on the cloud database.</p>
+<p>The fields to be updated are:</p>
+<ul class="simple">
+<li>username  : “user_num1”</li>
+<li>email     : “<a class="reference external" href="mailto:user_num1&#37;&#52;&#48;carshare&#46;com">user_num1<span>&#64;</span>carshare<span>&#46;</span>com</a>”</li>
+<li>fname     : “Thach”</li>
+<li>lname     : “Nguyen”</li>
+<li>role      : “Admin”</li>
+</ul>
+<p>This query used for this test has the same logic with the query used for flask_api.udpateUserInfo() endpoint.</p>
+<p>Assertion: after updated, a query to search for the new username will be executed</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MP_A3_test.MasterPiTest.test_view_histories">
+<code class="descname">test_view_histories</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MP_A3_test.MasterPiTest.test_view_histories" title="Permalink to this definition">¶</a></dt>
+<dd><p>This test will check if the test database has the right number of records and that the query used get the right of records in Histories table in the test database.</p>
+<p>There are 50 rows in Histories table in the test database.</p>
+<p>Assertion: the number of rows of in Histories table from the query used flask_api.getAllHistories()</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MP_A3_test.MasterPiTest.test_view_issue_cars">
+<code class="descname">test_view_issue_cars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MP_A3_test.MasterPiTest.test_view_issue_cars" title="Permalink to this definition">¶</a></dt>
+<dd><p>This will test the query used in flask_api.showIssueCars() to see whether the query return the right number of cars with issue in the Cars table.</p>
+<p>There are 2 cars with issue in Cars table in the test database.</p>
+<p>Assertion: the number of cars with issue in Cars table</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Master Pi Documentation - PIOT Assignment 3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">MP</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">MP_A3_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calendar_for_api.html">calendar_for_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flask_api.html">flask_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flask_main.html">flask_main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flask_site.html">flask_site module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server_TCP.html">server_TCP module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="speech_recognition_test.html">speech_recognition_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="voice_car_search.html">voice_car_search module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">MP</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">MP</a></li>
+      <li>Next: <a href="calendar_for_api.html" title="next chapter">calendar_for_api module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Thach, Vinh, Fahim, YiNong.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/MP_A3_test.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

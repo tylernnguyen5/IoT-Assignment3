@@ -1,0 +1,238 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>menu module &#8212; Agent Pi Documentation - PIOT Assignment 3  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="scan_qrcode_test module" href="scan_qrcode_test.html" />
+    <link rel="prev" title="face_rec_test module" href="face_rec_test.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-menu">
+<span id="menu-module"></span><h1>menu module<a class="headerlink" href="#module-menu" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="menu.Menu">
+<em class="property">class </em><code class="descclassname">menu.</code><code class="descname">Menu</code><a class="headerlink" href="#menu.Menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class consists of 2 menus. One for logging in and the other one is for unlock/lock the car.
+Only when the user has logged in that he/she can unlock/lock the car in the second menu.</p>
+<p>There is a variable called user_id, which will be set once the user logged in. This is also a proof that the user is authenticated.</p>
+<p>This class imports client_TCP.py module to send messages to the TCP for specific request.</p>
+<dl class="method">
+<dt id="menu.Menu.QRScan">
+<code class="descname">QRScan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.QRScan" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will be for recording the Engineer’s info by scanning his QR code</p>
+<p>This function is triggered from Menu.bluetoothScan() when the Engineer indicate that he has finished repairing the car (by pressing 0 on the AP)</p>
+<p>The general steps are:
+- Initializing the CSV file to store the Engineer’s info (barcodes.csv)
+- Loop over frames from the video file stream, detect QR code and decode the strings in the code
+- Selecting the QR code type (text)
+- Display the text around the scanned QR code in the frame
+- Write the timestamp and barcode to to our CSV file
+- Press ‘s’</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="menu.Menu.bluetoothScan">
+<code class="descname">bluetoothScan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.bluetoothScan" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will start scanning for nearby Bluetooth devices every 3 seconds.</p>
+<p>A list of trusted devices’ MAC addresses of the Carshare Engineers is requested from the TCP server when this function is triggered (ClientTCP.getTrustedDeviceAddresses()).</p>
+<p>Therefore, when one Engineer comes near the car and choose Option 3 from Menu 1, it will unlock automatically.</p>
+<p>If a trusted device from the Engineer is discovered, a simulation of unlocking car will proceed.</p>
+<p>While the car is unlocked, Engineer will be prompted to press 0 when finishing repairing the car.</p>
+<p>It will then trigger the QRScan() function to obtain information of the Engineer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="menu.Menu.clientTCP">
+<code class="descname">clientTCP</code><em class="property"> = &lt;client_TCP.ClientTCP object&gt;</em><a class="headerlink" href="#menu.Menu.clientTCP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="menu.Menu.face_recognition">
+<code class="descname">face_recognition</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.face_recognition" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will called with the user chooses to login with facial recognition from Menu 1. It will try to recognise the user from the camera with its dataset.
+The process was adapted from the following source: <a class="reference external" href="https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/">https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/</a></p>
+<p>The general steps are:
+- Load our serialized face detector from disk
+- Load our serialized face embedding model from disk
+- Load the actual face recognition model along with the label encoder
+- Loop over frames from the video file stream, detect faces and filter out weak detections
+- If it recognises an user, the loop will break and return the user ID that matches in the dataset</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>int – An User ID if facial recognition succeeds. None for the otherwise</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="menu.Menu.id_names">
+<code class="descname">id_names</code><em class="property"> = {'Fahim': 1, 'Tyler': 2, 'Vinh': 3}</em><a class="headerlink" href="#menu.Menu.id_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="menu.Menu.lockCar">
+<code class="descname">lockCar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.lockCar" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will trigger client_TCP.lockCar() and ask the user to enter their details to lock.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>str – “locked” if successful</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="menu.Menu.login">
+<code class="descname">login</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will trigger client_TCP.credentialsCheck() and ask the user to enter their credentials to log in.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>int – an User ID if the credentials are valid and None if they are invalid</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="menu.Menu.main">
+<code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will start running the first menu, which is for logging in.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="menu.Menu.runMenu1">
+<code class="descname">runMenu1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.runMenu1" title="Permalink to this definition">¶</a></dt>
+<dd><p>This menu is for the user to choose whether to enter credentials or to use facial recognition for logging in.
+Once the user logged in, the second menu will let the user decide whether to unlock or lock the car. Also, an User ID will be set in order to trigger unlock/lock car function.</p>
+<dl class="docutils">
+<dt>For Customer:</dt>
+<dd>Option 1: Login with credentials
+Option 2: Login with facial recognition</dd>
+<dt>For Engineer: </dt>
+<dd>Option 3: Unlock car with Bluetooth (for Carshare Engineers only)</dd>
+</dl>
+<p>Enter 0 to quit</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="menu.Menu.runMenu2">
+<code class="descname">runMenu2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.runMenu2" title="Permalink to this definition">¶</a></dt>
+<dd><p>This menu is when the user has logged in and the user_id has been set.
+This menu is for the user to unlock/lock the booked car.</p>
+<p>Option 1: Unlock Car
+Option 2: Lock Car</p>
+<p>Enter 0 to log out</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="menu.Menu.unlockCar">
+<code class="descname">unlockCar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.unlockCar" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will trigger client_TCP.unlockCar() and ask the user to enter their details to unlock.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>str – “unlocked” if successful</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="menu.Menu.user_id">
+<code class="descname">user_id</code><em class="property"> = None</em><a class="headerlink" href="#menu.Menu.user_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Agent Pi Documentation - PIOT Assignment 3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">AP</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bluetooth_discovery.html">bluetooth_discovery module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client_TCP.html">client_TCP module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="face_rec_test.html">face_rec_test module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">menu module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan_qrcode_test.html">scan_qrcode_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="train.html">train module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">AP</a><ul>
+      <li>Previous: <a href="face_rec_test.html" title="previous chapter">face_rec_test module</a></li>
+      <li>Next: <a href="scan_qrcode_test.html" title="next chapter">scan_qrcode_test module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Thach, Vinh, Fahim, YiNong.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/menu.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

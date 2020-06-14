@@ -1,0 +1,822 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>flask_api module &#8212; Master Pi Documentation - PIOT Assignment 3  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="flask_main module" href="flask_main.html" />
+    <link rel="prev" title="calendar_for_api module" href="calendar_for_api.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-flask_api">
+<span id="flask-api-module"></span><h1>flask_api module<a class="headerlink" href="#module-flask_api" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="flask_api.Booking">
+<em class="property">class </em><code class="descclassname">flask_api.</code><code class="descname">Booking</code><span class="sig-paren">(</span><em>user_id</em>, <em>car_id</em>, <em>begin_time</em>, <em>return_time</em>, <em>ongoing</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.Booking" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Model</span></code></p>
+<p>Declaring Booking model with its fields and properties (the Bookings table in Carshare database on Google Cloud SQL)</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>db {SQLAlchemy} – for accessing Carshare database on Google Cloud SQL</dd>
+</dl>
+<dl class="attribute">
+<dt id="flask_api.Booking.begin_time">
+<code class="descname">begin_time</code><a class="headerlink" href="#flask_api.Booking.begin_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.Booking.car_id">
+<code class="descname">car_id</code><a class="headerlink" href="#flask_api.Booking.car_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.Booking.id">
+<code class="descname">id</code><a class="headerlink" href="#flask_api.Booking.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.Booking.ongoing">
+<code class="descname">ongoing</code><a class="headerlink" href="#flask_api.Booking.ongoing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.Booking.return_time">
+<code class="descname">return_time</code><a class="headerlink" href="#flask_api.Booking.return_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.Booking.user_id">
+<code class="descname">user_id</code><a class="headerlink" href="#flask_api.Booking.user_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="flask_api.BookingSchema">
+<em class="property">class </em><code class="descclassname">flask_api.</code><code class="descname">BookingSchema</code><span class="sig-paren">(</span><em>*, only: Union[Sequence[str], Set[str]] = None, exclude: Union[Sequence[str], Set[str]] = (), many: bool = False, context: Dict[KT, VT] = None, load_only: Union[Sequence[str], Set[str]] = (), dump_only: Union[Sequence[str], Set[str]] = (), partial: Union[bool, Sequence[str], Set[str]] = False, unknown: str = None</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.BookingSchema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_marshmallow.schema.Schema</span></code></p>
+<p>This part defined structure of JSON response of our endpoint for Booking model. Here we define the keys in our JSON response. The fields that will be exposed.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>ma {Marshmallow} – for serializing objects</dd>
+</dl>
+<dl class="class">
+<dt id="flask_api.BookingSchema.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#flask_api.BookingSchema.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="flask_api.BookingSchema.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('user_id', 'car_id', 'begin_time', 'return_time', 'ongoing')</em><a class="headerlink" href="#flask_api.BookingSchema.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.BookingSchema.opts">
+<code class="descname">opts</code><em class="property"> = &lt;marshmallow.schema.SchemaOpts object&gt;</em><a class="headerlink" href="#flask_api.BookingSchema.opts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="flask_api.Car">
+<em class="property">class </em><code class="descclassname">flask_api.</code><code class="descname">Car</code><span class="sig-paren">(</span><em>make</em>, <em>body_type</em>, <em>colour</em>, <em>seats</em>, <em>location</em>, <em>cost_per_hour</em>, <em>booked</em>, <em>have_issue</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.Car" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Model</span></code></p>
+<p>Declaring Car model with its fields and properties (the Cars table in Carshare database on Google Cloud SQL)</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>db {SQLAlchemy} – for accessing Carshare database on Google Cloud SQL</dd>
+</dl>
+<dl class="attribute">
+<dt id="flask_api.Car.body_type">
+<code class="descname">body_type</code><a class="headerlink" href="#flask_api.Car.body_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.Car.booked">
+<code class="descname">booked</code><a class="headerlink" href="#flask_api.Car.booked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.Car.colour">
+<code class="descname">colour</code><a class="headerlink" href="#flask_api.Car.colour" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.Car.cost_per_hour">
+<code class="descname">cost_per_hour</code><a class="headerlink" href="#flask_api.Car.cost_per_hour" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.Car.have_issue">
+<code class="descname">have_issue</code><a class="headerlink" href="#flask_api.Car.have_issue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.Car.id">
+<code class="descname">id</code><a class="headerlink" href="#flask_api.Car.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.Car.location">
+<code class="descname">location</code><a class="headerlink" href="#flask_api.Car.location" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.Car.make">
+<code class="descname">make</code><a class="headerlink" href="#flask_api.Car.make" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.Car.seats">
+<code class="descname">seats</code><a class="headerlink" href="#flask_api.Car.seats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="flask_api.CarSchema">
+<em class="property">class </em><code class="descclassname">flask_api.</code><code class="descname">CarSchema</code><span class="sig-paren">(</span><em>*, only: Union[Sequence[str], Set[str]] = None, exclude: Union[Sequence[str], Set[str]] = (), many: bool = False, context: Dict[KT, VT] = None, load_only: Union[Sequence[str], Set[str]] = (), dump_only: Union[Sequence[str], Set[str]] = (), partial: Union[bool, Sequence[str], Set[str]] = False, unknown: str = None</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.CarSchema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_marshmallow.schema.Schema</span></code></p>
+<p>This part defined structure of JSON response of our endpoint for Car model. Here we define the keys in our JSON response. The fields that will be exposed.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>ma {Marshmallow} – for serializing objects</dd>
+</dl>
+<dl class="class">
+<dt id="flask_api.CarSchema.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#flask_api.CarSchema.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="flask_api.CarSchema.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('id', 'make', 'body_type', 'colour', 'seats', 'location', 'cost_per_hour', 'booked', 'have_issue')</em><a class="headerlink" href="#flask_api.CarSchema.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.CarSchema.opts">
+<code class="descname">opts</code><em class="property"> = &lt;marshmallow.schema.SchemaOpts object&gt;</em><a class="headerlink" href="#flask_api.CarSchema.opts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="flask_api.History">
+<em class="property">class </em><code class="descclassname">flask_api.</code><code class="descname">History</code><span class="sig-paren">(</span><em>user_id</em>, <em>car_id</em>, <em>begin_time</em>, <em>return_time</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.History" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Model</span></code></p>
+<p>Declaring History model with its fields and properties (the Histories table in Carshare database on Google Cloud SQL)</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>db {SQLAlchemy} – for accessing Carshare database on Google Cloud SQL</dd>
+</dl>
+<dl class="attribute">
+<dt id="flask_api.History.begin_time">
+<code class="descname">begin_time</code><a class="headerlink" href="#flask_api.History.begin_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.History.car_id">
+<code class="descname">car_id</code><a class="headerlink" href="#flask_api.History.car_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.History.id">
+<code class="descname">id</code><a class="headerlink" href="#flask_api.History.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.History.return_time">
+<code class="descname">return_time</code><a class="headerlink" href="#flask_api.History.return_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.History.user_id">
+<code class="descname">user_id</code><a class="headerlink" href="#flask_api.History.user_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="flask_api.HistorySchema">
+<em class="property">class </em><code class="descclassname">flask_api.</code><code class="descname">HistorySchema</code><span class="sig-paren">(</span><em>*, only: Union[Sequence[str], Set[str]] = None, exclude: Union[Sequence[str], Set[str]] = (), many: bool = False, context: Dict[KT, VT] = None, load_only: Union[Sequence[str], Set[str]] = (), dump_only: Union[Sequence[str], Set[str]] = (), partial: Union[bool, Sequence[str], Set[str]] = False, unknown: str = None</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.HistorySchema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_marshmallow.schema.Schema</span></code></p>
+<p>This part defined structure of JSON response of our endpoint for History model. Here we define the keys in our JSON response. The fields that will be exposed.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>ma {Marshmallow} – for serializing objects</dd>
+</dl>
+<dl class="class">
+<dt id="flask_api.HistorySchema.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#flask_api.HistorySchema.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="flask_api.HistorySchema.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('user_id', 'car_id', 'begin_time', 'return_time')</em><a class="headerlink" href="#flask_api.HistorySchema.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.HistorySchema.opts">
+<code class="descname">opts</code><em class="property"> = &lt;marshmallow.schema.SchemaOpts object&gt;</em><a class="headerlink" href="#flask_api.HistorySchema.opts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="flask_api.User">
+<em class="property">class </em><code class="descclassname">flask_api.</code><code class="descname">User</code><span class="sig-paren">(</span><em>username</em>, <em>password</em>, <em>email</em>, <em>fname</em>, <em>lname</em>, <em>role</em>, <em>device</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.User" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Model</span></code></p>
+<p>Declaring User model with its fields and properties (the Users table in Carshare database on Google Cloud SQL)</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>db {SQLAlchemy} – for accessing Carshare database on Google Cloud SQL</dd>
+</dl>
+<dl class="attribute">
+<dt id="flask_api.User.device">
+<code class="descname">device</code><a class="headerlink" href="#flask_api.User.device" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.User.email">
+<code class="descname">email</code><a class="headerlink" href="#flask_api.User.email" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.User.fname">
+<code class="descname">fname</code><a class="headerlink" href="#flask_api.User.fname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.User.id">
+<code class="descname">id</code><a class="headerlink" href="#flask_api.User.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.User.lname">
+<code class="descname">lname</code><a class="headerlink" href="#flask_api.User.lname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.User.password">
+<code class="descname">password</code><a class="headerlink" href="#flask_api.User.password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.User.role">
+<code class="descname">role</code><a class="headerlink" href="#flask_api.User.role" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.User.username">
+<code class="descname">username</code><a class="headerlink" href="#flask_api.User.username" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="flask_api.UserSchema">
+<em class="property">class </em><code class="descclassname">flask_api.</code><code class="descname">UserSchema</code><span class="sig-paren">(</span><em>*, only: Union[Sequence[str], Set[str]] = None, exclude: Union[Sequence[str], Set[str]] = (), many: bool = False, context: Dict[KT, VT] = None, load_only: Union[Sequence[str], Set[str]] = (), dump_only: Union[Sequence[str], Set[str]] = (), partial: Union[bool, Sequence[str], Set[str]] = False, unknown: str = None</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.UserSchema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_marshmallow.schema.Schema</span></code></p>
+<p>This part defined structure of JSON response of our endpoint for User model. Here we define the keys in our JSON response. The fields that will be exposed.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>ma {Marshmallow} – for serializing objects</dd>
+</dl>
+<dl class="class">
+<dt id="flask_api.UserSchema.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#flask_api.UserSchema.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="flask_api.UserSchema.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('id', 'username', 'email', 'fname', 'lname', 'role', 'device')</em><a class="headerlink" href="#flask_api.UserSchema.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flask_api.UserSchema.opts">
+<code class="descname">opts</code><em class="property"> = &lt;marshmallow.schema.SchemaOpts object&gt;</em><a class="headerlink" href="#flask_api.UserSchema.opts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.apLogin">
+<code class="descclassname">flask_api.</code><code class="descname">apLogin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.apLogin" title="Permalink to this definition">¶</a></dt>
+<dd><p>This request comes from the TCP server (server_MP.py). Credentials are sent in form data to check the validty.
+An User ID will be returned to the Agent Pi if successful.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>str – User ID if valid credentials. None for the otherwise</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.cancelABooking">
+<code class="descclassname">flask_api.</code><code class="descname">cancelABooking</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.cancelABooking" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>When the user chooses to cancel a booking:</dt>
+<dd><ul class="first last simple">
+<li>Variables will be declared from the form data</li>
+<li><dl class="first docutils">
+<dt>Especially for begin time:</dt>
+<dd><ul class="first last">
+<li>HTML does not support input type Datetime</li>
+<li>So we use to 2 separated input types in the form data: date and time</li>
+<li>Variables begin_datetime will be a result of combining the inputs above (will be used for begin_time column in the Bookings table)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>A query will be executed to find right booking in the Bookings table and removed</li>
+<li>The booked car’s availability will be updated in the Cars table (booked column will be set to False)</li>
+<li>An event will be also removed from the Google Calendar</li>
+<li>User will be redirected to the Home page after the booking is cancelled</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.carSearch">
+<code class="descclassname">flask_api.</code><code class="descname">carSearch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.carSearch" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>To search for cars:</dt>
+<dd><ul class="first last simple">
+<li>Filters will be declared from form data</li>
+<li>A query with OR conditions will be executed to find the filtered cars</li>
+<li>The result will be displayed in Car Search Result page</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.carSearchAdmin">
+<code class="descclassname">flask_api.</code><code class="descname">carSearchAdmin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.carSearchAdmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>For GET request: this endpoint will render the Car Search page for Admin.</p>
+<p>For POST request: this endpoint will render the Car Search Result page after running the query with the data specified from the form.</p>
+<dl class="docutils">
+<dt>To search for cars:</dt>
+<dd><ul class="first last simple">
+<li>Filters will be declared from form data</li>
+<li>A query with OR conditions will be executed to find the filtered cars</li>
+<li>The result will be displayed on the page</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd>HTML – The Update Car Info page</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.carVoiceSearch">
+<code class="descclassname">flask_api.</code><code class="descname">carVoiceSearch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.carVoiceSearch" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>To search for cars with voice recognition:</dt>
+<dd><ul class="first last simple">
+<li>The keywords will be submitted using a POST method</li>
+<li>The string of keywords will then be splited and each keyword will be searched in the database</li>
+<li>For each row found with the keyword, it will be added to a list called ‘found’</li>
+<li>After searching for all the keywords, the ‘found’ list will be filtered to remove duplicating rows</li>
+<li>After filtered, the result will be returned in a jsonified object</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.getAllCars">
+<code class="descclassname">flask_api.</code><code class="descname">getAllCars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.getAllCars" title="Permalink to this definition">¶</a></dt>
+<dd><p>This endpoint will access Cars table to retrieve all rows.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Returns:</dt>
+<dd>JSON – All cars in the Cars table</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.getAllHistories">
+<code class="descclassname">flask_api.</code><code class="descname">getAllHistories</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.getAllHistories" title="Permalink to this definition">¶</a></dt>
+<dd><p>This will be used to display all rental history on Admin’s Home page.
+This endpoint will return all data in the History table on the cloud database</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>JSON – All histories in the History table</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.getMACs">
+<code class="descclassname">flask_api.</code><code class="descname">getMACs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.getMACs" title="Permalink to this definition">¶</a></dt>
+<dd><p>This endpoint will access Users table to retrieve the trusted Bluetooth MAC addresses of the Engineers (from the ‘device’ column).</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Returns:</dt>
+<dd>list of str – A list of Engineers’ trusted Bluetooth MAC addresses</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.getUnbookedCars">
+<code class="descclassname">flask_api.</code><code class="descname">getUnbookedCars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.getUnbookedCars" title="Permalink to this definition">¶</a></dt>
+<dd><p>All cars whose unbooked column set to False will be returned from the Cars table</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.getUserHistories">
+<code class="descclassname">flask_api.</code><code class="descname">getUserHistories</code><span class="sig-paren">(</span><em>user_id</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.getUserHistories" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>When the user chooses to view histories:</dt>
+<dd><ul class="first last simple">
+<li>User ID will be retrieved from session data</li>
+<li>Pass the User ID to the URL</li>
+<li>A query will be executed to return all the histories of the targeted user</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.lockCar">
+<code class="descclassname">flask_api.</code><code class="descname">lockCar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.lockCar" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>When the user choose to lock the car on Agent Pi and the request is send via TCP socket:</dt>
+<dd><ul class="first last simple">
+<li>User ID and Car ID will be retrieved from the form data</li>
+<li>The user can only lock the car if the booking status is ongoing, which means the car has been unlocked</li>
+<li>Access Bookings table to find the row which has the right User ID, Car ID and the ongoing status is True</li>
+<li>Begin and return time of the booking will be passed to specific variables (to be recorded in Histories table later)</li>
+<li>The target booking will be removed to indicate the booking has finished</li>
+<li>A record will be added to Histories table</li>
+<li>Car’s availability will be updated in the Cars table</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.login">
+<code class="descclassname">flask_api.</code><code class="descname">login</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.login" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>To login:</dt>
+<dd><ul class="first last simple">
+<li>Username will be checked in Users table to see if validated</li>
+<li><dl class="first docutils">
+<dt>If the username does not exist:</dt>
+<dd><ul class="first last">
+<li>User will be redirected to Login page</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>If the username exists:</dt>
+<dd><ul class="first last">
+<li>Stored password of that username will be retrieved</li>
+<li>Submitted password will be verified</li>
+<li><dl class="first docutils">
+<dt>If verfied:</dt>
+<dd><ul class="first last">
+<li>User ID (session data) will be set</li>
+<li>User will be redirected to Home page</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>If failing verification:</dt>
+<dd><ul class="first last">
+<li>User will be redirected to Login page</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.logout">
+<code class="descclassname">flask_api.</code><code class="descname">logout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.logout" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>When the user logouts:</dt>
+<dd><ul class="first last simple">
+<li>User ID (session data) will be removed</li>
+<li>User will be redirected to Index page</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.main">
+<code class="descclassname">flask_api.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="flask_api.makeABooking">
+<code class="descclassname">flask_api.</code><code class="descname">makeABooking</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.makeABooking" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>To make a booking:</dt>
+<dd><ul class="first last simple">
+<li>Varibables will be declared from the form data</li>
+<li><dl class="first docutils">
+<dt>Especially for begin/return time:</dt>
+<dd><ul class="first last">
+<li>HTML does not support input type Datetime</li>
+<li>So we use to 2 separated input types in the form data: date and time</li>
+<li>Variables begin_datetime and return_datetime will be a result of combining the inputs above (will be used for begin_time/return_time column in the Bookings table)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>A new row for the new booking will be created and added to the Bookings table</li>
+<li>The booked car’s availability will be updated in the Cars table (booked column will be set to True)</li>
+<li><dl class="first docutils">
+<dt>An event will be also created to add to the Google Calendar:</dt>
+<dd><ul class="first last">
+<li>Information about the User ID, Car ID, summary and duration of the event will be declared</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>User will be redirected to the Home page after the booking is made</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.register">
+<code class="descclassname">flask_api.</code><code class="descname">register</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.register" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>To register:</dt>
+<dd><ul class="first last simple">
+<li>Variables will be declared from the form data</li>
+<li>Username and email will be checked if they are taken</li>
+<li><dl class="first docutils">
+<dt>If they are taken:</dt>
+<dd><ul class="first last">
+<li>User will be redirected to Registration page</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>If they are not taken:</dt>
+<dd><ul class="first last">
+<li>The password will be hashed</li>
+<li>A new row will be declared (newUser) and added to Users table</li>
+<li>User will be redirected to Login page</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.reportCar">
+<code class="descclassname">flask_api.</code><code class="descname">reportCar</code><span class="sig-paren">(</span><em>car_id</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.reportCar" title="Permalink to this definition">¶</a></dt>
+<dd><p>This endpoints will execute when the ‘Report’ button in the Report Issue Car page is clicked.
+It will use the Car ID got from that row of data to retrieve the car and set the 
+have_issue argument from 0 to 1 (False to True) and doesn’t change anything when the have_issue argument is already True.</p>
+<ul class="simple">
+<li>Argument: int - car_id</li>
+</ul>
+<p>For GET request: This endpoint will render the page Car Report Issue.</p>
+<p>For POST request: This endpoint update the have_issue attribute for the car that as car_id matching the argument, then it will send push notification to Engineer phone via Push buttlet with defined ACCESS TOKEN then return to Admin Home Page.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Returns:</dt>
+<dd>HTML – Report Car Page or Admin Home Page</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.showCarLocation">
+<code class="descclassname">flask_api.</code><code class="descname">showCarLocation</code><span class="sig-paren">(</span><em>car_id</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.showCarLocation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>The function will: </dt>
+<dd><ul class="first last simple">
+<li>Access Cars table</li>
+<li>Search for the car with the right id</li>
+<li>Get its location</li>
+<li>Define latitude and longitude variables</li>
+<li>Use the varibles for the Google Map API to show its location</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.showIssueCars">
+<code class="descclassname">flask_api.</code><code class="descname">showIssueCars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.showIssueCars" title="Permalink to this definition">¶</a></dt>
+<dd><p>This endpoint will access Cars table to retrieve rows with have_issue column that are set to True.</p>
+<p>These rows will be showed on the Home page for Engineer.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>JSON – All cars in the Cars table with issue</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.unlockCar">
+<code class="descclassname">flask_api.</code><code class="descname">unlockCar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.unlockCar" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>When the user choose to unlock the car on Agent Pi and the request is send via TCP socket:</dt>
+<dd><ul class="first last simple">
+<li>User ID, Car ID and booking begin time will be retrieved from the form data</li>
+<li>Access Bookings table to find the right row, in order to see if the user provides the correct booking details</li>
+<li>Set the ongoing status of the booking to True</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.updateCarInfo">
+<code class="descclassname">flask_api.</code><code class="descname">updateCarInfo</code><span class="sig-paren">(</span><em>car_id</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.updateCarInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>For GET request:</p>
+<blockquote>
+<div><ul class="simple">
+<li>This endpoint will render the Update Car Info page</li>
+<li>When the Admin have searched and selected the right car that he wants to edit the info (from the Car Search Result page), he will be redirect to this endpoint.</li>
+<li>This endpoint will display a form with the data of the car selected from the previous page fetched in.</li>
+<li>The admin will edit the fields and submit the form to finalize the car info.</li>
+</ul>
+</div></blockquote>
+<p>For POST request:</p>
+<blockquote>
+<div><ul class="simple">
+<li>This endpoint will get the update data from the form</li>
+<li>A query to find the car with the right Car ID will be exceuted</li>
+<li>If the car with the right ID is found, update will be applied and redirect the user to the Home page</li>
+</ul>
+</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>HTML – The Update Car Info page</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.updateUserInfo">
+<code class="descclassname">flask_api.</code><code class="descname">updateUserInfo</code><span class="sig-paren">(</span><em>user_id</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.updateUserInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>For GET request:</p>
+<blockquote>
+<div><ul class="simple">
+<li>This endpoint will render the Update User Info page</li>
+<li>When the Admin have searched and selected the right user that he wants to edit the info (from the User Search Result page), he will be redirect to this endpoint.</li>
+<li>This endpoint will display a form with the data of the user selected from the previous page fetched in.</li>
+<li>The admin will edit the fields and submit the form to finalize the user info.</li>
+</ul>
+</div></blockquote>
+<p>For POST request:</p>
+<blockquote>
+<div><ul class="simple">
+<li>This endpoint will get the update data from the form</li>
+<li>A query to find the user with the right User ID will be exceuted</li>
+<li>If the user with the right ID is found, update will be applied and redirect the user to the Home page</li>
+</ul>
+</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>HTML – The Update User Info page</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="flask_api.userSearch">
+<code class="descclassname">flask_api.</code><code class="descname">userSearch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_api.userSearch" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>To search for users:</dt>
+<dd><ul class="first last simple">
+<li>Filters will be declared from the form data</li>
+<li>A query with OR conditions will be executed to find the filtered users</li>
+<li>The result will be displayed in User Search Result page</li>
+</ul>
+</dd>
+</dl>
+<p>For GET request: this endpoint will render the User Search page.</p>
+<p>For POST request: this endpoint will render the User Search Result page after running the query with the data specified from the form.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>HTML – The User Search page or the User Search Result page based on the request</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Master Pi Documentation - PIOT Assignment 3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">MP</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="MP_A3_test.html">MP_A3_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calendar_for_api.html">calendar_for_api module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">flask_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flask_main.html">flask_main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flask_site.html">flask_site module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server_TCP.html">server_TCP module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="speech_recognition_test.html">speech_recognition_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="voice_car_search.html">voice_car_search module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">MP</a><ul>
+      <li>Previous: <a href="calendar_for_api.html" title="previous chapter">calendar_for_api module</a></li>
+      <li>Next: <a href="flask_main.html" title="next chapter">flask_main module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Thach, Vinh, Fahim, YiNong.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/flask_api.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

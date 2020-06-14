@@ -1,0 +1,169 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>server_TCP module &#8212; Master Pi Documentation - PIOT Assignment 3  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="speech_recognition_test module" href="speech_recognition_test.html" />
+    <link rel="prev" title="flask_site module" href="flask_site.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-server_TCP">
+<span id="server-tcp-module"></span><h1>server_TCP module<a class="headerlink" href="#module-server_TCP" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="server_TCP.getMACs">
+<code class="descclassname">server_TCP.</code><code class="descname">getMACs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#server_TCP.getMACs" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will make a request to get a list of the Engineers’ Bluetooth MAC addresses so that it can be sent to the Agent Pi for scanning and automatically unlocking the car.
+This function will trigger flask_api.getMACs().
+This function is called from a TCP client from the Agent Pi.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>list of str – A list of Engineers’ trusted Bluetooth MAC addresses</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="server_TCP.lockCar">
+<code class="descclassname">server_TCP.</code><code class="descname">lockCar</code><span class="sig-paren">(</span><em>user_id</em>, <em>car_id</em><span class="sig-paren">)</span><a class="headerlink" href="#server_TCP.lockCar" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will make a request to lock the car via the Flask API.
+This function will trigger flask_api.lockCar().
+This function is called from a TCP client from the Agent Pi.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>user_id {int} – User ID of the user who has made the booking
+car_id {int} – Car ID of the booked car</dd>
+<dt>Returns:</dt>
+<dd>str – Content of the reponse from the API</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="server_TCP.loginWithCredentials">
+<code class="descclassname">server_TCP.</code><code class="descname">loginWithCredentials</code><span class="sig-paren">(</span><em>username</em>, <em>password</em><span class="sig-paren">)</span><a class="headerlink" href="#server_TCP.loginWithCredentials" title="Permalink to this definition">¶</a></dt>
+<dd><p>After the credentials are sent from the Agent Pi via TCP socket. The TCP server will trigger this function to log the user in via Flask API.
+A POST request will be sent to the API. If the credentials are valid, an User ID will be returned and send back to the Agent Pi via TCP socket.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>username {str} – User’s username
+password {str} – User’s password</dd>
+<dt>Returns:</dt>
+<dd>int – User ID if successfully login. None for the otherwise</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="server_TCP.unlockCar">
+<code class="descclassname">server_TCP.</code><code class="descname">unlockCar</code><span class="sig-paren">(</span><em>user_id</em>, <em>car_id</em>, <em>begin_time</em><span class="sig-paren">)</span><a class="headerlink" href="#server_TCP.unlockCar" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will make a request to unlock the car via the Flask API.
+This function will trigger flask_api.unlockCar().
+This function is called from a TCP client from the Agent Pi.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>user_id {int} – User ID of the user who has made the booking
+car_id {int} – Car ID of the booked car
+begin_time {datetime} – The beginning date and time of the booking</dd>
+<dt>Returns:</dt>
+<dd>str – Content of the reponse from the API</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Master Pi Documentation - PIOT Assignment 3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">MP</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="MP_A3_test.html">MP_A3_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calendar_for_api.html">calendar_for_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flask_api.html">flask_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flask_main.html">flask_main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flask_site.html">flask_site module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">server_TCP module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="speech_recognition_test.html">speech_recognition_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="voice_car_search.html">voice_car_search module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">MP</a><ul>
+      <li>Previous: <a href="flask_site.html" title="previous chapter">flask_site module</a></li>
+      <li>Next: <a href="speech_recognition_test.html" title="next chapter">speech_recognition_test module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Thach, Vinh, Fahim, YiNong.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/server_TCP.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

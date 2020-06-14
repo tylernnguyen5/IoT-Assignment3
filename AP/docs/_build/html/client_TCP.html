@@ -1,0 +1,167 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>client_TCP module &#8212; Agent Pi Documentation - PIOT Assignment 3  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="face_rec_test module" href="face_rec_test.html" />
+    <link rel="prev" title="bluetooth_discovery module" href="bluetooth_discovery.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-client_TCP">
+<span id="client-tcp-module"></span><h1>client_TCP module<a class="headerlink" href="#module-client_TCP" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="client_TCP.ClientTCP">
+<em class="property">class </em><code class="descclassname">client_TCP.</code><code class="descname">ClientTCP</code><a class="headerlink" href="#client_TCP.ClientTCP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This module will be imported to menu.py to the Agent Pi the ability to connect to the TCP Server and send messages</p>
+<dl class="method">
+<dt id="client_TCP.ClientTCP.credentialsCheck">
+<code class="descname">credentialsCheck</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client_TCP.ClientTCP.credentialsCheck" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will ask the user to enter their username and password.
+The credentials will be sent to the Master Pi via TCP socket once there is a connection to it.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>int – User ID if the credentials are valid to indicate successful login. None if the credentials are invalid.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client_TCP.ClientTCP.getTrustedDeviceAddresses">
+<code class="descname">getTrustedDeviceAddresses</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client_TCP.ClientTCP.getTrustedDeviceAddresses" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is triggered when the Engineer chooses to unlock the car with Bluetooth via menu.py.
+This will send a request to the TCP server get a list of trusted Bluetooth MAC addresses for Engineers’ devices.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>str – Message reply from the TCP server. “unlocked” if successful</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client_TCP.ClientTCP.lockCar">
+<code class="descname">lockCar</code><span class="sig-paren">(</span><em>user_id</em><span class="sig-paren">)</span><a class="headerlink" href="#client_TCP.ClientTCP.lockCar" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is triggered when the user choose to lock the car via menu.py.
+The locking details will be sent to the TCP server in a string. The string is constructed the “lock” tag at the beginning.
+User will be asked to enter the booked car ID for verification in the Bookings table on the Google Cloud SQL Carshare datbase.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>user_id {int} – User ID. This is sent when the user logs in from Menu 1 via menu.py</dd>
+<dt>Returns:</dt>
+<dd>str – Message reply from the TCP server. “unlocked” if successful</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client_TCP.ClientTCP.unlockCar">
+<code class="descname">unlockCar</code><span class="sig-paren">(</span><em>user_id</em><span class="sig-paren">)</span><a class="headerlink" href="#client_TCP.ClientTCP.unlockCar" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is triggered when the user choose to unlock the car via menu.py.
+The unlocking details will be sent to the TCP server in a string. The string is constructed the “unlock” tag at the beginning.
+User will be asked to enter the booked car ID and beginning time of the booking for verification in the Bookings table on the Google Cloud SQL Carshare datbase.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>user_id {int} – User ID. This is sent when the user logs in from Menu 1 via menu.py</dd>
+<dt>Returns:</dt>
+<dd>str – Message reply from the TCP server. “unlocked” if successful</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Agent Pi Documentation - PIOT Assignment 3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">AP</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bluetooth_discovery.html">bluetooth_discovery module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">client_TCP module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="face_rec_test.html">face_rec_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="menu.html">menu module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan_qrcode_test.html">scan_qrcode_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="train.html">train module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">AP</a><ul>
+      <li>Previous: <a href="bluetooth_discovery.html" title="previous chapter">bluetooth_discovery module</a></li>
+      <li>Next: <a href="face_rec_test.html" title="next chapter">face_rec_test module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Thach, Vinh, Fahim, YiNong.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/client_TCP.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
