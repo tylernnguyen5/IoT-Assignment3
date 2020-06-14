@@ -2,7 +2,7 @@
 
 In the scenario, this Pi will be for running Flask API and TCP server. 
 
-The Customer can sign up for an account and will be able to make/cancel a booking, view histories and available cars with their location, etc. using this Pi (logging in is required).
+The Master Pi is updated with more functionalities for the System Admin, Company Manager and Engineer.
 
 --- 
 
@@ -21,7 +21,7 @@ The Customer can sign up for an account and will be able to make/cancel a bookin
 
 - Report cars with issue for the Admin
 
-- Voice search for the Admin
+- Voice car search for the Admin
 
 
 - Visualation charts on the Home page for the Manager
@@ -35,4 +35,4 @@ The Customer can sign up for an account and will be able to make/cancel a bookin
 
 ### For Sphinx Documentation for Master Pi:
 
-*More documentation can be viewed via a browser at `docs/`*
+*More documentation can be viewed via a browser at `MP/docs/_build/html/index.html`*
