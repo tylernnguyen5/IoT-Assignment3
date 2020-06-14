@@ -6,8 +6,7 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">CarShare.co</a>
             </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="/home">Home</a></li>
+            <ul class="nav navbar-nav">                
                 <li><a href="/login">Sign In</a></li>
                 <li><a href="/register">Sign Up</a></li>
             </ul>
@@ -29,7 +28,10 @@
                     <input
                             type="text"
                             name="username"
+                            title="Username must contain between 8 to 15 characters, only UPPER/lowercase, number and hyphen allowed"
                             class="form-control"
+                            pattern="^(?=.*[a-zA-Z0-9_]).{8,15}$"
+                            onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');"
                             placeholder="Username or Email address"
                             required
                             autofocus
@@ -39,13 +41,16 @@
                     <input
                             type="password"
                             name="password"
+                            title="Password must contain at least 8 characters, including UPPER/lowercase, numbers and special characters"
+                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$"
+                            onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');"
                             class="form-control"
                             placeholder="Password"
                             required
                     />
                 </div>
 
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                <button class="btn btn-primary btn-block" type="submit">Login</button>
             </form>
 
 

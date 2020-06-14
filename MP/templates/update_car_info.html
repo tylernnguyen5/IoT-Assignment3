@@ -1,0 +1,161 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Update Car Info{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">CarShare.co</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/home">Home</a></li>
+                <li><a href="/logout">Log out</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2 class="text-center mb-4 text-info">Update Car {{ data.id }} Info</h2>
+       
+        <form action="" method="POST">
+            <div class="form-group">
+                <input
+                        type="hidden"
+                        name="id"
+                        class="form-control"
+                        value= "{{ data.id }}"
+                        required
+                />
+            </div>
+
+            <div class="form-group">
+                Make: <input
+                        type="text"
+                        id="make"
+                        name="make"
+                        class="form-control"
+                        value= "{{ data.make }}"
+                        placeholder= "{{ data.make }}"
+                />
+            </div>
+
+            <div class="form-group">
+                Body Type: <input
+                        type="text"
+                        id="body_type"
+                        name="body_type"
+                        class="form-control"
+                        value= "{{ data.body_type }}"
+                        placeholder= "{{ data.body_type }}"
+                />
+            </div>
+            <div class="form-group">
+                Colour: <input
+                        type="text"
+                        id="colour"
+                        name="colour"
+                        class="form-control"
+                        value= "{{ data.colour }}"
+                        placeholder= "{{ data.colour }}"
+                />
+            </div>
+
+            <div class="form-group">
+                Number of Seats: <input
+                        type="number"
+                        id="seats"
+                        name="seats"
+                        class="form-control"
+                        value= "{{ data.seats }}"
+                        placeholder= "{{ data.seats }}"
+                />
+            </div>
+
+            <div class="form-group">
+                Location: <input
+                        type="text"
+                        id="location"
+                        name="location"
+                        class="form-control"
+                        value= "{{ data.location }}"
+                        placeholder= "{{ data.location }}"
+                />
+            </div>
+
+            <div class="form-group">
+                Cost per Hour: <input
+                        type="number"
+                        step="0.01"
+                        id="cost_per_hour"
+                        name="cost_per_hour"
+                        class="form-control"
+                        value= "{{ data.cost_per_hour}}"
+                        placeholder= "{{ data.cost_per_hour}}"
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="booked">Is the car booked?  </label>
+                <select id="booked" name="booked">
+                    <option id="havebooking" value=1>Yes</option>
+                    <option id="nobooking" value=0>No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="have_issue">Does the car have issue?  </label>
+                <select id="have_issue" name="have_issue">
+                    <option id="issue" value=1>Yes</option>
+                    <option id="noissue" value=0>No</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit" onclick=validateForm() >Submit</button>
+        </form>
+      
+    </div>
+    <script>
+        var booked = '{{ data.booked }}';
+        if (booked == "False"){
+            document.getElementById("nobooking").setAttribute("selected","selected");
+        }
+        else {
+            document.getElementById("havebooking").setAttribute("selected", "selected");
+        }
+        
+        var have_issue = '{{ data.have_issue }}';
+        if (have_issue == "False"){
+            document.getElementById("noissue").setAttribute("selected", "selected");
+        }
+        else{
+            document.getElementById("issue").setAttribute("selected", "selected");
+        }
+    </script>
+    <script>
+        function validateForm() {
+            if (document.getElementById("make").value == "") {
+                document.getElementById("make").value = "UNSPECIFIED";
+            };
+
+            if (document.getElementById("body_type").value == "") {
+                document.getElementById("body_type").value = "UNSPECIFIED";
+            };
+
+            if (document.getElementById("colour").value == "") {
+                document.getElementById("colour").value = "UNSPECIFIED";
+            };
+
+            if (document.getElementById("seats").value == "") {
+                document.getElementById("seats").value = 0;
+            };
+
+            if (document.getElementById("location").value == "") {
+                document.getElementById("location").value = "UNSPECIFIED";
+            };
+
+            if (document.getElementById("cost_per_hour").value == "") {
+                document.getElementById("cost_per_hour").value = 0;
+            };
+        }
+    </script>
+{% endblock %}

@@ -9,3 +9,7 @@ MP/token.json
 MP/flask_session
 MP/database_utils.py
 MP/example
+MP/__init__.py
+AP/__init__.py
+Bluetooth
+MP/print.py

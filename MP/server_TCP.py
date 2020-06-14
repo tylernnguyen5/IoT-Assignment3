@@ -2,6 +2,7 @@
 
 import socket
 import requests
+import json
 
 def loginWithCredentials(username, password):
     """After the credentials are sent from the Agent Pi via TCP socket. The TCP server will trigger this function to log the user in via Flask API.
@@ -87,6 +88,23 @@ def lockCar(user_id, car_id):
     elif response.status_code == 404:
         return None # No string is returned
 
+# New function for A3
+def getMACs():
+    """This function will make a request to get a list of the Engineers' Bluetooth MAC addresses so that it can be sent to the Agent Pi for scanning and automatically unlocking the car.
+    This function will trigger flask_api.getMACs().
+    This function is called from a TCP client from the Agent Pi.
+
+    Returns:
+        list of str -- A list of Engineers' trusted Bluetooth MAC addresses
+    """
+    response = requests.get("http://127.0.0.1:5000/user/engineer/device")
+
+
+    # Examine the response from the API
+    if response.status_code == 200:
+        return response.text # Return list of MAC addresses
+    elif response.status_code == 404:
+        return None # Nothing is returned
 
 # ----------------------------------------------------------------------------------------
 """The code below is for launching the TCP server and listen for connection.
@@ -149,6 +167,22 @@ if __name__ == '__main__':
                         
                         # Trigger the right function to send request
                         reply = lockCar(user_id, car_id)
+
+                    # For message with bluetooth tag
+                    elif (tag == "bluetooth"):                     
+                        # Trigger the right function to send request
+                        addresses = json.loads(getMACs()) # list of MAC addresses
+
+                        # if addresses is not None:
+                        #     # Convert list to str
+                        #     reply = " " 
+
+                        #     reply = reply.join(addresses)
+
+                        if addresses is not None:
+                            # Convert list to str
+                            for addr in addresses:
+                                reply += addr + " "
 
                     if reply is not None:
                         print("Sending reply.")

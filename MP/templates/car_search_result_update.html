@@ -1,0 +1,61 @@
+{% extends "bootstrap/base.html" %}
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">CarShare.co</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/home">Home</a></li>
+                <li><a href="/logout">Log out</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+{% block content %}
+<head>
+    <title>Car Search Result for Admin</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4 text-info">Car Search Result</h1>
+        <table class="table table-responsive">
+            <tr>
+                <th>&emsp;&emsp;ID&emsp;</th>
+                <th>Make&emsp;&emsp;&emsp;</th>
+                <th>Body Type&emsp;&emsp;</th>
+                <th>Colour&emsp;&emsp;</th>
+                <th>Seats&emsp;&emsp;</th>
+                <th>Location&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+                <th>Cost Per Hour (AUD)&emsp;&emsp;</th>
+                <th>Booked&emsp;&emsp;</th>
+                <th>Having Issue</th>
+            </tr>
+            {% for car in cars %}
+                <tr>
+                    <td>&emsp;&emsp;{{ car.id }}</td>
+                    <td>{{ car.make }}</td>
+                    <td>{{ car.body_type }}</td>
+                    <td>{{ car.colour }}</td>
+                    <td>{{ car.seats }}</td>
+                    <td>
+                        <button type="submit" onClick="window.location='/car/location/{{ car.id }}'">Click for
+                            Location
+                        </button>
+                    </td>
+                    <td>{{ car.cost_per_hour }}</td>
+                    <td>{{ car.booked }}</td>
+                    <td>{{ car.have_issue }}</td>
+                    <td>
+                        <button class="btn btn-primary btn-block" type="submit"
+                            onClick="window.location='/car/update/{{ car.id }}'"> Update Car's Info </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+{% endblock %}
+
+

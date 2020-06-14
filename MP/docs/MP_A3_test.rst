@@ -1,7 +1,7 @@
-client\_test module
+MP\_A3\_test module
 ===================
 
-.. automodule:: client_test
+.. automodule:: MP_A3_test
     :members:
     :undoc-members:
     :show-inheritance:

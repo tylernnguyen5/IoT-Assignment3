@@ -1,15 +1,16 @@
-.. PIOT Assignment 2 - Master Pi documentation master file, created by
-   sphinx-quickstart on Sun May 24 16:47:17 2020.
+.. Master Pi Documentation - PIOT Assignment 3 documentation master file, created by
+   sphinx-quickstart on Sat Jun 13 01:41:21 2020.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to PIOT Assignment 2 - Master Pi's documentation!
-=========================================================
+Welcome to Master Pi Documentation - PIOT Assignment 3's documentation!
+=======================================================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   modules
 
 
 Indices and tables

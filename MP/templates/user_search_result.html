@@ -1,0 +1,49 @@
+{% extends "bootstrap/base.html" %}
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">CarShare.co</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/home">Home</a></li>
+                <li><a href="/logout">Log out</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+{% block content %}
+<head>
+    <title>User Search Result</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>User Search Result</h1>
+        <table class="table table-responsive">
+            <tr>
+                <th>&emsp;&emsp;User ID&emsp;</th>
+                <th>Username&emsp;&emsp;</th>
+                <th>User Email&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+                <th>First Name&emsp;&emsp;</th>
+                <th>Last Name&emsp;&emsp;</th>
+                <th>Role&emsp;&emsp;&emsp;&emsp;</th>
+            </tr>
+            {% for user in users %}
+                <tr>
+                    <td>&emsp;&emsp;{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.fname }}</td>
+                    <td>{{ user.lname }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>
+                        <button type="submit" onClick="window.location='/user/update/{{ user.id }}'">Update User's Info
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+{% endblock %}

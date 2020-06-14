@@ -1,0 +1,139 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Update User Info{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">CarShare.co</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/home">Home</a></li>
+                <li><a href="/logout">Log out</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2 class="text-center mb-4 text-info">Update User Info</h2>
+       
+        <form action="" method="POST">
+            <div class="form-group">
+                <input
+                        type="hidden"
+                        name="id"
+                        class="form-control"
+                        value= "{{ data.id }}"
+                        required
+                />
+            </div>
+            <div class="form-group">
+                Username:
+                <input
+                        type="text"
+                        name="username"
+                        class="form-control"                                               
+                        value= "{{ data.username }}"
+                        placeholder="{{ data.username }}"
+                        required
+                />
+            </div>
+            <div class="form-group">
+                Email: 
+                <input
+                        type="text"
+                        id="email"
+                        name="email"
+                        class="form-control"
+                        value= "{{ data.email }}"
+                        placeholder= "{{ data.email }}"
+                />
+            </div>
+            <div class="form-group">
+                Full Name:
+                <input
+                        type="text"
+                        id="fname"
+                        name="fname"
+                        class="form-control"
+                        value= "{{ data.fname }}"
+                        placeholder= "{{ data.fname }}"
+                />
+            </div>
+            <div class="form-group">
+                Last name:
+                <input
+                        type="text"
+                        id="lname"
+                        name="lname"
+                        class="form-control"
+                        value= "{{ data.lname }}"
+                        placeholder= "{{ data.lname }}"
+                />
+            </div>
+            <div class="form-group">
+                Role: 
+                <select
+                        id="role"
+                        name="role"
+                        class="form-control"
+                        required
+                >
+                    <optgroup>
+                        <option id="admin" value="Admin">Admin</option>
+                        <option id="customer" value="Customer">Customer</option>
+                        <option id="engineer" value="Engineer">Engineer</option>
+                        <option id="manager" value="Manager">Manager</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="form-group">
+                Bluetooth Device:
+                <input
+                        type="text"
+                        id="device"
+                        name="device"
+                        class="form-control"
+                        value= "{{ data.device }}"
+                        placeholder= "{{ data.device }}"
+                />
+            </div>
+            <button class="btn btn-primary" type="submit" onclick=validateForm()>Submit</button>
+        </form>
+      
+    </div>
+    
+    <script>
+        var user_role = '{{ data.role }}';
+        switch(user_role){
+            case "Admin":
+                document.getElementById("admin").setAttribute("selected", "selected");
+                break;
+            case "Customer":
+                document.getElementById("customer").setAttribute("selected", "selected");
+                break;
+            case "Engineer":
+                document.getElementById("engineer").setAttribute("selected", "selected");
+                break;
+            case "Manager":
+                document.getElementById("manager").setAttribute("selected", "selected");
+                break;
+        }
+    </script>
+    <script>
+        function validateForm() {
+            if (document.getElementById("email").value == "") {
+                document.getElementById("email").value = "UNSPECIFIED";
+            };
+
+            if (document.getElementById("fname").value == "") {
+                document.getElementById("fname").value = "UNSPECIFIED";
+            };
+
+            if (document.getElementById("lname").value == "") {
+                document.getElementById("lname").value = "UNSPECIFIED";
+            };
+        }
+    </script>
+{% endblock %}

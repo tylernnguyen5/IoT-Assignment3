@@ -7,7 +7,6 @@ import os, requests, json
 from flask_api import api, db
 from flask_site import site
 from flask_bootstrap import Bootstrap
-# import MySQLdb
 from flask_session import Session
 import socket, threading
 from flask_googlemaps import GoogleMaps
@@ -26,11 +25,11 @@ sess.init_app(app)
 
 # Variables for MySQL database connection on GCloud
 # Update HOST and PASSWORD appropriately.
-HOST="35.201.22.170"
-USER="root"
-PASSWORD="password"
-DATABASE="Carshare"
-
+HOST= "35.201.22.170"
+USER= "root"
+PASSWORD= "password"
+DATABASE= "Carshare2"
+# DATABASE= "CarshareTest"
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://{}:{}@{}/{}".format(USER, PASSWORD, HOST, DATABASE)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True

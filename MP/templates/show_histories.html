@@ -1,0 +1,49 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Show User histories{% endblock %}
+{% block navbar %}
+
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">CarShare.co</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/home">Home</a></li>
+            <li><a href="/logout">Log out</a></li>
+        </ul>
+    </div>
+</nav>
+
+{% endblock %}
+{% block content %}
+
+<body class="text-centered">
+    <div class="container">
+        <br>
+        <h2 class="text-center mb-4 text-info">Car Rental Histories</h2><br>
+        <div class="container">
+        <div class="row">
+            <table class="table table-responsive">
+                <tr>
+                    <th>&emsp;&emsp;Begin Time&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+                    <th>Return Time&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+                    <th>User ID&emsp;&emsp;</th>
+                    <th>Car ID&emsp;&emsp;</th>
+                </tr>
+                {% for history in histories %}
+                <tr>
+                    <td>&emsp;&emsp;{{ history.begin_time }}</td>
+                    <td>{{ history.return_time }}</td>
+                    <td>{{ history.user_id }}</td>
+                    <td>{{ history.car_id }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

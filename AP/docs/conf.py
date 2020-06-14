@@ -19,9 +19,9 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'PIOT Assignment 2 - Agent Pi'
-copyright = '2020, Thach, Fahim, Vinh, YiNong'
-author = 'Thach, Fahim, Vinh, YiNong'
+project = 'Agent Pi Documentation - PIOT Assignment 3'
+copyright = '2020, Thach, Vinh, Fahim, YiNong'
+author = 'Thach, Vinh, Fahim, YiNong'
 
 # The short X.Y version
 version = ''
@@ -102,7 +102,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'PIOTAssignment2-AgentPidoc'
+htmlhelp_basename = 'AgentPiDocumentation-PIOTAssignment3doc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -129,8 +129,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'PIOTAssignment2-AgentPi.tex', 'PIOT Assignment 2 - Agent Pi Documentation',
-     'Thach, Fahim, Vinh, YiNong', 'manual'),
+    (master_doc, 'AgentPiDocumentation-PIOTAssignment3.tex', 'Agent Pi Documentation - PIOT Assignment 3 Documentation',
+     'Thach, Vinh, Fahim, YiNong', 'manual'),
 ]
 
 
@@ -139,7 +139,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'piotassignment2-agentpi', 'PIOT Assignment 2 - Agent Pi Documentation',
+    (master_doc, 'agentpidocumentation-piotassignment3', 'Agent Pi Documentation - PIOT Assignment 3 Documentation',
      [author], 1)
 ]
 
@@ -150,8 +150,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'PIOTAssignment2-AgentPi', 'PIOT Assignment 2 - Agent Pi Documentation',
-     author, 'PIOTAssignment2-AgentPi', 'One line description of project.',
+    (master_doc, 'AgentPiDocumentation-PIOTAssignment3', 'Agent Pi Documentation - PIOT Assignment 3 Documentation',
+     author, 'AgentPiDocumentation-PIOTAssignment3', 'One line description of project.',
      'Miscellaneous'),
 ]
 

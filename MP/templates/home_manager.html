@@ -1,0 +1,36 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Home page for Manager{% endblock %}
+{% block navbar %}
+    <head>
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">CarShare.co</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/home">Home</a></li>
+                <li><a href="/logout">Log out</a></li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <br>
+        <h1>Manager Home Page</h1>
+        {% with username = session['username'] %}
+                <h2>Welcome, {{ username }}</h2>
+        {% endwith %}
+        <div class="row">
+            <iframe width="1200" height="1068" src="https://datastudio.google.com/embed/reporting/918a1798-4b00-416e-840d-c33def983305/page/uJYSB" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock %}

@@ -4,8 +4,9 @@ AP
 .. toctree::
    :maxdepth: 4
 
+   bluetooth_discovery
    client_TCP
-   client_test
    face_rec_test
    menu
+   scan_qrcode_test
    train

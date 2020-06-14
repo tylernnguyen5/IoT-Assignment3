@@ -1,5 +1,5 @@
 {% extends "bootstrap/base.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Home page for Customer{% endblock %}
 {% block navbar %}
     <head>
         <link rel="stylesheet" href="/static/style.css">
@@ -21,18 +21,14 @@
 {% block content %}
     <div class="container">
         <br>
-        <h1>Home Page</h1>
+        <h1 class="text-center mb-4 text-info">Customer Home Page</h1>
         {% with username = session['username'] %}
-            {% if username %}
-                <h2>Welcome, {{ username }}</h2>
-            {% else %}
-                <h2>You are signing in as an Anonymous User!</h2>
-            {% endif %}
+                <h2 class="text-secondary">Welcome, {{ username }}</h2>
         {% endwith %}
 
-        <h2>Available Cars:</h2>
+        <h2 class="text-center">Available Cars:</h2>
 
-        <table>
+        <table class="table table-responsive">
             <tr>
                 <th>&emsp;&emsp;ID&emsp;</th>
                 <th>Make&emsp;&emsp;&emsp;</th>

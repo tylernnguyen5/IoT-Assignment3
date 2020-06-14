@@ -1,4 +1,4 @@
-{% extends "bootstrap/base.html" %} {% block title %}Sign Up{% endblock %} {% block navbar %}
+{% extends "bootstrap/base.html" %} {% block title %}Register{% endblock %} {% block navbar %}
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -22,21 +22,27 @@
                 <form action="" method="POST">
                     <div class="form-group">
                         <input
+                                title="Username must contain between 8 to 15 characters, only UPPER/lowercase, number and hyphen allowed"
                                 type="text"
                                 name="username"
                                 class="form-control"
+                                pattern="^(?=.*[a-zA-Z0-9_]).{8,15}$"
                                 placeholder="Username"
                                 autofocus
                                 required
+                                onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');"
                         />
                     </div>
                     <div class="form-group">
                         <input
+                                title="Password must contain at least 8 characters, including UPPER/lowercase, numbers and special characters"
                                 type="password"
                                 name="password"
                                 class="form-control"
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$"
                                 placeholder="Password"
                                 required
+                                onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');"
                         />
                     </div>
                     <div class="form-group">
@@ -67,15 +73,20 @@
                         />
                     </div>
                     <div class="form-group">
-                        <input
-                                type="text"
+                        <select
+                                id="role"
                                 name="role"
                                 class="form-control"
-                                placeholder="Role"
                                 required
-                        />
+                        >
+                            <optgroup>
+                                <option value="Admin">Admin</option>
+                                <option value="Customer">Customer</option>
+                                <option value="Engineer">Engineer</option>
+                                <option value="Manager">Manager</option>
+                            </optgroup>
+                        </select>
                     </div>
-
                     <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
                 </form>
             </div>

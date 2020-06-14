@@ -1,0 +1,35 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Car Search By Voice{% endblock %}
+<link rel="stylesheet" href="speech-input.css">
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">CarShare.co</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/home">Home</a></li>
+                <li><a href="/logout">Log out</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2 class="text-center mb-4 text-info">Car Search By Voice</h2>
+        <form action="" method="POST">
+            <div class="form-group">
+                <input
+                        type="text"
+                        x-webkit-speech
+                        name="eng-input"
+                        class="speech-input"
+                        placeholder="Your Search Keywords..."
+                />
+            </div>
+            <!-- <button class="btn btn-primary" type="submit">Submit</button> -->
+        </form>
+    </div>
+    <script src="../speech-input.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+{% endblock %}

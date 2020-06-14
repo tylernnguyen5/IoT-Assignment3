@@ -16,3 +16,11 @@ footer {
       background-color: grey;
       padding: 25px;
     }
+.container h1 {
+    text-align:center;
+    color: red;
+}
+#title {
+    text-align:center;
+    color: red;
+}

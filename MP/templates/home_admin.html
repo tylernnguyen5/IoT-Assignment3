@@ -1,0 +1,91 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Home Page for Admin{% endblock %}
+<link rel="stylesheet" href="/static/style.css">
+{% block navbar %}
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">CarShare.co</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/home">Home</a></li>
+            <li><a href="/logout">Log out</a></li>
+        </ul>
+    </div>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+
+<body class="text-centered">
+    <div class="container">
+        <br>
+        <h1 class="text-center mb-4 text-info">Admin Home Page</h1>
+        {% with username = session['username'] %}
+        <h3 class="text-secondary">Welcome, {{ username }}</h3>
+        {% endwith %}
+        <div class="container">
+            <div class="row">
+                <h3 class="text-success">Click the buttons to operate adminitration</h3>
+                <br>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h4 class="text-center">Search For Car</h2>
+                    <button class="btn btn-primary btn-block" type="submit" onClick="window.location='/car/search_admin'">Search
+                    </button>
+                </div>
+                <div class="col-sm-4">
+                    <h4 class="text-center">Search for a User</h4>
+                    <button class="btn btn-primary btn-block" type="submit"
+                        onClick="window.location='/user/search'">Search
+                    </button>
+                </div>
+                <div class="col-sm-4">
+                    <h4 class="text-center">View car rental history</h4>
+                    <button class="btn btn-primary btn-block" type="submit" onClick="window.location='/showHistories'">View
+                    </button>
+                </div>
+            </div>
+            <br>
+        <div>
+            <h2 class="text-center">
+                All cars: <br>
+            </h2>
+            <table class="table table-responsive">
+                <tr>
+                    <th>&emsp;&emsp;ID&emsp;</th>
+                    <th>Make&emsp;&emsp;&emsp;</th>
+                    <th>Body Type&emsp;&emsp;</th>
+                    <th>Colour&emsp;&emsp;</th>
+                    <th>Seats&emsp;&emsp;</th>
+                    <th>Location&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+                    <th>Cost Per Hour (AUD)</th>
+                </tr>
+                {% for car in cars %}
+                <tr>
+                    <td>&emsp;&emsp;{{ car.id }}</td>
+                    <td>{{ car.make }}</td>
+                    <td>{{ car.body_type }}</td>
+                    <td>{{ car.colour }}</td>
+                    <td>{{ car.seats }}</td>
+                    <td>
+                        <button type="submit" onClick="window.location='/car/location/{{ car.id }}'">Click for
+                            Location
+                        </button>
+                    </td>
+                    <td>{{ car.cost_per_hour }}</td>
+                    <td>
+                        <button class="btn btn-danger btn-block" type="submit"
+                            onClick="window.location='/car/report/{{ car.id }}'"> Report </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

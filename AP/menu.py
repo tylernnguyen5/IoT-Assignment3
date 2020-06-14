@@ -11,6 +11,9 @@ import pickle
 import time
 import cv2
 import os
+import bluetooth
+import datetime
+from pyzbar import pyzbar
 
 class Menu:
     """This class consists of 2 menus. One for logging in and the other one is for unlock/lock the car.
@@ -36,8 +39,14 @@ class Menu:
         """This menu is for the user to choose whether to enter credentials or to use facial recognition for logging in.
         Once the user logged in, the second menu will let the user decide whether to unlock or lock the car. Also, an User ID will be set in order to trigger unlock/lock car function.
 
-        Option 1: Login with credentials
-        Option 2: Login with facial recognition
+        For Customer:
+            Option 1: Login with credentials
+            Option 2: Login with facial recognition
+
+
+        For Engineer: 
+            Option 3: Unlock car with Bluetooth (for Carshare Engineers only)
+
 
         Enter 0 to quit
         """
@@ -46,6 +55,7 @@ class Menu:
             print("MENU 1")
             print("1. Login with credentials")
             print("2. Login with facial recognition")
+            print("3. Unlock car with Bluetooth (for Carshare Engineers only)")
             print("0. Quit")
             selection = input("Select an option: ")
             print()
@@ -57,6 +67,7 @@ class Menu:
                     print("You logged in! Your user ID: {}".format(self.user_id))
                     self.runMenu2()
                 else: print("Invalid Credentials!")
+            
             elif(selection == "2"): # Login with facial recognition
                 self.user_id = self.face_recognition()
 
@@ -64,9 +75,14 @@ class Menu:
                     print("You logged in! Your user ID: {}".format(self.user_id))
                     self.runMenu2()
                 else: print("Invalid Credentials!")
+            
+            elif(selection == "3"): # Quit app
+                self.bluetoothScan()
+            
             elif(selection == "0"): # Quit app
                 print("--- Goodbye! ---")
                 break
+            
             else:
                 print("Invalid input - please try again.")
 
@@ -283,6 +299,138 @@ class Menu:
         flag = 0
 
         return detected_id
+
+    # ===================================================================================
+
+    # Most of new changes for A3 go below
+
+    def bluetoothScan(self):
+        """
+        This function will start scanning for nearby Bluetooth devices every 3 seconds.
+        
+        A list of trusted devices' MAC addresses of the Carshare Engineers is requested from the TCP server when this function is triggered (ClientTCP.getTrustedDeviceAddresses()).
+        
+        Therefore, when one Engineer comes near the car and choose Option 3 from Menu 1, it will unlock automatically.
+        
+        If a trusted device from the Engineer is discovered, a simulation of unlocking car will proceed.
+        
+        While the car is unlocked, Engineer will be prompted to press 0 when finishing repairing the car.
+
+        It will then trigger the QRScan() function to obtain information of the Engineer.
+        """
+        print("--- Unlock car with Bluetooth ---")
+        print("Starting Bluetooth Discovering Mode...")
+
+        # List of  devices' MAC addresses
+
+        # Demo TV - KD-55X8500D
+        # 94:53:30:92:B9:90
+
+        # Vinh's phone
+        # 24:5A:B5:8A:89:67
+        
+        trustedDevices = self.clientTCP.getTrustedDeviceAddresses().split()
+
+        # Create a loop to scan for devices for every 3 seconds
+        while True:
+            time.sleep(3)
+
+            found = False
+
+            # Check if any of the recently discovered devices is from an Engineer
+            for trustedDevice in trustedDevices:
+                print("Scanning for {}".format(trustedDevice))
+
+                # Discover devices 
+                nearby_devices = bluetooth.discover_devices()   # This returns a list of MAC addresses discovered
+
+                for mac_address in nearby_devices:
+                    if mac_address == trustedDevice: # If the Engineer's device is found, connect and get the device name for prompting
+                        found = True
+
+                        print()
+                        print("Hi Engineer!") 
+                        print("Found your device: {}\nMAC Address: {}".format(bluetooth.lookup_name(trustedDevice, timeout=10), mac_address))
+                        print("Unlocking the car for you...")
+                        print("Unlocked!")
+                        print()
+                        break   
+            
+                if found == True: break
+            if found == True: break
+                         
+
+        # A prompt for the Engineer to indicate when done repairing the car, so that QR code scan is triggered
+        while True:
+            selection = input("Press 0 when you finish repairing the car: ")
+            print()
+
+            if(selection == "0"):
+                self.QRScan()
+                break
+            else:
+                print("Invalid input - please try again.")
+
+
+    def QRScan(self):
+        """
+        This function will be for recording the Engineer's info by scanning his QR code
+
+        This function is triggered from Menu.bluetoothScan() when the Engineer indicate that he has finished repairing the car (by pressing 0 on the AP)
+
+        The general steps are:
+        - Initializing the CSV file to store the Engineer's info (barcodes.csv)
+        - Loop over frames from the video file stream, detect QR code and decode the strings in the code
+        - Selecting the QR code type (text)
+        - Display the text around the scanned QR code in the frame
+        - Write the timestamp and barcode to to our CSV file
+        - Press 's'
+        """
+        print("To Engineer, please present your QR code to record your visit")
+        #vs = VideoStream(src=0).start()  # Uncomment this if testing with laptop Webcam
+        vs = VideoStream(usePiCamera=True).start()  # For Starting stream of Pi Camera
+        time.sleep(2.0)
+        csv = open("barcodes.csv", "w")         # Initializing the csv file for storing QR codes
+
+        found = set()                   # Setting the found variable
+
+        while True:
+            frame = vs.read()
+
+            frame = imutils.resize(frame, width=400)    #Reading a frame and resizing it
+            barcodes = pyzbar.decode(frame)             #Decoding the frame to extract QR Code
+
+            for barcode in barcodes:
+                (x, y, w, h) = barcode.rect             #Drawing rectangle around the QR Code
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+                barcodeData = barcode.data.decode("utf-8")          #Decoding the strings in QR code to UTF-8
+                barcodeType = barcode.type
+
+                text = "{} ({})".format(barcodeData, barcodeType)   #Selecting the QR Code type i.e text in our case
+                print(text)
+                cv2.putText(frame, text, (x, y - 10),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)      #Displaying Text around the scanned QR Code in frame
+
+                # if the barcode text is currently not in our CSV file, write
+                # the timestamp + barcode to disk and update the set
+                if barcodeData not in found:
+                    csv.write("{}\n{}\n".format(datetime.datetime.now(),
+                                               barcodeData))
+                    csv.flush()
+                    found.add(barcodeData)
+                    break
+
+            cv2.imshow("Barcode Reader", frame)             #Showing the frame in the seperate window
+            key = cv2.waitKey(1) & 0xFF
+
+            # if the `s` key is pressed, break from the loop
+            if key == ord("s"):
+                break
+
+        print("[INFO] cleaning up...")
+        csv.close()                             #Closing the CSV file that we opened for editing
+        cv2.destroyAllWindows()                 #Destroying all windows
+        vs.stop()
 
 
 if __name__ == "__main__":

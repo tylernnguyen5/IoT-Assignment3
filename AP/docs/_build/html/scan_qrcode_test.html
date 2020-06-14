@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>server_TCP_test module &#8212; PIOT Assignment 2 - Master Pi  documentation</title>
+    <title>scan_qrcode_test module &#8212; Agent Pi Documentation - PIOT Assignment 3  documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -16,6 +16,8 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="train module" href="train.html" />
+    <link rel="prev" title="menu module" href="menu.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -29,25 +31,21 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-server_TCP_test">
-<span id="server-tcp-test-module"></span><h1>server_TCP_test module<a class="headerlink" href="#module-server_TCP_test" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-scan_qrcode_test">
+<span id="scan-qrcode-test-module"></span><h1>scan_qrcode_test module<a class="headerlink" href="#module-scan_qrcode_test" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="server_TCP_test.MyTestCase">
-<em class="property">class </em><code class="descclassname">server_TCP_test.</code><code class="descname">MyTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#server_TCP_test.MyTestCase" title="Permalink to this definition">¶</a></dt>
+<dt id="scan_qrcode_test.Test">
+<em class="property">class </em><code class="descclassname">scan_qrcode_test.</code><code class="descname">Test</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#scan_qrcode_test.Test" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<p>This module contains the code to test the QR code scanning feature for the Engineer where the user will be asked to start the recording the barcode and the information will be stored in a CSV file.</p>
 <dl class="method">
-<dt id="server_TCP_test.MyTestCase.test_UnlockCar">
-<code class="descname">test_UnlockCar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#server_TCP_test.MyTestCase.test_UnlockCar" title="Permalink to this definition">¶</a></dt>
+<dt id="scan_qrcode_test.Test.QRScan">
+<code class="descname">QRScan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#scan_qrcode_test.Test.QRScan" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="server_TCP_test.MyTestCase.test_lockCar">
-<code class="descname">test_lockCar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#server_TCP_test.MyTestCase.test_lockCar" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="server_TCP_test.MyTestCase.test_loginWithCredentials">
-<code class="descname">test_loginWithCredentials</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#server_TCP_test.MyTestCase.test_loginWithCredentials" title="Permalink to this definition">¶</a></dt>
+<dt id="scan_qrcode_test.Test.call">
+<code class="descname">call</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#scan_qrcode_test.Test.call" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -60,7 +58,7 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">PIOT Assignment 2 - Master Pi</a></h1>
+<h1 class="logo"><a href="index.html">Agent Pi Documentation - PIOT Assignment 3</a></h1>
 
 
 
@@ -70,11 +68,27 @@
 
 
 <h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">AP</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bluetooth_discovery.html">bluetooth_discovery module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client_TCP.html">client_TCP module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="face_rec_test.html">face_rec_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="menu.html">menu module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">scan_qrcode_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="train.html">train module</a></li>
+</ul>
+</li>
+</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">AP</a><ul>
+      <li>Previous: <a href="menu.html" title="previous chapter">menu module</a></li>
+      <li>Next: <a href="train.html" title="next chapter">train module</a></li>
+  </ul></li>
   </ul></li>
 </ul>
 </div>
@@ -95,14 +109,14 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2020, Thach, Fahim, Vinh, YiNong.
+      &copy;2020, Thach, Vinh, Fahim, YiNong.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
-      <a href="_sources/server_TCP_test.rst.txt"
+      <a href="_sources/scan_qrcode_test.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
