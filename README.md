@@ -43,6 +43,7 @@ We were asked to develop a system for a rental car service with Raspberry Pis an
 - Pybluez
 - Google Cloud APIs (Calendar, Maps, SQL, Data Store, etc.)
 - Pushbullet API
+- Sphinx Documentation
 
 ## Team members
 
