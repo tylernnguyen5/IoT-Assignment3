@@ -1,5 +1,7 @@
 # PIoT Assignment 3 - semester 1 2020 at RMIT
 
+We were asked to develop a system for a rental car service with Raspberry Pis and ultilise Google Cloud APIs
+
 ## Requirements
 
 ### System Admin
@@ -35,10 +37,11 @@
 
 ## Dependencies
 
+- Raspberry Pi
 - Flask API
 - OpenCV
 - Pybluez
-- Google Cloud Platform APIs
+- Google Cloud APIs (Calendar, Maps, SQL, Data Store, etc.)
 - Pushbullet API
 
 ## Team members
