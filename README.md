@@ -1,5 +1,46 @@
 # PIoT Assignment 3 - semester 1 2020 at RMIT
 
+## Requirements
+
+### System Admin
+
+- Login
+- View car rental history (for all user)
+- Search users and cars
+- Edit info about users and cars
+- Report cars with issue (so the engineer can fix it)
+
+### Company Manager
+
+- Login
+- A visualization dashboard (3 types of any):
+  - Line chart
+  - Pie chart 
+  - Bar chart
+ - The charts need to indicate business status to help decision making:
+  - Daily active users
+  - Percentage of usage for each car per day
+  - Which day in the week that has the most booking
+  - Etc
+
+### Engineer
+
+- Login 
+- Be able to receive notification from the System Admin about the car that needs to be repaired
+- Check the car's location via website
+- Automatically unlock car via Bluetooth
+- Be able to have their QR code scanned
+
+---
+
+## Dependencies
+
+- Flask API
+- OpenCV
+- Pybluez
+- Google Cloud Platform APIs
+- Pushbullet API
+
 ## Team members
 
 - Thach Ngoc Nguyen - s3651311
