@@ -43,8 +43,6 @@ We were asked to develop a system for a rental car service with Raspberry Pis an
 - Automatically unlock car via Bluetooth
 - Be able to have their QR code scanned
 
----
-
 ## Dependencies
 
 - Raspberry Pi
