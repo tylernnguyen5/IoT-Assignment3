@@ -30,10 +30,9 @@ We were asked to develop a system for a rental car service with Raspberry Pis an
   - Pie chart 
   - Bar chart
  - The charts need to indicate business status to help decision making:
-  - Daily active users
+  -- Daily active users
   - Percentage of usage for each car per day
   - Which day in the week that has the most booking
-  - Etc
 
 ### Engineer
 
