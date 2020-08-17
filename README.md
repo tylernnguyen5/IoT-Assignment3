@@ -1,4 +1,4 @@
-# PIoT Assignment 3 - semester 1 2020 at RMIT
+# PIoT Assignment 3 (Distinction) - semester 1 2020 at RMIT
 
 We were asked to develop a system for a rental car service with Raspberry Pis and ultilise Google Cloud APIs
 
